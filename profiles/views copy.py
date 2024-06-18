@@ -1,5 +1,5 @@
 from rest_framework import generics
-from pp5_api.permissions import IsOwnerOrReadOnly
+from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .serializers import ProfileSerializer
 
