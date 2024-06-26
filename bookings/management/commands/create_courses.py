@@ -6,9 +6,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         courses = [
-            {"name": "OW", "description": "Open Water: Entry-level scuba certification course."},
-            {"name": "AOW", "description": "Advanced Open Water: The next step in your diving education."},
-            {"name": "RD", "description": "Rescue Diver: Learn to prevent and manage problems in the water."},
+            {"name": "Open Water", "description": "Open Water: Entry-level scuba certification course."},
+            {"name": "Advanced Open Water", "description": "Advanced Open Water: The next step in your diving education."},
+            {"name": "Rescue Diver", "description": "Rescue Diver: Learn to prevent and manage problems in the water."},
         ]
 
         for course in courses:
