@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import DivingCourse, Booking
 
-# Register your models here.
+admin.site.register(DivingCourse)
+admin.site.register(Booking)

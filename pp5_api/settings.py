@@ -62,7 +62,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'DEV' in os.environ
-DEBUG = True
+DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
    os.environ.get('ALLOWED_HOST'),
@@ -112,8 +112,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CSRF_TRUSTED_ORIGINS = ['https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net']
+
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.codeinstitute-ide\.net$",
+    "3000-amirshkolni-travelspace-ijnmke2p9za.ws.codeinstitute-ide.net/",
 ]
 
 if "CLIENT_ORIGIN" in os.environ:
