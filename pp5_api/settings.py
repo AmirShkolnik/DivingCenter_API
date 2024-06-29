@@ -100,6 +100,7 @@ INSTALLED_APPS = [
     'followers',
     'bookings',
     'contactus',
+    'courses',
 ]
 SITE_ID = 1
 MIDDLEWARE = [
