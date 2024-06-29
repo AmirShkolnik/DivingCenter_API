@@ -6,6 +6,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'slug'
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()

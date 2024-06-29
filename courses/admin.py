@@ -8,10 +8,18 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'course_type', 'average_rating', 'created_at', 'updated_at')
+    list_display = ('title', 'slug', 'course_type', 'average_rating', 'created_at', 'updated_at')
     list_filter = ('course_type', 'created_at')
-    search_fields = ('title', 'description')
+    search_fields = ('title', 'slug', 'description')
+    prepopulated_fields = {'slug': ('title',)}
     inlines = [ReviewInline]
+    readonly_fields = ('image_preview',)
+
+    def image_preview(self, obj):
+        if obj.image:
+            return mark_safe(f'<img src="{obj.image.url}" width="150" height="150" style="object-fit: cover;" />')
+        return "No Image"
+    image_preview.short_description = 'Image Preview'
 
     def average_rating(self, obj):
         reviews = obj.reviews.all()
