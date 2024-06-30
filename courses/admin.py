@@ -11,8 +11,8 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'course_type', 'get_average_rating', 'created_at', 'updated_at')
-    list_filter = ('course_type', 'created_at')
+    list_display = ('title', 'slug', 'course_type', 'price', 'get_average_rating', 'created_at', 'updated_at')
+    list_filter = ('course_type', 'price', 'created_at')
     search_fields = ('title', 'slug', 'description')
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ReviewInline]

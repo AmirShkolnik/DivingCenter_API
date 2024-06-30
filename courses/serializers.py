@@ -18,10 +18,11 @@ class CourseSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True)
     average_rating = serializers.SerializerMethodField()
     image = serializers.SerializerMethodField()
+    price_display = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
-        fields = ['id', 'title', 'slug', 'description', 'course_type', 'image', 'reviews', 'average_rating', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'slug', 'description', 'course_type', 'image', 'price', 'price_display', 'reviews', 'average_rating', 'created_at', 'updated_at']
         read_only_fields = ['slug']
 
     def get_average_rating(self, obj):
@@ -34,3 +35,6 @@ class CourseSerializer(serializers.ModelSerializer):
         if obj.image:
             return obj.image.url
         return None
+
+    def get_price_display(self, obj):
+        return f"{obj.price} USD"

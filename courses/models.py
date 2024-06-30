@@ -10,11 +10,19 @@ class Course(models.Model):
         ('AOW', 'Advanced Open Water'),
         ('RD', 'Rescue Diver'),
     ]
+    PRICE_CHOICES = [
+        (2000, '2000 USD'),
+        (5000, '5000 USD'),
+        (8000, '8000 USD'),
+        (12000, '12000 USD'),
+        (15000, '15000 USD'),
+    ]
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
     description = HTMLField()
     course_type = models.CharField(max_length=3, choices=COURSE_TYPES)
     image = CloudinaryField('image', blank=True, null=True)
+    price = models.IntegerField(choices=PRICE_CHOICES, default=2000)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
