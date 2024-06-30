@@ -1,6 +1,9 @@
 from django.contrib import admin
+from django.db import models
 from django.utils.safestring import mark_safe
 from .models import Course, Review
+from tinymce.models import HTMLField
+from tinymce.widgets import TinyMCE
 
 class ReviewInline(admin.TabularInline):
     model = Review
@@ -15,6 +18,9 @@ class CourseAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ReviewInline]
     readonly_fields = ('image_preview',)
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCE()},
+    }
 
     def image_preview(self, obj):
         if obj.image:

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
+from tinymce.models import HTMLField
 
 class Course(models.Model):
     COURSE_TYPES = [
@@ -11,7 +12,7 @@ class Course(models.Model):
     ]
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
-    description = models.TextField()
+    description = HTMLField()
     course_type = models.CharField(max_length=3, choices=COURSE_TYPES)
     image = CloudinaryField('image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
