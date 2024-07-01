@@ -13,7 +13,7 @@ class ReviewInline(admin.TabularInline):
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'course_type', 'price', 'get_average_rating', 'created_at', 'updated_at')
     list_filter = ('course_type', 'price', 'created_at')
-    search_fields = ('title', 'slug', 'description')
+    search_fields = ('title', 'slug', 'description', 'excerpt')  # Added 'excerpt' to search fields
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ReviewInline]
     readonly_fields = ('image_preview',)
