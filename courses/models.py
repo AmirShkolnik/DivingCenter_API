@@ -19,6 +19,7 @@ class Course(models.Model):
     ]
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
+    excerpt = models.TextField(max_length=200, blank=True)  # New field
     description = HTMLField()
     course_type = models.CharField(max_length=3, choices=COURSE_TYPES)
     image = CloudinaryField('image', blank=True, null=True)
