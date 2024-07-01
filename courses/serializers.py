@@ -37,4 +37,4 @@ class CourseSerializer(serializers.ModelSerializer):
         return None
 
     def get_price_display(self, obj):
-        return f"{obj.price} '$'"
+        return f"{obj.price} $"
