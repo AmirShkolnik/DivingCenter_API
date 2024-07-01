@@ -11,11 +11,11 @@ class Course(models.Model):
         ('RD', 'Rescue Diver'),
     ]
     PRICE_CHOICES = [
-        (2000, '2000 USD'),
-        (5000, '5000 USD'),
-        (8000, '8000 USD'),
-        (12000, '12000 USD'),
-        (15000, '15000 USD'),
+        (2000, '2000 $'),
+        (5000, '5000 $'),
+        (8000, '8000 $'),
+        (12000, '12000 $'),
+        (15000, '15000 $'),
     ]
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
