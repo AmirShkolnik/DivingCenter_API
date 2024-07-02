@@ -13,11 +13,6 @@ class BookingViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
 
-    def get_queryset(self):
-        user_bookings = Booking.objects.filter(user=self.request.user)
-        logger.info(f"Fetched {user_bookings.count()} bookings for user {self.request.user.username}")
-        return user_bookings
-
     def create(self, request, *args, **kwargs):
         logger.info(f"Attempting to create booking for user {request.user.username}")
         try:
