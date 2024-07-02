@@ -11,7 +11,8 @@ logger = logging.getLogger(__name__)
 class BookingViewSet(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated]
-    
+    queryset = Booking.objects.all()  # Add this line to define the queryset
+
     def get_queryset(self):
         user_bookings = Booking.objects.filter(user=self.request.user)
         logger.info(f"Fetched {user_bookings.count()} bookings for user {self.request.user.username}")
