@@ -18,7 +18,7 @@ class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
-    course = models.ForeignKey(DivingCourse, on_delete=models.CASCADE, null=True, blank=True)  # Allow null
+    course = models.ForeignKey(DivingCourse, on_delete=models.CASCADE, null=True, blank=True)
     additional_info = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
