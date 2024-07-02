@@ -22,3 +22,13 @@ class BookingSerializer(serializers.ModelSerializer):
         if not DivingCourse.objects.filter(id=value.id).exists():
             raise serializers.ValidationError("Invalid course selection.")
         return value
+
+    def validate_date(self, value):
+        if value.day != 10:
+            raise serializers.ValidationError("Bookings are only available on the 10th of each month.")
+        return value
+
+    def validate_time(self, value):
+        if value.strftime('%H:%M') not in ['09:00', '15:00']:
+            raise serializers.ValidationError("Bookings are only available at 09:00 or 15:00.")
+        return value

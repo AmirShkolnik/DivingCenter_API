@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class BookingViewSet(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated]
-    queryset = Booking.objects.all()  # Add this line to define the queryset
+    queryset = Booking.objects.all()
 
     def get_queryset(self):
         user_bookings = Booking.objects.filter(user=self.request.user)
@@ -23,11 +23,11 @@ class BookingViewSet(viewsets.ModelViewSet):
         try:
             date = datetime.strptime(request.data['date'], '%Y-%m-%d').date()
             if date.day != 10:
-                return Response({"error": "Bookings are only available on the 10th of each month."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"date": ["Bookings are only available on the 10th of each month."]}, status=status.HTTP_400_BAD_REQUEST)
 
-            booking_time = datetime.strptime(request.data['time'], '%H:%M').time()
+            booking_time = datetime.strptime(request.data['time'], '%H:%M:%S').time()
             if booking_time not in [time(9, 0), time(15, 0)]:
-                return Response({"error": "Bookings are only available at 09:00 or 15:00."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"time": ["Bookings are only available at 09:00 or 15:00."]}, status=status.HTTP_400_BAD_REQUEST)
 
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
@@ -47,26 +47,6 @@ class BookingViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-
-        if getattr(instance, '_prefetched_objects_cache', None):
-            instance._prefetched_objects_cache = {}
-
-        return Response(serializer.data)
-
-    def perform_update(self, serializer):
-        serializer.save()
-
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class DivingCourseViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DivingCourse.objects.all()
