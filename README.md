@@ -45,49 +45,15 @@ This combination of technologies empowers a feature-rich and interactive online 
 - [Project Goals](#project-goals)
 - [Table of contents](#table-of-contents)
 - [Planning](#planning)
-  - [Project Overview](#project-overview)
-  - [Objectives](#objectives)
-  - [Timeline](#timeline)
 - [Data Models](#data-models)
-  - [1. Profiles Model](#1-profiles-model)
-  - [2. Posts Model](#2-posts-model)
-  - [3. Comments Model](#3-comments-model)
-  - [4. Daily Routines Model](#4-daily-routines-model)
-  - [5. Challenges Model](#5-challenges-model)
-  - [6. Collaborate Model](#6-collaborate-model)
-  - [7. Likes Model](#7-likes-model)
-  - [8. Follower Model](#8-follower-model)
 - [API Endpoints](#api-endpoints)
-  - [Example Requests and Responses](#example-requests-and-responses)
 - [Frameworks, Libraries, and Dependencies](#frameworks-libraries-and-dependencies)
-  - [Django Framework and Extensions](#django-framework-and-extensions)
-  - [Database Management](#database-management)
-  - [Authentication and Security](#authentication-and-security)
-  - [Storage and Image Handling](#storage-and-image-handling)
-  - [Application Server](#application-server)
-  - [Utility Libraries](#utility-libraries)
 - [Testing and Validation](#testing-and-validation)
 - [Bugs](#bugs)
-  - [Solved Bugs](#solved-bugs)
-  - [Known Bugs](#known-bugs)
-  - [Unknown Bugs](#unknown-bugs)
 - [Deployment](#deployment)
-  - [1. GitHub](#1-github)
-  - [2. Gitpod](#2-gitpod)
-  - [3. Heroku](#3-heroku)
-  - [4. ElephantSQL](#4-elephantsql)
-  - [5. Cloudinary](#5-cloudinary)
-  - [Deployment Steps](#deployment-steps)
 - [Cloning and Forking](#cloning-and-forking)
-  - [Cloning the Repository](#cloning-the-repository)
-  - [Forking the Repository](#forking-the-repository)
 - [Credits](#credits)
-  - [Code](#code)
-  - [Media](#media)
 - [Acknowledgements](#acknowledgements)
-  - [Inspiration](#inspiration)
-  - [Project Guidance](#project-guidance)
-  - [Personal Thanks](#personal-thanks)
 
 Based on the information provided and the structure you've requested, here's a robust project planning for your diving center project, covering both backend and frontend development over an 8-week period:
 
@@ -357,7 +323,6 @@ Certainly! I'll add dividers for each model in the table, grouping the endpoints
 | | `/` | GET | Read | Function-based view | Root route, welcomes to the Diving Center API |
 | **Authentication** |
 | | `/admin/` | GET | Read | Django Admin | Django admin interface |
-| | `/api-auth/` | Various | Various | DRF built-in views | Django Rest Framework authentication views |
 | | `/dj-rest-auth/logout/` | POST | Delete | Function-based view | Custom logout route |
 | | `/dj-rest-auth/login/` | POST | Create | DRF built-in view | User login |
 | | `/dj-rest-auth/user/` | GET | Read | DRF built-in view | Get current user details |
