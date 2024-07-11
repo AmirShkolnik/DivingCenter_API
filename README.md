@@ -117,7 +117,7 @@ This project is a comprehensive web application for a diving center. It allows u
 - Day 4: Prepare for deployment (configuration, environment variables)
 - Day 5: Deploy application, final testing in production environment
 
-This timeline provides a structured approach to developing your diving center application over 8 weeks. It covers all major aspects of both backend and frontend development, from initial setup to final deployment. Remember to be flexible with this schedule as some tasks may take more or less time than anticipated.
+This timeline provides a structured approach to develop the diving center application over 8 weeks. It covers all major aspects of both backend and frontend development, from initial setup to final deployment. This schedule might change during development as some tasks may take more or less time than anticipated.
 
 [Back to top](#table-of-contents)
 
@@ -132,6 +132,8 @@ The database schema is carefully crafted to ensure efficient data storage, retri
 **Entity Relationship Diagram (ERD)**
 
 The ERD visually represents the complex relationships between different entities in the system. It illustrates how users interact with courses, bookings, and reviews, as well as how social features like posts, comments, likes, and followers are interconnected. This diagram serves as a crucial tool for understanding the data flow and dependencies within the application.
+
+![Diving Center ERD](doc/images/diving-center-erd.png)
 
 **Technical Architecture**
 
@@ -315,8 +317,6 @@ The Contact model stores customer inquiries and messages.
 
 This table provides a comprehensive overview of all the API endpoints in the diving center project, including their HTTP methods, CRUD operations, view types, and descriptions. It covers all the major functionalities such as user authentication, profiles, posts, comments, likes, followers, bookings, contact messages, courses, and reviews.
 
-Certainly! I'll add dividers for each model in the table, grouping the endpoints by their respective models. Here's the updated table:
-
 | Model | Endpoint | HTTP Method | CRUD Operation | View Type | Description |
 |-------|----------|-------------|----------------|-----------|-------------|
 | **Root** |
@@ -376,59 +376,6 @@ Certainly! I'll add dividers for each model in the table, grouping the endpoints
 | | `/reviews/{id}/` | PUT/PATCH | Update | ModelViewSet | Update a specific review (owner only) |
 | | `/reviews/{id}/` | DELETE | Delete | ModelViewSet | Delete a specific review (owner only) |
 
-### Example Requests and Responses
-
-**Example: Create a Post**
-
-**Request:**
-```http
-POST /posts/
-{
-  "title": "My First Post",
-  "content": "This is the content of my first post.",
-  "tags": "fitness, health"
-}
-```
-
-**Response:**
-```json
-201 Created
-{
-  "id": 1,
-  "owner": "username",
-  "title": "My First Post",
-  "content": "This is the content of my first post.",
-  "tags": "fitness, health",
-  "created_at": "2023-05-30T12:34:56.789Z",
-  "updated_at": "2023-05-30T12:34:56.789Z",
-  "comments_count": 0,
-  "likes_count": 0
-}
-```
-
-**Example: Retrieve Profile**
-
-**Request:**
-```http
-GET /profiles/1/
-```
-
-**Response:**
-```json
-200 OK
-{
-  "id": 1,
-  "user": "username",
-  "bio": "This is a sample bio.",
-  "image": "http://example.com/media/profile_images/sample.jpg",
-  "email": "user@example.com",
-  "birthday": "1990-01-01",
-  "followers_count": 10,
-  "following_count": 5,
-  "posts_count": 3
-}
-```
-
 [Back to top](#table-of-contents)
 
 ## Frameworks, Libraries, and Dependencies
@@ -437,19 +384,19 @@ The Diving Center project leverages a variety of frameworks, libraries, and depe
 
 ### Django Framework and Extensions
 
-1. **Django** (`Django==3.2.25`):
+1. **Django** (`Django==5.0.6`):
    - A high-level Python web framework that encourages rapid development and clean, pragmatic design. Django handles much of the complexity of web development, allowing developers to focus on writing their app without needing to reinvent the wheel.
 
 2. **Django REST Framework** (`djangorestframework==3.15.1`):
    - A powerful and flexible toolkit for building Web APIs in Django. It provides various features such as serialization, authentication, and view sets that simplify API development.
 
-3. **Django Allauth** (`django-allauth==0.44.0`):
+3. **Django Allauth** (`django-allauth==0.54.0`):
    - Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.
 
 4. **Django REST Auth** (`dj-rest-auth==2.1.9`):
    - Provides a set of REST API endpoints for handling user registration and authentication tasks. It’s built on top of Django Allauth and Django REST Framework.
 
-5. **Django Filter** (`django-filter==2.4.0`):
+5. **Django Filter** (`django-filter==24.2`):
    - Simplifies the process of filtering querysets in Django REST Framework.
 
 6. **Django CORS Headers** (`django-cors-headers==4.3.1`):
@@ -465,7 +412,7 @@ The Diving Center project leverages a variety of frameworks, libraries, and depe
 
 ### Authentication and Security
 
-9. **djangorestframework-simplejwt** (`djangorestframework-simplejwt==4.7.2`):
+9. **djangorestframework-simplejwt** (`djangorestframework-simplejwt==5.3.1`):
    - Provides JSON Web Token (JWT) authentication for Django REST Framework.
 
 10. **oauthlib** (`oauthlib==3.2.2`):
@@ -479,7 +426,7 @@ The Diving Center project leverages a variety of frameworks, libraries, and depe
 
 ### Storage and Image Handling
 
-13. **Pillow** (`Pillow==8.2.0`):
+13. **Pillow** (`Pillow==10.3.0`):
     - Python Imaging Library (PIL) fork that supports opening, manipulating, and saving many different image file formats.
 
 14. **Cloudinary** (`cloudinary==1.40.0`):
@@ -488,26 +435,25 @@ The Diving Center project leverages a variety of frameworks, libraries, and depe
 15. **django-cloudinary-storage** (`django-cloudinary-storage==0.3.0`):
     - Facilitates the integration of Django with Cloudinary for storing media files.
 
-### Application Server
+### Miscellaneous
 
-16. **Gunicorn** (`gunicorn==22.0.0`):
-    - A Python WSGI HTTP Server for UNIX that serves your Django application and allows it to handle multiple requests simultaneously.
+16. **asgiref** (`asgiref==3.8.1`):
+    - ASGI specification and utilities, used by Django for asynchronous support.
 
-### Utility Libraries
+17. **django-js-asset** (`django-js-asset==2.2.0`):
+    - A Django app that provides a template tag for loading JavaScript assets.
 
-17. **asgiref** (`asgiref==3.8.1`):
-    - A reference implementation of ASGI, the emerging Python standard for asynchronous web servers and applications.
+18. **django-tinymce** (`django-tinymce==4.1.0`):
+    - A Django application that provides a fully integrated TinyMCE WYSIWYG editor.
 
-18. **sqlparse** (`sqlparse==0.5.0`):
-    - A non-validating SQL parser for Python.
+19. **pytz** (`pytz==2024.1`):
+    - World timezone definitions for Python, allowing accurate and cross-platform timezone calculations.
 
-19. **python3-openid** (`python3-openid==3.2.0`):
-    - A set of Python packages to support OpenID authentication.
+20. **sqlparse** (`sqlparse==0.5.0`):
+    - A non-validating SQL parser for Python. It provides support for parsing, splitting, and formatting SQL statements.
 
-20. **pytz** (`pytz==2024.1`):
-    - World timezone definitions, modern and historical.
-
-This combination of frameworks, libraries, and dependencies ensures that Diving Center is robust, scalable, and secure, providing a seamless user experience for managing fitness routines and social interactions.
+21. **gunicorn** (`gunicorn==22.0.0`):
+    - A Python WSGI HTTP Server for UNIX, used to serve Django applications in production.
 
 [Back to top](#table-of-contents)
 
@@ -517,185 +463,159 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 
 ## Bugs
 
-### Solved Bugs  
-
-| No. | Bug | Solved | Fix | Solution Credit |
-| --- | ---------------- | ---- | ------------- | -------------- | 
-| 1   | Error when trying to save profile pictures | Yes | Added media URL and root configurations in settings.py and ensured correct file path in the models.py | [Django Documentation](<https://docs.djangoproject.com/en/3.2/ref/settings/#media-root>) |
-| 2  | Comments not appearing under posts | Yes | Corrected the foreign key relationships and ensured the comment form was being properly handled in views.py | [StackOverflow](<https://stackoverflow.com/questions/18797740/foreign-key-is-not-updating>) |
-| 3   | Notifications not marking as read | Yes | Added logic to update notification status upon user interaction in views.py | [Django Project](<https://docs.djangoproject.com/en/3.2/topics/db/queries/#making-queries>) |
-| 4   | Daily routine activities not saving | Yes | Debugged the model save method and fixed form validation errors to ensure proper saving of activities | [Django Forms](<https://docs.djangoproject.com/en/3.2/topics/forms/>) |
-
+### Solved Bugs
 
 ### Known Bugs
-
-| No. | Bug | Description | 
-| --- | ---- | ----------- | 
-| 1   | Post upload does not display any message | When users upload posts, the upload occasionally fails without displaying any error message or confirmation for the user. This lack of feedback can lead to confusion about whether the post was successfully uploaded. Debugging has focused on the post submission and response handling logic, but the problem persists intermittently. |
 
 ### Unknown Bugs
 
 I am not aware of any remaining bugs.
 
-## Deployment
+# Deployment
 
-The deployment process for Fit and Fine DRF API involves multiple platforms, including GitHub, Gitpod, Heroku, ElephantSQL, and Cloudinary. Below is a detailed explanation of how each platform fits into the deployment process along with the respective URLs for the platforms and services used in deploying and managing the Fit and Fine DRF API.
+The "Diving Center" project leverages a combination of platforms and services to facilitate its deployment and management.
 
-### 1. GitHub
+For hosting and running the application, Heroku, a cloud platform as a service (PaaS), is utilized. It enables seamless deployment, automatic scaling, and management tools for monitoring and maintaining the application. The Code Institute (CI) database systems are employed to store and manage the application's data during development and deployment phases.
 
-**Purpose:** 
-- Version control and collaboration.
+Additionally, Cloudinary, a cloud-based service, is integrated to handle image and video management, providing an end-to-end solution for storing, optimizing, and delivering media assets for the "Diving Center" platform.
+The respective URLs for these platforms and services are as follows:
 
-**Process:**
-- The source code for Fit and Fine DRF API is hosted on GitHub. Developers can collaborate, track changes, and manage different versions of the application.
-- The repository is used as the central hub for the project, where all updates and changes are committed and pushed.
+## GitHub
+- **Repository Setup:** GitHub serves as the version control system, hosting the project's codebase and enabling collaboration among developers.
+[GitHub](https://github.com)
 
-**URL:**
-- [GitHub Repository](https://github.com)
+## Gitpod
+- **Development Environment:** Gitpod, a cloud-based integrated development environment (IDE), provides a streamlined coding experience by offering a preconfigured workspace with all the necessary tools and dependencies. [Gitpod](https://www.gitpod.io/)
 
-### 2. Gitpod
+## Heroku
+- **Application Hosting:** For hosting and running the application, Heroku, a cloud platform as a service (PaaS), is utilized. It enables seamless deployment, automatic scaling, and management tools for monitoring and maintaining the application.
+[Heroku](https://www.heroku.com)
+  - **Setting up on Heroku:**
+Here's a simplified 10-step explanation on how to use Heroku's cloud server to deploy your "Diving Center" project, written in easy-to-understand language for non-coders:
 
-**Purpose:**
-- Online IDE for development.
+1. **Sign up for Heroku**: Go to heroku.com and create an account.
 
-**Process:**
-- Gitpod is used for development and testing. It provides a cloud-based development environment that is pre-configured with the necessary tools and dependencies.
-- Developers can open the GitHub repository in Gitpod and start coding immediately without worrying about local setup.
+2. **Create a new app**: After logging in, click on the "New" button in the top right corner and select "Create New App". Give your app a unique name and choose your preferred region.
 
-**URL:**
-- [Gitpod Workspace](https://gitpod.io/)
+3. **Connect to GitHub**: In the "Deploy" section, select "GitHub" as the deployment method. Search for your "Diving Center" repository and connect it to Heroku.
 
-### 3. Heroku
+4. **Set up environment variables**: In the "Settings" section, click on "Reveal Config Vars". Here, you'll need to add some important variables:
+   - `SECRET_KEY`: A secret key for your Django project (you can generate one online).
+   - `DATABASE_URL`: The URL for your database (e.g., Heroku Postgres).
+   - `CLOUDINARY_URL`: The URL for your Cloudinary account (for storing images and media).
 
-**Purpose:**
-- Platform as a Service (PaaS) for hosting the application.
+5. **Enable automatic deploys**: In the "Deploy" section, you can choose to enable automatic deploys from your GitHub repository. This means Heroku will automatically update your app whenever you push new changes to GitHub.
 
-**Process:**
-- The Fit and Fine DRF API application is deployed on Heroku. Heroku manages the server, deployment, and scaling of the application.
-- Continuous deployment is set up from the GitHub repository to Heroku, ensuring that any changes pushed to the main branch are automatically deployed to the live site.
+6. **Deploy your app**: If you didn't enable automatic deploys, you can manually deploy your app by scrolling down to the "Manual Deploy" section and clicking "Deploy Branch".
 
-**URL:**
-- [Heroku Dashboard](https://dashboard.heroku.com/)
+7. **Open your app**: After a successful deployment, Heroku will provide you with a unique URL where your "Diving Center" app is now live! You can click the "View" button to open it.
 
-**Setting up on Heroku:**
-1. Create a new app on Heroku.
-2. Connect the Heroku app to the GitHub repository.
-3. Set up Config Vars in Heroku including `DATABASE_URL`, `SECRET_KEY`, `CLOUDINARY_URL`, `ALLOWED_HOST`  and `DISABLE_COLLECTSTATIC=1` (this is temporary and can be removed for the final deployment).
-4. Deploy the main branch using the Heroku dashboard or enable automatic deployments for every push to the main branch.
+8. **Set up a database**: If your app requires a database, you'll need to provision one. Heroku recommends using Heroku Postgres, which you can set up through the "Resources" section of your app's dashboard.
 
-**For deployment, Heroku needs two additional files in order to deploy properly:**
-- `requirements.txt`
-- `Procfile`
+9. **Update your code**: If you need to make changes to your app, simply commit and push the updates to your GitHub repository. If you enabled automatic deploys, Heroku will automatically update your live app. Otherwise, you'll need to manually re-deploy.
 
+10. **Monitor your app**: Heroku provides tools to monitor your app's performance, logs, and other metrics. You can access these through the "More" menu in your app's dashboard.
+
+By following these steps, you'll be able to deploy your "Diving Center" project to Heroku's cloud server, making it accessible to anyone with the app's URL. Remember to consult Heroku's documentation or seek help if you encounter any issues during the deployment process.
+
+Citations:
+[1] https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[2] https://developer.mozilla.org/en-US/docs/Web/CSS
+[3] https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
+[4] https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment
+[5] https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide/
+
+**For deployment Heroku needs two additional files in order to deploy properly.**
+- requirements.txt
+- Procfile
+  
 You can install this project's requirements (where applicable) using:
-- `pip install -r requirements.txt`
 
-If you have your own packages that have been installed, then the requirements file needs to be updated using:
-- `pip freeze --local > requirements.txt`
+- **pip3 install -r requirements.txt**
+
+If you have your own packages that have been installed, then the requirements file needs updated using:
+
+- **pip3 freeze --local > requirements.txt**
 
 **The Procfile can be created with the following command:**
-- `echo web: gunicorn app_name.wsgi > Procfile`
 
-Then add these lines to Procfile
+echo web: gunicorn app_name.wsgi > Procfile
+replace app_name with the name of your primary Django app name; the folder where settings.py is located
 
-`web: gunicorn app_name.wsgi`
+## CI database
+- **Database Hosting:** The Code Institute (CI) provides PostgreSQL-based database systems specifically for students to use during the development and deployment phases of their projects. PostgreSQL, known for its robustness and reliability, is an advanced, open-source relational database system. It is well-suited for handling complex queries and large volumes of data, making it an excellent choice for web applications.
 
-`release: python manage.py makemigrations && python manage.py migrate`
+- **Development Phase:** During development, the CI database allows students to efficiently store, retrieve, and manipulate data required for their applications. It supports various data types and advanced features such as indexing, transactions, and concurrency control, ensuring smooth and effective development processes.
 
-Replace `app_name` with the name of your primary Django app name; the folder where `settings.py` is located.
+- **Deployment Phase:** When it comes to deployment, the CI database continues to serve as a reliable backend for the application. Students can leverage the database’s capabilities to manage user data, application state, and other critical information with high availability and performance.
 
-### 4. ElephantSQL
+- **Accessibility:** The CI database systems are accessible to Code Institute students, providing a consistent and stable environment for learning and project development. This ensures that students have a standardized platform to practice and implement database management techniques, which are crucial skills in the field of web development.
 
-**Purpose:**
-- Database as a Service for PostgreSQL.
+- **Integration:** The PostgreSQL databases provided by CI can be seamlessly integrated with various web frameworks and technologies taught in the course, such as Django. This integration enables students to implement real-world applications with database-driven functionality.
 
-**Process:**
-- ElephantSQL provides the PostgreSQL database for the Fit and Fine DRF API application. The database is used to store all application data, including user information, posts, comments, and other relevant data.
-- Heroku is configured to use the ElephantSQL database through environment variables.
+## Cloudinary
 
-**URL:**
-- [ElephantSQL Dashboard](https://customer.elephantsql.com/login)
+To enhance performance and scalability, the project utilizes a third-party service for hosting and serving static media files like images. This approach alleviates the burden on the primary hosting platform, ensuring efficient delivery of content to users. 
 
-To obtain your own PostgreSQL Database, sign-up with your GitHub account, then follow these steps:
-1. Click **Create New Instance** to start a new database.
-2. Provide a name (commonly the name of the project: `fitandfine`).
-3. Select the **Tiny Turtle (Free)** plan.
-4. You can leave the **Tags** blank.
-5. Select the **Region** and **Data Center** closest to you.
-6. Once created, click on the new database name, where you can view the database URL and Password.
+- **Media Storage:** Cloudinary is used for hosting media files like images. It removes the load of serving static files from Heroku, ensuring better performance and scalability. [Cloudinary](https://cloudinary.com/)
+  - **Integration:**
+    1. Set up a Cloudinary account.
+    2. Configure the Cloudinary settings in the Django settings file with the API keys provided by Cloudinary.
+    3. Use Django’s storage backend for Cloudinary to handle media uploads.
 
-### 5. Cloudinary
+By adopting this approach, the project benefits from a dedicated and optimized infrastructure for managing and delivering static media content. This not only improves the overall user experience but also facilitates future growth and expansion by providing a scalable solution for handling an increasing volume of media assets.
 
-**Purpose:**
-- Media management and storage.
+# Cloning and Forking
 
-**Process:**
-- Cloudinary is used for storing and managing media files, such as images and videos uploaded by users.
-- The application is configured to upload media files directly to Cloudinary, where they are stored and served.
+## Cloning the Repository
+- **Local Setup:**
+  1. Clone the repository: [GitHub repository](https://github.com/AmirShkolnik/Cups-of-Joy). 
+ `git clone https://github.com/AmirShkolnik/Cups-of-Joy`.
+  2. Navigate into the project directory: `cd software-stacks-p4`
+  3. Install dependencies: `pip install -r requirements.txt`
+  4. Set up local environment variables in a `.env` file.
+  5. Run migrations: `python manage.py migrate`
+  6. Start the development server: `python manage.py runserver`
 
-**URL:**
-- [Cloudinary Dashboard](https://cloudinary.com/users/login)
+1. **Open Your Preferred Code Editor**: Launch the code editor or integrated development environment (IDE) you typically use for your coding projects.
 
-**Integration:**
-1. Set up a Cloudinary account.
-2. Configure the Cloudinary settings in the Django settings file with the API keys provided by Cloudinary.
-3. Use Django’s storage backend for Cloudinary to handle media uploads.
+2. **Navigate to the Repository URL**: Visit the following URL in your web browser: https://github.com/AmirShkolnik/Cups-of-Joy
 
-### Deployment Steps
+3. **Locate the Clone Button**: On the repository page, you'll find a green-colored button labeled "Code". Click on this button to reveal the cloning options.
 
-1. **Clone the Repository:**
-   - Clone the GitHub repository to your local machine or open it in Gitpod for development.
+4. **Copy the Repository URL**: Depending on your preferred cloning method, copy the repository URL provided. You can choose either the HTTPS, SSH URL or GitHub CLI based on your setup and preferences.
 
-2. **Configure Environment Variables:**
-   - Set up the necessary environment variables in your local `.env` file or in the Heroku dashboard. These include database URL (ElephantSQL), Cloudinary API keys, and other sensitive information.
+5. **Open a Terminal or Command Prompt**: In your code editor or operating system, open a terminal or command prompt window. This will allow you to execute Git commands.
 
-3. **Install Dependencies:**
-   - Install the required dependencies using `pip install -r requirements.txt`.
+6. **Navigate to Your Desired Directory**: Using the terminal or command prompt, navigate to the directory or folder where you want to clone the "Diving Center" repository. You can use the `cd` command followed by the path to change directories.
 
-4. **Run Migrations:**
-   - Apply database migrations using `python manage.py migrate` to set up the PostgreSQL database schema.
+7. **Execute the Clone Command**: Once you're in the desired directory, execute the following Git command, replacing `<repository_url>` with the URL you copied earlier:
 
-5. **Test the Application:**
-   - Run the application locally or in Gitpod to ensure it works as expected.
+   ```
+   git clone <repository_url>
+   ```
 
-6. **Deploy to Heroku:**
-   - Push the changes to the GitHub repository, which triggers the continuous deployment to Heroku.
-   - Ensure that the Heroku app is properly configured with the necessary environment variables and add-ons (such as ElephantSQL).
+   Press Enter, and Git will start cloning the repository to your local machine.
 
-7. **Manage Media Files:**
-   - Configure Cloudinary in the Django settings and ensure that media files are uploaded and managed correctly.
+8. **Install requirements**: Install requirements from requirements.txt using the command "pip install -r requirements.txt". If working in a virtual environment, activate the virtual environment before running the command.
 
-[Back to top](#table-of-contents)
+9. **Create env.py**: Create a env.py to store database url, secret key and cloudinary url. directory:
 
-## Cloning and Forking
+## Forking the Repository
 
-### Cloning the Repository
+Here's an original step-by-step guide for forking the "Diving Center" project from the GitHub repository located at https://github.com/AmirShkolnik/Cups-of-Joy:
 
-**Local Setup:**
-1. Clone the repository: [GitHub repository](https://github.com/SwathiKeshavamurthy/FitandFine-P5). 
-   - `git clone https://github.com/SwathiKeshavamurthy/FitandFine-P5`
-2. Navigate into the project directory: `cd fitandfine_drf`
-3. Install dependencies: `pip install -r requirements.txt`
-4. Set up local environment variables in a `.env` file.
-5. Run migrations: `python manage.py makemigrations`and`python manage.py migrate`
-6. Start the development server: `python manage.py runserver`
+1. **Navigate to the Repository**: Open your web browser and visit the "Diving Center" repository at https://github.com/AmirShkolnik/Cups-of-Joy.
 
-Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/SwathiKeshavamurthy/FitandFine-P5)
+2. **Locate the Fork Button**: On the top-right corner of the repository page, you'll find a button labeled "Fork". This button allows you to create a copy of the repository under your own GitHub account.
 
-Please note that in order to directly open the project in Gitpod, you need to have the browser extension installed.
-A tutorial on how to do that can be found [here](https://www.gitpod.io/docs/configure/user-settings/browser-extension).
+3. **Create Your Fork**: Click on the "Fork" button. GitHub will prompt you to select the destination account for your forked repository. Choose your personal GitHub account or an organization you have access to. click the green button "Create fork". 
 
-### Forking the Repository
+4. **Wait for the Forking Process**: GitHub will initiate the forking process, creating a complete copy of the "Diving Center" repository under your chosen account or organization. This process may take a few moments, depending on the size of the repository.
 
-**For Contributions:**
-1. Fork the repository on [GitHub repository](https://github.com/SwathiKeshavamurthy/FitandFine-P5).
-2. Clone your forked repository to your local machine.
-3. Follow the local setup steps as above.
-4. Make changes and push them back to your fork.
-5. Create a pull request from your fork back to the original repo.
+5. **Navigate to Your Forked Repository**: Once the forking process is complete, you'll be automatically redirected to the forked repository's page within your account or organization. The URL will reflect the new location of your forked repository.
 
-By following these steps and utilizing the aforementioned platforms, the deployment and management of the Fit and Fine DRF API application are streamlined and efficient, ensuring a robust and scalable application.
+6. **Customize Your Fork (Optional)**: You now have full control over your forked repository. You can rename it, modify the description, or make any other desired changes to distinguish it from the original repository.
 
 ## Credits
 
