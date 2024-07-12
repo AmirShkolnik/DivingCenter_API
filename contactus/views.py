@@ -1,7 +1,6 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser
 from .serializers import ContactSerializer
 from .models import Contact
@@ -48,12 +47,23 @@ class ContactView(APIView):
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['DELETE'])
-@permission_classes([IsAdminUser])
-def delete_contact(request, pk):
-    try:
-        contact = Contact.objects.get(pk=pk)
-        contact.delete()
-        return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-    except Contact.DoesNotExist:
-        return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
+    def delete(self, request, pk):
+        if not request.user.is_staff:
+            return Response({"error": "You do not have permission to delete this content."}, status=status.HTTP_403_FORBIDDEN)
+        
+        try:
+            contact = Contact.objects.get(pk=pk)
+            contact.delete()
+            return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except Contact.DoesNotExist:
+            return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
+
+# @api_view(['DELETE'])
+# @permission_classes([IsAdminUser])
+# def delete_contact(request, pk):
+#    try:
+#        contact = Contact.objects.get(pk=pk)
+#        contact.delete()
+#        return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+#    except Contact.DoesNotExist:
+#        return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
