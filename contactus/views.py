@@ -57,6 +57,8 @@ class ContactView(APIView):
             contact = Contact.objects.get(pk=pk)
             # Check if the request includes a valid deletion token
             deletion_token = request.query_params.get('deletion_token')
+            print(f"Received token: {deletion_token}")  # Add this for debugging
+            print(f"Stored token: {contact.deletion_token}")
             if contact.deletion_token and str(contact.deletion_token) == deletion_token:
                 contact.delete()
                 return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
