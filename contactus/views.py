@@ -8,6 +8,7 @@ from uuid import uuid4
 
 class ContactView(APIView):
     permission_classes = [AllowAny]
+
     def get(self, request, pk=None):
         if not request.user.is_staff:
             return Response({"error": "You do not have permission to view this content."}, status=status.HTTP_403_FORBIDDEN)
@@ -35,23 +36,23 @@ class ContactView(APIView):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def put(self, request, pk):
-    try:
-        contact = Contact.objects.get(pk=pk)
-    except Contact.DoesNotExist:
-        return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
+    def put(self, request, pk):
+        try:
+            contact = Contact.objects.get(pk=pk)
+        except Contact.DoesNotExist:
+            return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = ContactSerializer(contact, data=request.data)
-    if serializer.is_valid():
-        # Generate a new deletion token
-        new_deletion_token = uuid4()
-        updated_contact = serializer.save(deletion_token=new_deletion_token)
-        return Response({
-            "id": updated_contact.id,
-            "deletion_token": str(new_deletion_token),
-            "message": "Your message has been updated successfully!"
-        }, status=status.HTTP_200_OK)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ContactSerializer(contact, data=request.data)
+        if serializer.is_valid():
+            # Generate a new deletion token
+            new_deletion_token = uuid4()
+            updated_contact = serializer.save(deletion_token=new_deletion_token)
+            return Response({
+                "id": updated_contact.id,
+                "deletion_token": str(new_deletion_token),
+                "message": "Your message has been updated successfully!"
+            }, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk=None):
         if pk is None:
@@ -70,13 +71,3 @@ def put(self, request, pk):
                 return Response({"error": "Invalid deletion token"}, status=status.HTTP_403_FORBIDDEN)
         except Contact.DoesNotExist:
             return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
-
-# @api_view(['DELETE'])
-# @permission_classes([IsAdminUser])
-# def delete_contact(request, pk):
-#    try:
-#        contact = Contact.objects.get(pk=pk)
-#        contact.delete()
-#        return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-#    except Contact.DoesNotExist:
-#        return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
