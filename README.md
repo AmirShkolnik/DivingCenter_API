@@ -407,7 +407,7 @@ This table provides a comprehensive overview of all the API endpoints in the div
 | **Contact** |
 | | `/contactus/` | POST | Create | APIView | Create a new contact message |
 | | `/contactus/{id}/` | PUT | Update | APIView | Update an existing contact message |
-| | `/contactus/{id}/delete/` | DELETE | Delete | Function-based view | Delete a specific contact message |
+| | `/contactus/{id}` | DELETE | Delete | Function-based view | Delete a specific contact message |
 | **Course** |
 | | `/courses/` | GET | Read | ModelViewSet | List all courses |
 | | `/courses/` | POST | Create | ModelViewSet | Create a new course (admin only) |
@@ -505,6 +505,109 @@ The Diving Center project leverages a variety of frameworks, libraries, and depe
 ## Testing and Validation
 
 For all testing and validation, please refer to the [TESTING.md](TESTING.md) file.
+
+## Bugs
+
+Key changes and confirmations:
+
+1. A GET method has been added to the ContactView class.
+2. The GET method checks if the user is staff (admin) before allowing access to view contact messages.
+3. If the user is not staff, a 403 Forbidden error is returned.
+4. The GET method can retrieve either a single contact message (if a pk is provided) or all contact messages.
+5. The POST method remains unchanged, allowing any user (including non-logged-in users) to submit a contact message.
+6. The DELETE function now has the @permission_classes([IsAdminUser]) decorator to ensure only admin users can delete contact messages.
+
+This implementation ensures that:
+- Anyone can submit a contact message (POST).
+- Only admin users can view (GET) or delete contact messages.
+- The PUT method remains, but you might want to consider restricting it to admin users as well, depending on your use case.
+
+Remember to update your URLs to accommodate the new GET method if necessary.
+
+not working
+
+----------------
+
+The error you're encountering is because the DELETE request is being sent to the URL '/contactus/' without a primary key (pk). To fix this issue, we need to make some adjustments to both the backend and frontend code.
+Backend (Django) changes:
+Update your ContactView class in views.py:
+python
+class ContactView(APIView):
+    permission_classes = [AllowAny]
+
+    # ... (keep other methods as they are)
+
+    def delete(self, request, pk=None):
+        if pk is None:
+            return Response({"error": "No contact ID provided"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            contact = Contact.objects.get(pk=pk)
+            # Check if the request includes a valid deletion token
+            deletion_token = request.query_params.get('deletion_token')
+            if contact.deletion_token and str(contact.deletion_token) == deletion_token:
+                contact.delete()
+                return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({"error": "Invalid deletion token"}, status=status.HTTP_403_FORBIDDEN)
+        except Contact.DoesNotExist:
+            return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
+
+Frontend (React) changes:
+Update your handleDeleteMessage function in the ContactForm component:
+javascript
+const handleDeleteMessage = async () => {
+  if (!messageId) {
+    toast.error('No message to delete.');
+    return;
+  }
+  try {
+    const deletionToken = localStorage.getItem(`deletion_token_${messageId}`);
+    await axiosReq.delete(`/contactus/${messageId}/?deletion_token=${deletionToken}`);
+    toast.success('Your message was deleted.');
+    resetForm();
+    setShowConfirmModal(false);
+    history.push('/');
+  } catch (err) {
+    toast.error('An error occurred while deleting your message. Please try again.');
+    if (err.response) {
+      console.error('Error response:', err.response);
+    }
+  }
+};
+
+Ensure your Contact model has a deletion_token field:
+In your models.py:
+python
+import uuid
+from django.db import models
+
+class Contact(models.Model):
+    # ... other fields ...
+    deletion_token = models.UUIDField(default=uuid.uuid4, editable=False)
+
+Update your ContactSerializer to include the deletion_token:
+In your serializers.py:
+python
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['id', 'name', 'email', 'subject', 'message', 'created_at', 'deletion_token']
+        read_only_fields = ['deletion_token']
+
+Make sure you're storing the deletion_token in localStorage when creating a new contact:
+In your handleSubmit function:
+javascript
+const { data } = response;
+setMessageId(data.id);
+localStorage.setItem(`deletion_token_${data.id}`, data.deletion_token);
+
+These changes should resolve the error you're encountering. The key points are:
+Ensuring the delete method in the backend can handle requests with and without a pk.
+Sending the correct URL with the message ID from the frontend when deleting.
+Properly handling and comparing the deletion_token in the backend.
+Storing and retrieving the deletion_token correctly in the frontend.
+After making these changes, your delete functionality should work correctly for both logged-in and non-logged-in users.
 
 # Deployment
 

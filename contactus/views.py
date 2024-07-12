@@ -48,12 +48,15 @@ class ContactView(APIView):
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
+    def delete(self, request, pk=None):
+        if pk is None:
+            return Response({"error": "No contact ID provided"}, status=status.HTTP_400_BAD_REQUEST)
+        
         try:
             contact = Contact.objects.get(pk=pk)
             # Check if the request includes a valid deletion token
             deletion_token = request.query_params.get('deletion_token')
-            if contact.deletion_token and contact.deletion_token == deletion_token:
+            if contact.deletion_token and str(contact.deletion_token) == deletion_token:
                 contact.delete()
                 return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
             else:
