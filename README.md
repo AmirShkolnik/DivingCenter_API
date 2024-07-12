@@ -186,6 +186,8 @@ The following tables illustrates the relationships between different models in t
 | Post | has many | Likes |
 | User | follows many | User |
 
+This table outlines the key relationships between the models in the diving center application, showing how different entities are connected and interact within the system.
+
 | Relationship Type | Primary Model | Related Model | Description |
 |-------------------|---------------|---------------|-------------|
 | One-to-One | User | Profile | Each user has one profile |
@@ -201,130 +203,158 @@ The following tables illustrates the relationships between different models in t
 | Many-to-Many | User | User | Users can follow many users (through Follower model) |
 | One-to-Many | User | Contact | One user can submit many contact messages |
 
-This table outlines the key relationships between the models in the diving center application, showing how different entities are connected and interact within the system.
-
 ### User Model
 
 The User model serves as the central entity for authentication and user management. It utilizes Django's built-in User model, providing a solid foundation for user-related functionalities.
 
 **Fields**:
-- id: Unique identifier for each user
-- username: Unique username for login
-- password: Securely hashed password
-- email: User's email address for communication
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each user |
+| username | CharField | Unique username for login |
+| password | CharField | Securely hashed password |
+| email | EmailField | User's email address for communication |
 
 ### Profile Model
 
 The Profile model extends the User model with additional information, creating a more comprehensive user profile.
 
 **Fields**:
-- id: Unique identifier for each profile
-- owner_id: One-to-one relationship with User model
-- created_at: Timestamp of profile creation
-- updated_at: Timestamp of last profile update
-- name: User's full name
-- content: Biographical information or user description
-- image: Profile picture
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each profile |
+| owner | OneToOneField | One-to-one relationship with User model |
+| created_at | DateTimeField | Timestamp of profile creation |
+| updated_at | DateTimeField | Timestamp of last profile update |
+| name | CharField | User's full name |
+| content | TextField | Biographical information or user description |
+| image | ImageField | Profile picture |
 
 ### DivingCourse Model
 
 This model represents the diving courses offered by the center, containing all relevant course information.
 
 **Fields**:
-- id: Unique identifier for each course
-- title: Course title
-- slug: URL-friendly version of the title
-- excerpt: Brief description of the course
-- description: Detailed course description (HTML-enabled)
-- course_type: Type or category of the course
-- image: Course image stored in Cloudinary
-- price: Course price
-- created_at: Timestamp of course creation
-- updated_at: Timestamp of last course update
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each course |
+| title | CharField | Course title |
+| slug | SlugField | URL-friendly version of the title |
+| excerpt | TextField | Brief description of the course |
+| description | HTMLField | Detailed course description (HTML-enabled) |
+| course_type | CharField | Type or category of the course |
+| image | CloudinaryField | Course image stored in Cloudinary |
+| price | IntegerField | Course price |
+| created_at | DateTimeField | Timestamp of course creation |
+| updated_at | DateTimeField | Timestamp of last course update |
 
 ### Booking Model
 
 The Booking model manages course reservations made by users.
 
 **Fields**:
-- id: Unique identifier for each booking
-- user_id: Foreign key to User model
-- date: Date of the booked course
-- time: Time of the booked course
-- course_id: Foreign key to DivingCourse model
-- additional_info: Any extra information provided by the user
-- created_at: Timestamp of booking creation
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each booking |
+| user | ForeignKey | Foreign key to User model |
+| date | DateField | Date of the booked course |
+| time | TimeField | Time of the booked course |
+| course | ForeignKey | Foreign key to DivingCourse model |
+| additional_info | TextField | Any extra information provided by the user |
+| created_at | DateTimeField | Timestamp of booking creation |
 
 ### Review Model
 
 This model allows users to rate and review courses they've taken.
 
 **Fields**:
-- id: Unique identifier for each review
-- course_id: Foreign key to DivingCourse model
-- user_id: Foreign key to User model
-- content: Text content of the review
-- rating: Numerical rating given by the user
-- created_at: Timestamp of review creation
-- updated_at: Timestamp of last review update
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each review |
+| course | ForeignKey | Foreign key to DivingCourse model |
+| user | ForeignKey | Foreign key to User model |
+| content | TextField | Text content of the review |
+| rating | IntegerField | Numerical rating given by the user |
+| created_at | DateTimeField | Timestamp of review creation |
+| updated_at | DateTimeField | Timestamp of last review update |
 
 ### Post Model
 
 The Post model manages user-generated content for the community feed.
 
 **Fields**:
-- id: Unique identifier for each post
-- owner_id: Foreign key to User model
-- created_at: Timestamp of post creation
-- updated_at: Timestamp of last post update
-- title: Post title
-- content: Main content of the post
-- image: Image associated with the post
-- image_filter: Applied image filter (if any)
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each post |
+| owner | ForeignKey | Foreign key to User model |
+| created_at | DateTimeField | Timestamp of post creation |
+| updated_at | DateTimeField | Timestamp of last post update |
+| title | CharField | Post title |
+| content | TextField | Main content of the post |
+| image | ImageField | Image associated with the post |
+| image_filter | CharField | Applied image filter (if any) |
 
 ### Comment Model
 
 This model allows users to comment on posts, fostering community interaction.
 
 **Fields**:
-- id: Unique identifier for each comment
-- owner_id: Foreign key to User model
-- post_id: Foreign key to Post model
-- created_at: Timestamp of comment creation
-- updated_at: Timestamp of last comment update
-- content: Text content of the comment
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each comment |
+| owner | ForeignKey | Foreign key to User model |
+| post | ForeignKey | Foreign key to Post model |
+| created_at | DateTimeField | Timestamp of comment creation |
+| updated_at | DateTimeField | Timestamp of last comment update |
+| content | TextField | Text content of the comment |
 
 ### Like Model
 
 The Like model tracks user likes on posts, enhancing social engagement.
 
 **Fields**:
-- id: Unique identifier for each like
-- owner_id: Foreign key to User model
-- post_id: Foreign key to Post model
-- created_at: Timestamp of like creation
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each like |
+| owner | ForeignKey | Foreign key to User model |
+| post | ForeignKey | Foreign key to Post model |
+| created_at | DateTimeField | Timestamp of like creation |
 
 ### Follower Model
 
 This model manages user follow relationships, enabling social connections.
 
 **Fields**:
-- id: Unique identifier for each follower relationship
-- owner_id: Foreign key to User model (follower)
-- followed_id: Foreign key to User model (followed user)
-- created_at: Timestamp of follow relationship creation
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each follower relationship |
+| owner | ForeignKey | Foreign key to User model (follower) |
+| followed | ForeignKey | Foreign key to User model (followed user) |
+| created_at | DateTimeField | Timestamp of follow relationship creation |
 
 ### Contact Model
 
 The Contact model stores customer inquiries and messages.
 
 **Fields**:
-- id: Unique identifier for each contact message
-- name: Name of the person making the inquiry
-- email: Email address for correspondence
-- subject: Subject of the inquiry
-- message: Detailed message content
-- created_at: Timestamp of message creation
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each contact message |
+| name | CharField | Name of the person making the inquiry |
+| email | EmailField | Email address for correspondence |
+| subject | CharField | Subject of the inquiry |
+| message | TextField | Detailed message content |
+| created_at | DateTimeField | Timestamp of message creation |
 
 [Back to top](#table-of-contents)
 
