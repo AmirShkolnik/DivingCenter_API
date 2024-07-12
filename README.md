@@ -145,18 +145,20 @@ Relational Data Modeling: The database design leverages relational modeling tech
 
 **Tables Overview**
 
-The database consists of several interconnected tables, each serving a specific purpose in the application:
+This table provides a clear overview of the database structure, showing the different tables and their respective purposes within the application. Each table is designed to handle specific aspects of the system, from user management to course bookings and social interactions.
 
-1. User: Manages user authentication and basic information.
-2. Profile: Extends user information with additional details and preferences.
-3. DivingCourse: Stores information about available diving courses.
-4. Booking: Handles course reservations made by users.
-5. Review: Allows users to rate and review courses.
-6. Post: Manages user-generated content for the community feed.
-7. Comment: Enables users to comment on posts.
-8. Like: Tracks user likes on posts.
-9. Follower: Manages user follow relationships.
-10. Contact: Stores customer inquiries and messages.
+| Table Name | Purpose |
+|------------|---------|
+| User | Manages user authentication and basic information |
+| Profile | Extends user information with additional details and preferences |
+| DivingCourse | Stores information about available diving courses |
+| Booking | Handles course reservations made by users |
+| Review | Allows users to rate and review courses |
+| Post | Manages user-generated content for the community feed |
+| Comment | Enables users to comment on posts |
+| Like | Tracks user likes on posts |
+| Follower | Manages user follow relationships |
+| Contact | Stores customer inquiries and messages |
 
 **Relationships**
 
@@ -167,9 +169,22 @@ The relationships between these models create a cohesive system:
 - Posts are associated with Comments and Likes.
 - Followers establish connections between users.
 
-These relationships enable complex queries and data retrieval, supporting features like personalized feeds, course recommendations, and social interactions.
+The following tables illustrates the relationships between different models in the system. It shows how users are connected to various other entities like profiles, bookings, reviews, posts, comments, likes, and followers. It also demonstrates the connections between diving courses and their bookings and reviews, as well as the relationship between posts and their comments and likes. Lastly, it represents the follower relationship between users.
 
-Here's a Relationships table describing the connections between the various models:
+| Model 1 | Relationship | Model 2 |
+|---------|--------------|---------|
+| User | has one | Profile |
+| User | has many | Bookings |
+| User | has many | Reviews |
+| User | has many | Posts |
+| User | has many | Comments |
+| User | has many | Likes |
+| User | has many | Followers |
+| DivingCourse | has many | Bookings |
+| DivingCourse | has many | Reviews |
+| Post | has many | Comments |
+| Post | has many | Likes |
+| User | follows many | User |
 
 | Relationship Type | Primary Model | Related Model | Description |
 |-------------------|---------------|---------------|-------------|
