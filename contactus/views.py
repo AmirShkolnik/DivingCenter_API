@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from .serializers import ContactSerializer
 from .models import Contact
+from uuid import uuid4
 
 class ContactView(APIView):
     permission_classes = [AllowAny]
@@ -42,12 +43,12 @@ def put(self, request, pk):
 
     serializer = ContactSerializer(contact, data=request.data)
     if serializer.is_valid():
-        updated_contact = serializer.save()
-        updated_contact.deletion_token = uuid.uuid4()  # Generate new deletion token
-        updated_contact.save()
+        # Generate a new deletion token
+        new_deletion_token = uuid4()
+        updated_contact = serializer.save(deletion_token=new_deletion_token)
         return Response({
             "id": updated_contact.id,
-            "deletion_token": str(updated_contact.deletion_token),
+            "deletion_token": str(new_deletion_token),
             "message": "Your message has been updated successfully!"
         }, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
