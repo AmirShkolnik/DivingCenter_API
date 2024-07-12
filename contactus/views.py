@@ -29,6 +29,7 @@ class ContactView(APIView):
             contact = serializer.save()
             return Response({
                 "id": contact.id,
+                "deletion_token": str(contact.deletion_token), 
                 "message": "Your message has been sent successfully!"
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
