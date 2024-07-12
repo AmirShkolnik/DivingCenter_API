@@ -34,20 +34,23 @@ class ContactView(APIView):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk):
-        try:
-            contact = Contact.objects.get(pk=pk)
-        except Contact.DoesNotExist:
-            return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
+def put(self, request, pk):
+    try:
+        contact = Contact.objects.get(pk=pk)
+    except Contact.DoesNotExist:
+        return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = ContactSerializer(contact, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({
-                "id": contact.id,
-                "message": "Your message has been updated successfully!"
-            }, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer = ContactSerializer(contact, data=request.data)
+    if serializer.is_valid():
+        updated_contact = serializer.save()
+        updated_contact.deletion_token = uuid.uuid4()  # Generate new deletion token
+        updated_contact.save()
+        return Response({
+            "id": updated_contact.id,
+            "deletion_token": str(updated_contact.deletion_token),
+            "message": "Your message has been updated successfully!"
+        }, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk=None):
         if pk is None:
