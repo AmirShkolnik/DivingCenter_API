@@ -506,16 +506,6 @@ The Diving Center project leverages a variety of frameworks, libraries, and depe
 
 For all testing and validation, please refer to the [TESTING.md](TESTING.md) file.
 
-## Bugs
-
-### Solved Bugs
-
-### Known Bugs
-
-### Unknown Bugs
-
-I am not aware of any remaining bugs.
-
 # Deployment
 
 The "Diving Center" project leverages a combination of platforms and services to facilitate its deployment and management.
@@ -607,8 +597,8 @@ By adopting this approach, the project benefits from a dedicated and optimized i
 
 ## Cloning the Repository
 - **Local Setup:**
-  1. Clone the repository: [GitHub repository](https://github.com/AmirShkolnik/Cups-of-Joy). 
- `git clone https://github.com/AmirShkolnik/Cups-of-Joy`.
+  1. Clone the repository: [GitHub repository](https://github.com/AmirShkolnik/DivingCenter_API). 
+ `git clone https://github.com/AmirShkolnik/DivingCenter_API`.
   2. Navigate into the project directory: `cd software-stacks-p4`
   3. Install dependencies: `pip install -r requirements.txt`
   4. Set up local environment variables in a `.env` file.
@@ -617,7 +607,7 @@ By adopting this approach, the project benefits from a dedicated and optimized i
 
 1. **Open Your Preferred Code Editor**: Launch the code editor or integrated development environment (IDE) you typically use for your coding projects.
 
-2. **Navigate to the Repository URL**: Visit the following URL in your web browser: https://github.com/AmirShkolnik/Cups-of-Joy
+2. **Navigate to the Repository URL**: Visit the following URL in your web browser: https://github.com/AmirShkolnik/DivingCenter_API
 
 3. **Locate the Clone Button**: On the repository page, you'll find a green-colored button labeled "Code". Click on this button to reveal the cloning options.
 
@@ -641,9 +631,9 @@ By adopting this approach, the project benefits from a dedicated and optimized i
 
 ## Forking the Repository
 
-Here's an original step-by-step guide for forking the "Diving Center" project from the GitHub repository located at https://github.com/AmirShkolnik/Cups-of-Joy:
+Here's a step-by-step guide for forking the "Diving Center" project from the GitHub repository located at https://github.com/AmirShkolnik/DivingCenter_API:
 
-1. **Navigate to the Repository**: Open your web browser and visit the "Diving Center" repository at https://github.com/AmirShkolnik/Cups-of-Joy.
+1. **Navigate to the Repository**: Open your web browser and visit the "Diving Center" repository at https://github.com/AmirShkolnik/DivingCenter_API.
 
 2. **Locate the Fork Button**: On the top-right corner of the repository page, you'll find a button labeled "Fork". This button allows you to create a copy of the repository under your own GitHub account.
 
@@ -659,7 +649,7 @@ Here's an original step-by-step guide for forking the "Diving Center" project fr
 
 ### Code
 
-The development of the Fit and Fine application was supported by various resources and contributions from the community. Here are the key references and sources of inspiration for the Fit and Fine project:
+The development of the Diving Center application was supported by various resources and contributions from the CI community. Here are the key references and sources of inspiration for the Diving Center project:
 
 - The technique to limit the size of image uploads to Cloudinary is adapted from this [Cloudinary Support Article](https://support.cloudinary.com/hc/en-us/community/posts/360009752479-How-to-resize-before-uploading-pictures-in-Django).
 - A replacement for the deprecated `django.conf.urls.url()` was implemented as per this [StackOverflow Article](https://stackoverflow.com/questions/70319606/importerror-cannot-import-name-url-from-django-conf-urls-after-upgrading-to).
@@ -670,12 +660,9 @@ The development of the Fit and Fine application was supported by various resourc
 - The technique to handle file uploads in Django Rest Framework is from this [StackOverflow Article](https://stackoverflow.com/questions/45232352/file-upload-with-django-rest-framework).
 - The method to test Django Rest Framework endpoints using the APIClient is adapted from this [Django Rest Framework Documentation](https://www.django-rest-framework.org/api-guide/testing/).
 
-- Deployment section description is based on the following articles:
-https://developer.mozilla.org/en-US/docs/Web/JavaScript
-https://developer.mozilla.org/en-US/docs/Web/CSS
-https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
-https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment
-https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide/
+- Deployment section description is based on the following guides:
+[Preparing a Codebase for Heroku Deployment](https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment)
+[Heroku Deployment Guide](https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide/)
 
 In addition, the following documentation was extensively referenced throughout development:
 
@@ -686,8 +673,11 @@ In addition, the following documentation was extensively referenced throughout d
 - [Python datetime Documentation](https://docs.python.org/3/library/datetime.html)
 - [dateutil Documentation](https://dateutil.readthedocs.io/en/stable/index.html)
 - [Django Rest Framework JWT Documentation](https://jpadilla.github.io/django-rest-framework-jwt/)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
 
-These resources provided invaluable insights and guidance, significantly contributing to the successful development of the Fit and Fine DRF API application.
+These resources provided invaluable insights and guidance, significantly contributing to the successful development of the Diving Center DRF API application.
 
 ### Media
 

@@ -1,28 +1,11 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAdminUser
+from rest_framework.decorators import api_view
 from .serializers import ContactSerializer
 from .models import Contact
 
 class ContactView(APIView):
-    def get(self, request, pk=None):
-        if not request.user.is_staff:
-            return Response({"error": "You do not have permission to view this content."}, status=status.HTTP_403_FORBIDDEN)
-        
-        if pk:
-            try:
-                contact = Contact.objects.get(pk=pk)
-                serializer = ContactSerializer(contact)
-                return Response(serializer.data)
-            except Contact.DoesNotExist:
-                return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            contacts = Contact.objects.all()
-            serializer = ContactSerializer(contacts, many=True)
-            return Response(serializer.data)
-
     def post(self, request):
         serializer = ContactSerializer(data=request.data)
         if serializer.is_valid():
@@ -49,7 +32,6 @@ class ContactView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
-@permission_classes([IsAdminUser])
 def delete_contact(request, pk):
     try:
         contact = Contact.objects.get(pk=pk)
