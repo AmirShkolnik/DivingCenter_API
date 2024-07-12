@@ -518,13 +518,6 @@ Here's a simplified 10-step explanation on how to use Heroku's cloud server to d
 
 By following these steps, you'll be able to deploy your "Diving Center" project to Heroku's cloud server, making it accessible to anyone with the app's URL. Remember to consult Heroku's documentation or seek help if you encounter any issues during the deployment process.
 
-Citations:
-[1] https://developer.mozilla.org/en-US/docs/Web/JavaScript
-[2] https://developer.mozilla.org/en-US/docs/Web/CSS
-[3] https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
-[4] https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment
-[5] https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide/
-
 **For deployment Heroku needs two additional files in order to deploy properly.**
 - requirements.txt
 - Procfile
@@ -631,6 +624,13 @@ The development of the Fit and Fine application was supported by various resourc
 - The method to set up user authentication with JWT in Django Rest Framework is adapted from this [StackOverflow Article](https://stackoverflow.com/questions/44697872/django-rest-framework-jwt-user-login).
 - The technique to handle file uploads in Django Rest Framework is from this [StackOverflow Article](https://stackoverflow.com/questions/45232352/file-upload-with-django-rest-framework).
 - The method to test Django Rest Framework endpoints using the APIClient is adapted from this [Django Rest Framework Documentation](https://www.django-rest-framework.org/api-guide/testing/).
+
+- Deployment section description is based on the following articles:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript
+https://developer.mozilla.org/en-US/docs/Web/CSS
+https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
+https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment
+https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide/
 
 In addition, the following documentation was extensively referenced throughout development:
 
