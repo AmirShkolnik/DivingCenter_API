@@ -6,6 +6,7 @@ from .serializers import ContactSerializer
 from .models import Contact
 
 class ContactView(APIView):
+    permission_classes = [AllowAny]
     def get(self, request, pk=None):
         if not request.user.is_staff:
             return Response({"error": "You do not have permission to view this content."}, status=status.HTTP_403_FORBIDDEN)
@@ -48,13 +49,15 @@ class ContactView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        if not request.user.is_staff:
-            return Response({"error": "You do not have permission to delete this content."}, status=status.HTTP_403_FORBIDDEN)
-        
         try:
             contact = Contact.objects.get(pk=pk)
-            contact.delete()
-            return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+            # Check if the request includes a valid deletion token
+            deletion_token = request.query_params.get('deletion_token')
+            if contact.deletion_token and contact.deletion_token == deletion_token:
+                contact.delete()
+                return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({"error": "Invalid deletion token"}, status=status.HTTP_403_FORBIDDEN)
         except Contact.DoesNotExist:
             return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
 
