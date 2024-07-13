@@ -7,12 +7,11 @@ class DivingCourse(models.Model):
         ('AOW', 'Advanced Open Water'),
         ('RD', 'Rescue Diver'),
     ]
-    name = models.CharField(max_length=3, choices=COURSE_CHOICES, unique=True)
+    course_type = models.CharField(max_length=3, choices=COURSE_CHOICES, unique=True)
     description = models.TextField()
 
     def __str__(self):
-        return self.get_name_display()
-        
+        return self.get_course_type_display()
 
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -22,5 +21,9 @@ class Booking(models.Model):
     additional_info = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ['course', 'date', 'time']
+
     def __str__(self):
-        return f"{self.user.username} - {self.course.name if self.course else 'No course'} on {self.date} at {self.time}"
+        course_name = self.course.get_course_type_display() if self.course else 'No course'
+        return f"{self.user.username} - {course_name} on {self.date} at {self.time}"

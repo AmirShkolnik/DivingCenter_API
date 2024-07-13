@@ -519,6 +519,20 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 | ContactUs | Non-logged-in users couldn't delete their messages due to permission issues | Implemented a deletion token system to allow secure message deletion without authentication. | [Django REST Framework documentation: Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
 | ContactUs | After editing a message, the deletion token became invalid, preventing message deletion | Updated the backend to generate a new deletion token when updating a message and modified the frontend to store this new token. | [UUID documentation in Python](https://docs.python.org/3/library/uuid.html) | ✅ |
 
+**Bookings Bugs**
+
+| Model | Bug Description | Solution | Resource | Solved |
+|-------|-----------------|----------|----------|--------|
+| Booking | Time validation error when submitting booking | Update time validation in serializer to accept 'HH:MM' format | [Django REST Framework Serializers](https://www.django-rest-framework.org/api-guide/serializers/) | ✅ |
+| Booking | 'NoneType' object has no attribute 'id' when course is not selected | Add validation for course field in serializer | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) | ✅ |
+| Booking | Bookings allowed on dates other than 10th of the month | Implement date validation in serializer and view | [Django Date Validation](https://docs.djangoproject.com/en/3.2/ref/forms/validation/) | ✅ |
+| Booking | Users can book past dates | Add validation to prevent booking past dates | [Django Date Validation](https://docs.djangoproject.com/en/3.2/ref/forms/validation/) | ✅ |
+| Booking | Multiple bookings for same course, date and time | Implement uniqueness constraint in model | [Django Model Constraints](https://docs.djangoproject.com/en/3.2/ref/models/constraints/) | ✅ |
+| Booking | Booking creation fails silently on the frontend | Improve error handling and display in React component | [React Error Boundaries](https://reactjs.org/docs/error-boundaries.html) | ✅ |
+| Booking | Error persists for future dates after fixing past date issue | Update frontend to clear previous errors and backend to handle all validations | [React State Management](https://reactjs.org/docs/hooks-state.html) | ✅ |
+
+This table includes all the booking-related issues we've discussed and resolved. The "Solved" column is marked with green checkboxes (✅) to indicate that these issues have been addressed. The "Resource" column provides links to relevant documentation that were helpful in solving these issues.
+
 **General Bugs**
 
 | Model | Bug Description | Solution | Resource | Solved |
