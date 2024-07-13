@@ -508,106 +508,30 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 
 ## Bugs
 
-Key changes and confirmations:
+**ContactUs Bugs**
 
-1. A GET method has been added to the ContactView class.
-2. The GET method checks if the user is staff (admin) before allowing access to view contact messages.
-3. If the user is not staff, a 403 Forbidden error is returned.
-4. The GET method can retrieve either a single contact message (if a pk is provided) or all contact messages.
-5. The POST method remains unchanged, allowing any user (including non-logged-in users) to submit a contact message.
-6. The DELETE function now has the @permission_classes([IsAdminUser]) decorator to ensure only admin users can delete contact messages.
+| Model | Bug Description | Solution | Resource | Solved |
+|-------|-----------------|----------|----------|--------|
+| ContactUs | DELETE request failing due to missing primary key (pk) in URL | Updated the URL pattern in urls.py to include <int:pk> for detail views. Modified the delete method in views.py to handle the pk parameter correctly. | [Django documentation: URL dispatcher](https://docs.djangoproject.com/en/5.0/topics/http/urls/) | ✅ |
+| ContactUs | PUT request returning 405 (Method Not Allowed) error | Fixed indentation of the put method in the ContactView class. Ensured the put method was properly part of the class definition. | [Stack Overflow: Django REST framework PUT method not allowed](https://stackoverflow.com/questions/23639113/django-rest-framework-put-method-not-allowed) | ✅ |
+| ContactUs | Deletion token not updating after editing a message | Modified the put method to generate a new deletion token when updating a message. Updated the frontend to store the new token in localStorage after successful edits. | [Django REST framework documentation: Generic views](https://www.django-rest-framework.org/api-guide/generic-views/) | ✅ |
+| ContactUs | Frontend unable to delete message after editing | Updated the handleDeleteMessage function to retrieve the current deletion token from localStorage. Ensured the token is sent with the delete request. | [React documentation: Using the Effect Hook](https://reactjs.org/docs/hooks-effect.html) | ✅ |
+| ContactUs | Form submission not clearing previous errors | Added error state reset in the handleSubmit function. Cleared the errors object before making new requests. | [React Bootstrap documentation: Forms](https://react-bootstrap.github.io/forms/overview/) | ✅ |
+| ContactUs | Non-logged-in users couldn't delete their messages due to permission issues | Implemented a deletion token system to allow secure message deletion without authentication. | [Django REST Framework documentation: Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
+| ContactUs | After editing a message, the deletion token became invalid, preventing message deletion | Updated the backend to generate a new deletion token when updating a message and modified the frontend to store this new token. | [UUID documentation in Python](https://docs.python.org/3/library/uuid.html) | ✅ |
+| ContactUs | The PUT method in the ContactView was not properly indented, causing a 405 Method Not Allowed error | Corrected the indentation of the PUT method in the ContactView class to make it a part of the class. | [Python indentation guide](https://www.python.org/dev/peps/pep-0008/#indentation) | ✅ |
 
-This implementation ensures that:
-- Anyone can submit a contact message (POST).
-- Only admin users can view (GET) or delete contact messages.
-- The PUT method remains, but you might want to consider restricting it to admin users as well, depending on your use case.
+**General Bugs**
 
-Remember to update your URLs to accommodate the new GET method if necessary.
+| Model | Bug Description | Solution | Resource | Solved |
+|-------|-----------------|----------|----------|--------|
+| General | CORS (Cross-Origin Resource Sharing) issues when making requests from frontend | Added django-cors-headers to the project and configured CORS_ALLOWED_ORIGINS in settings.py. Ensured the frontend domain was included in the allowed origins. | [Django CORS headers documentation](https://github.com/adamchainz/django-cors-headers) | ✅ |
+| General | Inconsistent state updates in React components | Implemented the useEffect hook to handle side effects and state updates. Ensured state updates were done using the functional form of setState. | [React documentation: Hooks API Reference](https://reactjs.org/docs/hooks-reference.html) | ✅ |
+| General | Unauthorized access to admin-only views | Implemented proper permission classes in Django REST framework views. Used IsAdminUser for admin-only actions and AllowAny for public endpoints. | [Django REST framework: Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
+| General | Unhandled promise rejections in async functions | Added try-catch blocks to all async functions. Implemented proper error handling and user feedback using toast notifications. | [MDN Web Docs: Using Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) | ✅ |
 
-not working
-
-----------------
-
-The error you're encountering is because the DELETE request is being sent to the URL '/contactus/' without a primary key (pk). To fix this issue, we need to make some adjustments to both the backend and frontend code.
-Backend (Django) changes:
-Update your ContactView class in views.py:
-python
-class ContactView(APIView):
-    permission_classes = [AllowAny]
-
-    # ... (keep other methods as they are)
-
-    def delete(self, request, pk=None):
-        if pk is None:
-            return Response({"error": "No contact ID provided"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            contact = Contact.objects.get(pk=pk)
-            # Check if the request includes a valid deletion token
-            deletion_token = request.query_params.get('deletion_token')
-            if contact.deletion_token and str(contact.deletion_token) == deletion_token:
-                contact.delete()
-                return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-            else:
-                return Response({"error": "Invalid deletion token"}, status=status.HTTP_403_FORBIDDEN)
-        except Contact.DoesNotExist:
-            return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
-
-Frontend (React) changes:
-Update your handleDeleteMessage function in the ContactForm component:
-javascript
-const handleDeleteMessage = async () => {
-  if (!messageId) {
-    toast.error('No message to delete.');
-    return;
-  }
-  try {
-    const deletionToken = localStorage.getItem(`deletion_token_${messageId}`);
-    await axiosReq.delete(`/contactus/${messageId}/?deletion_token=${deletionToken}`);
-    toast.success('Your message was deleted.');
-    resetForm();
-    setShowConfirmModal(false);
-    history.push('/');
-  } catch (err) {
-    toast.error('An error occurred while deleting your message. Please try again.');
-    if (err.response) {
-      console.error('Error response:', err.response);
-    }
-  }
-};
-
-Ensure your Contact model has a deletion_token field:
-In your models.py:
-python
-import uuid
-from django.db import models
-
-class Contact(models.Model):
-    # ... other fields ...
-    deletion_token = models.UUIDField(default=uuid.uuid4, editable=False)
-
-Update your ContactSerializer to include the deletion_token:
-In your serializers.py:
-python
-class ContactSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contact
-        fields = ['id', 'name', 'email', 'subject', 'message', 'created_at', 'deletion_token']
-        read_only_fields = ['deletion_token']
-
-Make sure you're storing the deletion_token in localStorage when creating a new contact:
-In your handleSubmit function:
-javascript
-const { data } = response;
-setMessageId(data.id);
-localStorage.setItem(`deletion_token_${data.id}`, data.deletion_token);
-
-These changes should resolve the error you're encountering. The key points are:
-Ensuring the delete method in the backend can handle requests with and without a pk.
-Sending the correct URL with the message ID from the frontend when deleting.
-Properly handling and comparing the deletion_token in the backend.
-Storing and retrieving the deletion_token correctly in the frontend.
-After making these changes, your delete functionality should work correctly for both logged-in and non-logged-in users.
+**Unknown Bugs**
+There may be other bugs that have not yet been identified.
 
 # Deployment
 
