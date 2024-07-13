@@ -39,7 +39,7 @@ class BookingViewSet(viewsets.ModelViewSet):
             if date.day != 10:
                 return Response({"date": ["Bookings are only available on the 10th of each month."]}, status=status.HTTP_400_BAD_REQUEST)
 
-            booking_time = datetime.strptime(request.data['time'], '%H:%M:%S').time()
+            booking_time = datetime.strptime(request.data['time'], '%H:%M').time()
             if booking_time not in [time(9, 0), time(15, 0)]:
                 return Response({"time": ["Bookings are only available at 09:00 or 15:00."]}, status=status.HTTP_400_BAD_REQUEST)
 

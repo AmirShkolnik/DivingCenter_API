@@ -8,6 +8,7 @@ class DivingCourseSerializer(serializers.ModelSerializer):
 
 class BookingSerializer(serializers.ModelSerializer):
     course_name = serializers.ReadOnlyField(source='course.get_name_display')
+    time = serializers.TimeField(format='%H:%M', input_formats=['%H:%M'])
 
     class Meta:
         model = Booking
