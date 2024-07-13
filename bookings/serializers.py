@@ -20,6 +20,8 @@ class BookingSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
     def validate_course(self, value):
+        if value is None:
+            raise serializers.ValidationError("Course selection is required.")
         if not DivingCourse.objects.filter(id=value.id).exists():
             raise serializers.ValidationError("Invalid course selection.")
         return value
