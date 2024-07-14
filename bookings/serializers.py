@@ -28,7 +28,23 @@ class BookingSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Bookings are only available at 09:00 or 15:00.")
         return value
 
+    def validate_course(self, value):
+        if value is None:
+            raise serializers.ValidationError("Course selection is required.")
+        return value
+
     def validate(self, data):
-        if data['course'] is None:
-            raise serializers.ValidationError({"course": "Course selection is required."})
+        course = data['course']
+        date = data['date']
+        time = data['time']
+
+        existing_booking = Booking.objects.filter(
+            course=course,
+            date=date,
+            time=time
+        ).exists()
+
+        if existing_booking:
+            raise serializers.ValidationError("A booking for this course, date, and time already exists.")
+
         return data
