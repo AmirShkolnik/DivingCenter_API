@@ -531,7 +531,17 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 | Booking | Booking creation fails silently on the frontend | Improve error handling and display in React component | [React Error Boundaries](https://reactjs.org/docs/error-boundaries.html) | ✅ |
 | Booking | Error persists for future dates after fixing past date issue | Update frontend to clear previous errors and backend to handle all validations | [React State Management](https://reactjs.org/docs/hooks-state.html) | ✅ |
 
-This table includes all the booking-related issues we've discussed and resolved. The "Solved" column is marked with green checkboxes (✅) to indicate that these issues have been addressed. The "Resource" column provides links to relevant documentation that were helpful in solving these issues.
+### Bookings Bugs
+
+| Model | Bug Description | Solution | Resource | Solved |
+|-------|-----------------|----------|----------|--------|
+| Booking | Time validation error when submitting booking | Update time validation in serializer to accept 'HH:MM' format | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) | ✅ |
+| Booking | 'NoneType' object has no attribute 'id' when course is not selected | Add required=True to course field in serializer | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) | ✅ |
+| Booking | Bookings allowed on dates other than 10th of the month | Implement date validation in serializer | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) | ✅ |
+| Booking | Users can book past dates | Add validation to prevent booking past dates in serializer | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) | ✅ |
+| Booking | Multiple bookings for same course, date and time | Remove `unique_together` constraint from Booking model and implement serializer-based validation | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) | ✅ |
+| Booking | Booking creation fails silently on the frontend | Improve error handling and display in React component | [React Error Boundaries](https://reactjs.org/docs/error-boundaries.html) | ✅ |
+| Booking | Error persists for future dates after fixing past date issue | Update frontend state management to clear previous errors | [React State Management](https://reactjs.org/docs/hooks-state.html) | ✅ |
 
 **General Bugs**
 
