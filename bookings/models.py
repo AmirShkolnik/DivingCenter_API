@@ -21,9 +21,6 @@ class Booking(models.Model):
     additional_info = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        unique_together = ['course', 'date', 'time']
-
     def __str__(self):
         course_name = self.course.get_course_type_display() if self.course else 'No course'
         return f"{self.user.username} - {course_name} on {self.date} at {self.time}"
