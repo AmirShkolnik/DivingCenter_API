@@ -32,15 +32,23 @@ class BookingSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, data):
-        course = data['course']
-        date = data['date']
-        time = data['time']
+        course = data.get('course')
+        date = data.get('date')
+        time = data.get('time')
 
-        existing_booking = Booking.objects.filter(
-            course=course,
-            date=date,
-            time=time
-        ).exclude(id=instance_id).exists()
+        if self.instance:  # If updating an existing booking
+            # Exclude the current instance from the check
+            existing_booking = Booking.objects.filter(
+                course=course,
+                date=date,
+                time=time
+            ).exclude(id=self.instance.id).exists()
+        else:  # If creating a new booking
+            existing_booking = Booking.objects.filter(
+                course=course,
+                date=date,
+                time=time
+            ).exists()
 
         if existing_booking:
             raise serializers.ValidationError("A booking for this course, date, and time already exists.")
