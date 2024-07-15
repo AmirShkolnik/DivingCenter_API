@@ -40,7 +40,7 @@ class BookingSerializer(serializers.ModelSerializer):
             course=course,
             date=date,
             time=time
-        ).exists()
+        ).exclude(id=instance_id).exists()
 
         if existing_booking:
             raise serializers.ValidationError("A booking for this course, date, and time already exists.")
