@@ -2,22 +2,16 @@ from django.db import IntegrityError
 from rest_framework import viewsets, status, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .models import Booking, DivingCourse
-from .serializers import BookingSerializer, DivingCourseSerializer
+from .models import Booking
+from .serializers import BookingSerializer
 import logging
 
 logger = logging.getLogger(__name__)
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
-    """
-    Custom permission to only allow owners of an object to edit it.
-    """
-
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-
-        # Write permissions are only allowed to the owner of the booking.
         return obj.user == request.user
 
 class BookingViewSet(viewsets.ModelViewSet):
@@ -66,7 +60,3 @@ class BookingViewSet(viewsets.ModelViewSet):
         self.perform_destroy(instance)
         logger.info(f"Booking deleted successfully for user {request.user.username}")
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-class DivingCourseViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = DivingCourse.objects.all()
-    serializer_class = DivingCourseSerializer

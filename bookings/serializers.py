@@ -1,19 +1,17 @@
 from rest_framework import serializers
 from django.utils import timezone
-from .models import Booking, DivingCourse
-
-class DivingCourseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DivingCourse
-        fields = '__all__'
+from .models import Booking
+from courses.models import Course
+from courses.serializers import CourseSerializer
 
 class BookingSerializer(serializers.ModelSerializer):
-    course_name = serializers.ReadOnlyField(source='course.get_course_type_display')
+    course_name = serializers.ReadOnlyField(source='course.title')
+    course_details = CourseSerializer(source='course', read_only=True)
     time = serializers.TimeField(format='%H:%M', input_formats=['%H:%M'])
 
     class Meta:
         model = Booking
-        fields = ['id', 'user', 'date', 'time', 'course', 'course_name', 'additional_info', 'created_at']
+        fields = ['id', 'user', 'date', 'time', 'course', 'course_name', 'course_details', 'additional_info', 'created_at']
         read_only_fields = ['user']
 
     def validate_date(self, value):
