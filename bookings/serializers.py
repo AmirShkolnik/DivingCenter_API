@@ -2,11 +2,15 @@ from rest_framework import serializers
 from django.utils import timezone
 from .models import Booking
 from courses.models import Course
-from courses.serializers import CourseSerializer
+
+class SimpleCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = ['id', 'title', 'course_type', 'price']
 
 class BookingSerializer(serializers.ModelSerializer):
     course_name = serializers.ReadOnlyField(source='course.title')
-    course_details = CourseSerializer(source='course', read_only=True)
+    course_details = SimpleCourseSerializer(source='course', read_only=True)
     time = serializers.TimeField(format='%H:%M', input_formats=['%H:%M'])
 
     class Meta:
