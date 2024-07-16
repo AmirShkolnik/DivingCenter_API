@@ -64,32 +64,32 @@ These tests check if users can access the right information, create and change t
 
 | Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
 |----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
-| `/profiles/` | GET | Read | List all profiles | <details><summary>Click to view Profiles List</summary>doc/images/profiles/profiles.png</details> | Returns a list of all user profiles | Returned a list of all user profiles successfully | ✅ |
-| `/profiles/{id}/` | GET | Read | Retrieve a specific profile | <details><summary>Click to view Profile Detail</summary>doc/images/profiles/profiles-id.png</details> | Returns details of a specific user profile | Returned correct details for the specified profile | ✅ |
-| `/profiles/{id}/` | PUT | Update | Update a specific profile (owner only) | <details><summary>Click to view Profile Update step 1</summary>doc/images/profiles/profiles-put-1.png</details> <details><summary>Click to view Profile Update step 2</summary>doc/images/profiles/profiles-put-2.png</details> | Updates the profile details for the authenticated user | Profile details updated successfully for the authenticated user | ✅ |
-| `/profiles/{id}/` | PATCH | Update | Partially update a specific profile (owner only) | <details><summary>Click to view Profile Partial Update</summary>Profile Partial Update</details> | Partially updates the profile details for the authenticated user | Profile details partially updated successfully for the authenticated user | ✅ |
+| `/profiles/` | GET | Read | List all profiles | <details><summary>Click to view Profiles List</summary>![Profiles](doc/images/profiles/profiles.png)</details> | Returns a list of all user profiles | Returned a list of all user profiles successfully | ✅ |
+| `/profiles/{id}/` | GET | Read | Retrieve a specific profile | <details><summary>Click to view Profile Detail</summary>![Profiles](doc/images/profiles/profiles-id.png)</details> | Returns details of a specific user profile | Returned correct details for the specified profile | ✅ |
+| `/profiles/{id}/` | PUT | Update | Update a specific profile (owner only) | <details><summary>Click to view Profile Update step 1</summary>![Profiles](doc/images/profiles/profiles-put-1.png)</details> <details><summary>Click to view Profile Update step 2</summary>![Profiles](doc/images/profiles/profiles-put-2.png)</details> | Updates the profile details for the authenticated user | Profile details updated successfully for the authenticated user | ✅ |
+| `/profiles/{id}/` | PATCH | Update | Partially update a specific profile (owner only) | | Partially updates the profile details for the authenticated user | Profile details partially updated successfully for the authenticated user | ✅ |
 
-### Post Endpoints
+### Posts Endpoints
 
-| Endpoint             | Method | CRUD Operation | Description                          | Expected Result                         | Actual Result | Pass/Fail |
-|----------------------|--------|----------------|--------------------------------------|-----------------------------------------|---------------|-----------|
-| `/posts/`            | GET    | Read           | Retrieve a list of posts             | List of posts returned                  | List of posts returned | PASS       |
-| `/posts/`            | POST   | Create         | Create a new post                    | Post created, details returned          | Post created, details returned | PASS       |
-| `/posts/<id>/`       | GET    | Read           | Retrieve a specific post by ID       | Post details returned                   | Post details returned | PASS       |
-| `/posts/<id>/`       | PUT    | Update         | Update a specific post by ID         | Post updated, updated details returned  | Post updated, updated details returned | PASS       |
-| `/posts/<id>/`       | PATCH  | Update         | Partially update a specific post by ID | Post partially updated, updated details returned | Post partially updated, updated details returned | PASS       |
-| `/posts/<id>/`       | DELETE | Delete         | Delete a specific post by ID         | Post deleted                            | Post deleted | PASS       |
+| Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
+|----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
+| `/posts/` | GET | Read | Retrieve a list of posts | <details><summary>Click to view Posts List</summary>![Posts](doc/images/posts/posts-list-users-get-1.png)</details> | List of posts returned | List of posts returned | ✅ |
+| `/posts/` | POST | Create | Create a new post | <details><summary>Click to view Create Post</summary>![Posts]()</details> | Post created, details returned | Post created, details returned | ✅ |
+| `/posts/<id>/` | GET | Read | Retrieve a specific post by ID | <details><summary>Click to view Post Detail</summary>![Posts]()</details> | Post details returned | Post details returned | ✅ |
+| `/posts/<id>/` | PUT | Update | Update a specific post by ID | <details><summary>Click to view Update Post - Missing Title Test</summary>![Posts](doc/images/posts/posts-post-title-missing-1.png)</details> | Post updated, updated details returned | Post updated, updated details returned | ✅ |
+| `/posts/<id>/` | PATCH | Update | Partially update a specific post by ID | <details><summary>Click to view Partial Update Post</summary>![Posts]()</details> | Post partially updated, updated details returned | Post partially updated, updated details returned | ✅ |
+| `/posts/<id>/` | DELETE | Delete | Delete a specific post by ID | <details><summary>Click to view Delete Post</summary>![Posts]()</details> | Post deleted | Post deleted | ✅ |
 
-### Comment Endpoints
+### Comments Endpoints
 
-| Endpoint              | Method | CRUD Operation | Description                             | Expected Result                          | Actual Result | Pass/Fail |
-|-----------------------|--------|----------------|-----------------------------------------|------------------------------------------|---------------|-----------|
-| `/comments/`          | GET    | Read           | Retrieve a list of comments             | List of comments returned                | List of comments returned | PASS       |
-| `/comments/`          | POST   | Create         | Create a new comment                    | Comment created, details returned        | Comment created, details returned | PASS       |
-| `/comments/<id>/`     | GET    | Read           | Retrieve a specific comment by ID       | Comment details returned                 | Comment details returned | PASS       |
-| `/comments/<id>/`     | PUT    | Update         | Update a specific comment by ID         | Comment updated, updated details returned | Comment updated, updated details returned | PASS       |
-| `/comments/<id>/`     | PATCH  | Update         | Partially update a specific comment by ID | Comment partially updated, updated details returned | Comment partially updated, updated details returned | PASS       |
-| `/comments/<id>/`     | DELETE | Delete         | Delete a specific comment by ID         | Comment deleted                          | Comment deleted | PASS       |
+| Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
+|----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
+| `/comments/` | GET | Read | List all comments | <details><summary>Click to view Comments List</summary>![Comments]()</details> | Returns a list of all comments | Returned a list of all comments successfully | ✅ |
+| `/comments/` | POST | Create | Create a new comment (authenticated users only) | <details><summary>Click to view Create Comment</summary>![Comments]()</details> | New comment is created and returned | New comment created and returned successfully | ✅ |
+| `/comments/{id}/` | GET | Read | Retrieve a specific comment | <details><summary>Click to view Comment Detail</summary>![Comments]()</details> | Returns details of a specific comment | Returned correct details for the specified comment | ✅ |
+| `/comments/{id}/` | PUT | Update | Update a specific comment (owner only) | <details><summary>Click to view Update Comment step 1</summary>![Comments](doc/images/comments/comments-user-put-1.png)</details> <details><summary>Click to view Update Comment step 2</summary>![Comments](doc/images/comments/comments-user-put-2.png)</details> | Updates the comment details for the authenticated owner | Comment details updated successfully for the authenticated owner | ✅ |
+| `/comments/{id}/` | PATCH | Update | Partially update a specific comment (owner only) | <details><summary>Click to view Partial Update Comment</summary>![Comments]()</details> | Partially updates the comment details for the authenticated owner | Comment details partially updated successfully for the authenticated owner | ✅ |
+| `/comments/{id}/` | DELETE | Delete | Delete a specific comment (owner only) | <details><summary>Click to view Delete Comment step 1</summary>![Comments](doc/images/comments/comments-user-delete-1.png)</details> <details><summary>Click to view Delete Comment step 2</summary>![Comments](doc/images/comments/comments-user-delete-2.png)</details> | Deletes the specified comment for the authenticated owner | Comment deleted successfully for the authenticated owner | ✅ |
 
 ### Daily Routine Endpoints
 
