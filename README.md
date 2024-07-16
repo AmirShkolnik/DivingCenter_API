@@ -13,7 +13,7 @@
 
 ### Diving Center - A Community for Scuba Enthusiasts
 
-* **Build a thriving online community:** Foster a welcoming space for scuba divers of all levels to connect, share experiences, and learn from each other. [Click to watch the diving center home page](https://divingspace-900b5a3db777.herokuapp.com/courses)
+* **Build a thriving online community:** Build a welcoming space for scuba divers of all levels to connect, share experiences, and learn from each other. [Click to watch the diving center home page](https://divingspace-900b5a3db777.herokuapp.com/courses)
 
 * **Simplify course booking and management:** Allow divers to easily browse and book diving courses directly through the platform. [Courses page](https://divingspace-900b5a3db777.herokuapp.com/courses) ; [Course review and rating](https://divingspace-900b5a3db777.herokuapp.com/courses/advanced-open-water-diver) ; [Contact form](https://divingspace-900b5a3db777.herokuapp.com/contactus)
 
@@ -302,7 +302,7 @@ The Post model manages user-generated content for the community feed.
 
 ### Comment Model
 
-This model allows users to comment on posts, fostering community interaction.
+This model allows users to comment on posts and having community interaction.
 
 **Fields**:
 
