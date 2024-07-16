@@ -51,11 +51,13 @@ These tests check if users can access the right information, create and change t
 
 ### Authentication Endpoints
 
-| Endpoint                 | Method | CRUD Operation | Description                                      | Expected Result                  | Actual Result | Pass/Fail |
-|--------------------------|--------|----------------|--------------------------------------------------|----------------------------------|---------------|-----------|
-| `/dj-rest-auth/login/`   | POST   | Create         | Log in a user and obtain authentication tokens   | User logged in, tokens returned  | User logged in, tokens returned | PASS       |
-| `/dj-rest-auth/logout/`  | POST   | Delete         | Log out a user and invalidate tokens             | User logged out, tokens invalidated | User logged out, tokens invalidated | PASS       |
-| `/dj-rest-auth/registration/` | POST | Create      | Register a new user                              | User registered, details returned | User registered, details returned | PASS       |
+| Endpoint | Method | CRUD Operation | Description | Details | Expected Result | Actual Result | Pass/Fail |
+|----------|--------|----------------|-------------|---------|-----------------|---------------|-----------|
+| `/admin/` | GET | Read | Django Admin interface | | Admin interface loads successfully | Admin interface loaded successfully | ✅ |
+| `/dj-rest-auth/logout/` | POST | Delete | Custom logout route | <details> <summary>Click to view Logout</summary> ![Authentication](doc/images/logout/dj-rest-auth-logout.png)</details> | User is logged out and session is terminated | User logged out successfully | ✅ |
+| `/dj-rest-auth/login/` | POST | Create | User login | <details><summary>Click to view Login step 1</summary>![Authentication](doc/images/login/dj-rest-auth-login-post-1.png)</details> <details><summary>Click to view Login step 2</summary>![Authentication](doc/images/login/dj-rest-auth-login-post-2.png)</details> | User is authenticated and receives a token | User authenticated and received token | ✅ |
+| `/dj-rest-auth/user/` | GET | Read | Get current user details | <details><summary>Click to view User Get</summary>![Authentication](doc/images/user/dj-rest-auth-user-get-1.png)</details> <details><summary>Click to view User Put step 1</summary>![Authentication](doc/images/user/dj-rest-auth-user-put-1.png)</details> <details><summary>Click to view User Put step 2</summary>![Authentication](doc/images/user/dj-rest-auth-user-put-2.png)</details>| Returns current user's profile information | Returned correct user profile information | ✅ |
+| `/dj-rest-auth/registration/` | POST | Create | User registration | <details><summary>Click to view Registration Post step 1</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post.png)</details> <details><summary>Click to view Registration Post step 2</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post-2.png)</details> <details><summary>Click to view Registration Post step 3</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post-3.png)</details>| New user account is created | New user account created successfully | ✅ |
 
 ### Profile Endpoints
 
@@ -146,6 +148,7 @@ This table provides a clear overview of the API endpoints tested, including thei
 This provides an overview of the automated tests implemented for the Fit and Fine project. These tests ensure the reliability and correctness of various functionalities, including user authentication, model validations, and API endpoints.
 
 ### Challenge Model Tests
+
 
 **File:** `/workspace/FitandFine-P5/challenges/tests.py`
 
