@@ -51,24 +51,23 @@ These tests check if users can access the right information, create and change t
 
 ### Authentication Endpoints
 
-| Endpoint | Method | CRUD Operation | Description | Details | Expected Result | Actual Result | Pass/Fail |
+| Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
 |----------|--------|----------------|-------------|---------|-----------------|---------------|-----------|
 | `/admin/` | GET | Read | Django Admin interface | | Admin interface loads successfully | Admin interface loaded successfully | ✅ |
 | `/dj-rest-auth/logout/` | POST | Delete | Custom logout route | <details> <summary>Click to view Logout</summary> ![Authentication](doc/images/logout/dj-rest-auth-logout.png)</details> | User is logged out and session is terminated | User logged out successfully | ✅ |
 | `/dj-rest-auth/login/` | POST | Create | User login | <details><summary>Click to view Login step 1</summary>![Authentication](doc/images/login/dj-rest-auth-login-post-1.png)</details> <details><summary>Click to view Login step 2</summary>![Authentication](doc/images/login/dj-rest-auth-login-post-2.png)</details> | User is authenticated and receives a token | User authenticated and received token | ✅ |
-| `/dj-rest-auth/user/` | GET | Read | Get current user details | <details><summary>Click to view User Get</summary>![Authentication](doc/images/user/dj-rest-auth-user-get-1.png)</details> <details><summary>Click to view User Put step 1</summary>![Authentication](doc/images/user/dj-rest-auth-user-put-1.png)</details> <details><summary>Click to view User Put step 2</summary>![Authentication](doc/images/user/dj-rest-auth-user-put-2.png)</details>| Returns current user's profile information | Returned correct user profile information | ✅ |
+| `/dj-rest-auth/user/` | GET | Read | Get current user details | <details><summary>Click to view User Get</summary>![Authentication](doc/images/user/dj-rest-auth-user-get-1.png)</details> | Returns current user's profile information | Returned correct user profile information | ✅ |
+| `/dj-rest-auth/user/` | PUT | Update | Update current user details | <details><summary>Click to view User Put</summary>![Authentication](doc/images/user/dj-rest-auth-user-put-1.png)</details> | User details are updated successfully | User details updated correctly | ✅ |
 | `/dj-rest-auth/registration/` | POST | Create | User registration | <details><summary>Click to view Registration Post step 1</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post.png)</details> <details><summary>Click to view Registration Post step 2</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post-2.png)</details> <details><summary>Click to view Registration Post step 3</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post-3.png)</details>| New user account is created | New user account created successfully | ✅ |
 
 ### Profile Endpoints
 
-| Endpoint                | Method | CRUD Operation | Description                               | Expected Result                          | Actual Result | Pass/Fail |
-|-------------------------|--------|----------------|-------------------------------------------|------------------------------------------|---------------|-----------|
-| `/profiles/`            | GET    | Read           | Retrieve a list of profiles               | List of profiles returned                | List of profiles returned | PASS       |
-| `/profiles/`            | POST   | Create         | Create a new profile (admin only)         | Profile created, details returned        | Profile created, details returned | PASS       |
-| `/profiles/<id>/`       | GET    | Read           | Retrieve a specific profile by ID         | Profile details returned                 | Profile details returned | PASS       |
-| `/profiles/<id>/`       | PUT    | Update         | Update a specific profile by ID           | Profile updated, updated details returned | Profile updated, updated details returned | PASS       |
-| `/profiles/<id>/`       | PATCH  | Update         | Partially update a specific profile by ID | Profile partially updated, updated details returned | Profile partially updated, updated details returned | PASS       |
-| `/profiles/<id>/`       | DELETE | Delete         | Delete a specific profile by ID (admin only) | Profile deleted                          | Profile deleted | PASS       |
+| Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
+|----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
+| `/profiles/` | GET | Read | List all profiles | <details><summary>Click to view Profiles List</summary>doc/images/profiles/profiles.png</details> | Returns a list of all user profiles | Returned a list of all user profiles successfully | ✅ |
+| `/profiles/{id}/` | GET | Read | Retrieve a specific profile | <details><summary>Click to view Profile Detail</summary>doc/images/profiles/profiles-id.png</details> | Returns details of a specific user profile | Returned correct details for the specified profile | ✅ |
+| `/profiles/{id}/` | PUT | Update | Update a specific profile (owner only) | <details><summary>Click to view Profile Update step 1</summary>doc/images/profiles/profiles-put-1.png</details> <details><summary>Click to view Profile Update step 2</summary>doc/images/profiles/profiles-put-2.png</details> | Updates the profile details for the authenticated user | Profile details updated successfully for the authenticated user | ✅ |
+| `/profiles/{id}/` | PATCH | Update | Partially update a specific profile (owner only) | <details><summary>Click to view Profile Partial Update</summary>Profile Partial Update</details> | Partially updates the profile details for the authenticated user | Profile details partially updated successfully for the authenticated user | ✅ |
 
 ### Post Endpoints
 
