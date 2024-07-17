@@ -19,7 +19,7 @@ class Course(models.Model):
     ]
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
-    excerpt = models.TextField(max_length=200, blank=True)  # New field
+    excerpt = models.TextField(max_length=200, blank=True)
     description = HTMLField()
     course_type = models.CharField(max_length=3, choices=COURSE_TYPES)
     image = CloudinaryField('image', blank=True, null=True)
@@ -28,17 +28,20 @@ class Course(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        
-        # Ensure uniqueness of slug
-        original_slug = self.slug
-        count = 1
-        while Course.objects.filter(slug=self.slug).exists():
-            self.slug = f"{original_slug}-{count}"
-            count += 1
-        
+        if not self.slug or not Course.objects.filter(slug=self.slug).exists():
+            self.slug = self.generate_unique_slug()
+        elif self.title != Course.objects.get(slug=self.slug).title:
+            self.slug = self.generate_unique_slug()
         super().save(*args, **kwargs)
+
+    def generate_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Course.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
 
     def __str__(self):
         return self.title
