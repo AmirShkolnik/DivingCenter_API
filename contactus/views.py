@@ -10,9 +10,6 @@ class ContactView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, pk=None):
-        if not request.user.is_staff:
-            return Response({"error": "You do not have permission to view this content."}, status=status.HTTP_403_FORBIDDEN)
-        
         if pk:
             try:
                 contact = Contact.objects.get(pk=pk)
@@ -44,12 +41,11 @@ class ContactView(APIView):
 
         serializer = ContactSerializer(contact, data=request.data)
         if serializer.is_valid():
-            # Generate a new deletion token
-            new_deletion_token = uuid4()
-            updated_contact = serializer.save(deletion_token=new_deletion_token)
+            # Keep the old deletion token
+            updated_contact = serializer.save(deletion_token=contact.deletion_token)
             return Response({
                 "id": updated_contact.id,
-                "deletion_token": str(new_deletion_token),
+                "deletion_token": str(contact.deletion_token),
                 "message": "Your message has been updated successfully!"
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -60,10 +56,7 @@ class ContactView(APIView):
         
         try:
             contact = Contact.objects.get(pk=pk)
-            # Check if the request includes a valid deletion token
             deletion_token = request.query_params.get('deletion_token')
-            print(f"Received token: {deletion_token}")  # Add this for debugging
-            print(f"Stored token: {contact.deletion_token}")
             if contact.deletion_token and str(contact.deletion_token) == deletion_token:
                 contact.delete()
                 return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
