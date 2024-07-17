@@ -100,43 +100,22 @@ These tests check if users can access the right information, create and change t
 | `/likes/{id}/` | GET | Read | Retrieve a specific like | <details><summary>Click to view Like Detail step 1</summary>![Likes](doc/images/likes/likes-get-user-1.png)</details> <details><summary>Click to view Like Detail step 2</summary>![Likes](doc/images/likes/likes-get-user-2.png)</details> | Returns details of a specific like | Returned correct details for the specified like | ✅ |
 | `/likes/{id}/` | DELETE | Delete | Delete a specific like (owner only) | <details><summary>Click to view Delete Like step 1</summary>![Likes](doc/images/likes/likes-delete-user-1.png)</details> <details><summary>Click to view Delete Like step 2</summary>![Likes](doc/images/likes/likes-delete-user-2.png)</details> <details><summary>Click to view Delete Like step 3</summary>![Likes](doc/images/likes/likes-delete-user-3.png)</details>| Deletes the specified like for the authenticated owner | Like deleted successfully for the authenticated owner | ✅ |
 
-### Challenge Endpoints
+### Followers Endpoints
 
-| Endpoint                  | Method | CRUD Operation | Description                              | Expected Result                          | Actual Result | Pass/Fail |
-|---------------------------|--------|----------------|------------------------------------------|------------------------------------------|---------------|-----------|
-| `/challenges/`            | GET    | Read           | Retrieve a list of challenges            | List of challenges returned              | List of challenges returned | PASS       |
-| `/challenges/`            | POST   | Create         | Create a new challenge                   | Challenge created, details returned      | Challenge created, details returned | PASS       |
-| `/challenges/<id>/`       | GET    | Read           | Retrieve a specific challenge by ID      | Challenge details returned               | Challenge details returned | PASS       |
-| `/challenges/<id>/`       | PUT    | Update         | Update a specific challenge by ID        | Challenge updated, updated details returned | Challenge updated, updated details returned | PASS       |
-| `/challenges/<id>/`       | PATCH  | Update         | Partially update a specific challenge by ID | Challenge partially updated, updated details returned | Challenge partially updated, updated details returned | PASS       |
-| `/challenges/<id>/`       | DELETE | Delete         | Delete a specific challenge by ID        | Challenge deleted                        | Challenge deleted | PASS       |
-| `/challenges/<id>/join/`  | POST   | Create         | Join a specific challenge                | Joined challenge                         | Joined challenge | PASS       |
-| `/challenges/<id>/leave/` | POST   | Create         | Leave a specific challenge               | Left challenge                           | Left challenge | PASS       |
+| Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
+|----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
+| `/followers/` | GET | Read | List all follower relationships | <details><summary>Click to view Followers List</summary>![Followers](doc/images/followers/followers-get-1.png)</details> | Returns a list of all follower relationships | Returned a list of all follower relationships successfully | ✅ |
+| `/followers/` | POST | Create | Create a new follower relationship (authenticated users only) | <details><summary>Click to view Create Follower</summary>![Followers](doc/images/followers/followers-post-2.png)</details> | New follower relationship is created and returned | New follower relationship created and returned successfully | ✅ |
+| `/followers/{id}/` | GET | Read | Retrieve a specific follower relationship | <details><summary>Click to view Follower Detail</summary>![Followers]()</details> | Returns details of a specific follower relationship | Returned correct details for the specified follower relationship | ✅ |
+| `/followers/{id}/` | DELETE | Delete | Delete a specific follower relationship (owner only) | <details><summary>Click to view Delete Follower step 1</summary>![Followers](doc/images/followers/followers-delete-1.png)</details> <details><summary>Click to view Delete Follower step 2</summary>![Followers](doc/images/followers/followers-delete-2.png)</details> <details><summary>Click to view Delete Follower step 3</summary>![Followers](doc/images/followers/followers-delete-3.png)</details>| Deletes the specified follower relationship for the authenticated owner | Follower relationship deleted successfully for the authenticated owner | ✅ |
 
-### Collaborate Endpoints
+### Bookings Endpoints
 
-| Endpoint                    | Method | CRUD Operation | Description                                  | Expected Result                           | Actual Result | Pass/Fail |
-|-----------------------------|--------|----------------|----------------------------------------------|-------------------------------------------|---------------|-----------|
-| `/collaborate/`             | GET    | Read           | Retrieve a list of collaboration messages    | List of collaboration messages returned   | List of collaboration messages returned | PASS       |
-| `/collaborate/`             | POST   | Create         | Create a new collaboration message           | Collaboration message created, details returned | Collaboration message created, details returned | PASS       |
-| `/collaborate/<id>/`        | GET    | Read           | Retrieve a specific collaboration message by ID | Collaboration message details returned    | Collaboration message details returned | PASS       |
-| `/collaborate/<id>/`        | DELETE | Delete         | Delete a specific collaboration message by ID | Collaboration message deleted             | Collaboration message deleted | PASS       |
+### Contact Us Endpoints
 
-### Like Endpoints
+### Courses Endpoints
 
-| Endpoint             | Method | CRUD Operation | Description                           | Expected Result                     | Actual Result | Pass/Fail |
-|----------------------|--------|----------------|---------------------------------------|-------------------------------------|---------------|-----------|
-| `/likes/`            | GET    | Read           | Retrieve a list of likes              | List of likes returned              | List of likes returned | PASS       |
-| `/likes/`            | POST   | Create         | Create a new like                     | Like created, details returned      | Like created, details returned | PASS       |
-| `/likes/<id>/`       | DELETE | Delete         | Delete a specific like by ID          | Like deleted                        | Like deleted | PASS       |
-
-### Follower Endpoints
-
-| Endpoint               | Method | CRUD Operation | Description                          | Expected Result                     | Actual Result | Pass/Fail |
-|------------------------|--------|----------------|--------------------------------------|-------------------------------------|---------------|-----------|
-| `/followers/` | GET    | Read           | Retrieve a list of followers         | List of followers returned          | List of followers returned | PASS       |
-| `/followers/`          | POST   | Create         | Follow a user                        | Follow successful                   | Follow successful | PASS       |
-| `/followers/<id>/`     | DELETE | Delete         | Unfollow a user by ID                | Unfollow successful                 | Unfollow successful | PASS       |
+### Reviews Endpoints
 
 This table provides a clear overview of the API endpoints tested, including their HTTP methods, descriptions, CRUD operations, expected and actual results, and whether the test passed or failed.
 
