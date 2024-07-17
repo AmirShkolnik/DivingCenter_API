@@ -28,9 +28,7 @@ class Course(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug or not Course.objects.filter(slug=self.slug).exists():
-            self.slug = self.generate_unique_slug()
-        elif self.title != Course.objects.get(slug=self.slug).title:
+        if not self.slug:
             self.slug = self.generate_unique_slug()
         super().save(*args, **kwargs)
 
@@ -45,6 +43,8 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+
+# The Review model remains unchanged
 
 class Review(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')

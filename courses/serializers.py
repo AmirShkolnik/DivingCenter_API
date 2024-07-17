@@ -23,7 +23,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ['id', 'title', 'slug', 'excerpt', 'description', 'course_type', 'image', 'price', 'price_display', 'reviews', 'average_rating', 'created_at', 'updated_at']
-        read_only_fields = ['slug', 'average_rating', 'reviews']
+        read_only_fields = ['average_rating', 'reviews']
 
     def get_average_rating(self, obj):
         reviews = obj.reviews.all()
