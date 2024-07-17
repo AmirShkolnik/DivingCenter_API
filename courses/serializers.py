@@ -6,7 +6,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ['id', 'user', 'course', 'content', 'rating', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'content', 'rating', 'created_at', 'updated_at']
         read_only_fields = ['id', 'user', 'created_at', 'updated_at']
 
     def validate(self, data):
@@ -23,7 +23,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ['id', 'title', 'slug', 'excerpt', 'description', 'course_type', 'image', 'price', 'price_display', 'reviews', 'average_rating', 'created_at', 'updated_at']
-        read_only_fields = ['slug']
+        read_only_fields = ['slug', 'average_rating', 'reviews']
 
     def get_average_rating(self, obj):
         reviews = obj.reviews.all()
