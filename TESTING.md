@@ -122,11 +122,20 @@ These tests check if users can access the right information, create and change t
 
 ### Contact Us Endpoints
 
+For testing purposes with the Django Rest Framework, I used the following code:
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "subject": "Test Subject",
+    "message": "This is a test message."
+}
+In the future, for a better user experience, I will implement the Django Rest Framework HTML function to maintain browser compatibility.
+
 | Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
 |----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
-| `/contactus/` | POST | Create | Create a new contact message | <details><summary>Click to view Create Contact Message step 1</summary>![Contact Us](doc/images/contactus/contactus-post-empty-1.png)</details> <details><summary>Click to view Create Contact Message step 2</summary>![Contact Us](doc/images/contactus/contactus-post-2.png)</details> <details><summary>Click to view Create Contact Message step 3</summary>![Contact Us](doc/images/contactus/contactus-post-success-3.png)</details>| New contact message is created and returned | New contact message created and returned successfully | ✅ |
-| `/contactus/{id}/` | PUT | Update | Update an existing contact message | <details><summary>Click to view Update Contact Message</summary>![Contact Us](doc/images/contactus/contactus-put.png)</details> | Updates the existing contact message | Contact message updated successfully | ✅ |
-| `/contactus/{id}` | DELETE | Delete | Delete a specific contact message | <details><summary>Click to view Delete Contact Message step 1</summary>![Contact Us](doc/images/contactus/contactus-delete-1.png)</details> <details><summary>Click to view Delete Contact Message step 2 - Delete Success</summary>![Contact Us](doc/images/contactus/contactus-delete-4.png)</details> <details><summary>Click to view Delete Updated Contact Message </summary>![Contact Us](doc/images/contactus/contactus-update-delete-3.png)</details> | Deletes the specified contact message | Contact message deleted successfully | ✅ |
+| `/contactus/` | POST | Create | Create a new contact message | <details><summary>Click to view Create Contact Message step 1 - Empty</summary>![Contact Us](doc/images/contactus/contactus.png)</details> <details><summary>Click to view Create Contact Message step 2 - Add Message</summary>![Contact Us](doc/images/contactus/contactus-post-2.png)</details> <details><summary>Click to view Create Contact Message step 3 - Success</summary>![Contact Us](doc/images/contactus/contactus-post-success-3.png)</details> <details><summary>Click to view Create Contact Message Test - Missing Fields</summary>![Contact Us](doc/images/contactus/contactus-post-empty-1.png)</details>| New contact message is created and returned | New contact message created and returned successfully | ✅ |
+| `/contactus/{id}/` | PUT | Update | Update an existing contact message | <details><summary>Click to view Update Contact Message step 1</summary>![Contact Us](doc/images/contactus/contactup-put-update-3.png)</details> <details><summary>Click to view Update Contact Message step 2</summary>![Contact Us](doc/images/contactus/contactup-put-update-4.png)</details> <details><summary>Click to view Update Contact Message step 3</summary>![Contact Us](doc/images/contactus/contactup-put-update-5.png)</details> <details><summary>Click to view Update Contact Message step 4</summary>![Contact Us](doc/images/contactus/contactup-put-update-6.png)</details>| Updates the existing contact message | Contact message updated successfully | ✅ |
+| `/contactus/{id}` | DELETE | Delete | Delete a specific contact message | <details><summary>Click to view Delete Contact Message step 1</summary>![Contact Us](doc/images/contactus/contactus-delete-1.png)</details> <details><summary>Click to view Delete Contact Message step 2 - Delete Success</summary>![Contact Us](doc/images/contactus/contactus-delete-4.png)</details> <details><summary>Click to view Delete Updated Contact Message step 1 </summary>![Contact Us](doc/images/contactus/contactus-delete-after-update-1.png)</details> <details><summary>Click to view Delete Updated Contact Message step 2 </summary>![Contact Us](doc/images/contactus/contactus-delete-after-update-2.png)</details>| Deletes the specified contact message | Contact message deleted successfully | ✅ |
 
 ### Courses Endpoints
 
