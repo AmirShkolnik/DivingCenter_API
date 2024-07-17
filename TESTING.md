@@ -139,6 +139,26 @@ In the future, for a better user experience, I will implement the Django Rest Fr
 
 ### Courses Endpoints
 
+#### Future Improvements Flexible Course Management System and Dynamic Course Types and Prices
+
+We plan to enhance the flexibility of our Course model by:
+
+1. Removing hardcoded course types and prices.
+2. Implementing a system that allows website owners to:
+   - Add, edit, or remove course types dynamically.
+   - Set custom price points without being restricted to predefined options.
+
+This improvement will provide greater adaptability to changing business needs and course offerings.
+
+| Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
+|----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
+| `/courses/` | GET | Read | List all courses | <details><summary>Click to view Courses List</summary>![Courses](doc/images/courses/courses-get.png)</details> | Returns a list of all courses | Returned a list of all courses successfully | ✅ |
+| `/courses/` | POST | Create | Create a new course (admin only) | <details><summary>Click to view Create Course</summary>![Courses]()</details> | New course is created and returned (admin only) | New course created and returned successfully (admin only) | ✅ |
+| `/courses/{slug}/` | GET | Read | Retrieve a specific course | <details><summary>Click to view Course Detail</summary>![Courses]()</details> | Returns details of a specific course | Returned correct details for the specified course | ✅ |
+| `/courses/{slug}/` | PUT | Update | Update a specific course (admin only) | <details><summary>Click to view Update Course</summary>![Courses]()</details> | Updates the course details (admin only) | Course details updated successfully (admin only) | ✅ |
+| `/courses/{slug}/` | PATCH | Update | Partially update a specific course (admin only) | <details><summary>Click to view Partial Update Course</summary>![Courses]()</details> | Partially updates the course details (admin only) | Course details partially updated successfully (admin only) | ✅ |
+| `/courses/{slug}/` | DELETE | Delete | Delete a specific course (admin only) | <details><summary>Click to view Delete Course step 1</summary>![Courses](doc/images/courses/courses-admin-delete-1.png)</details> <details><summary>Click to view Delete Course step 2</summary>![Courses](doc/images/courses/courses-admin-delete-2.png)</details> | Deletes the specified course (admin only) | Course deleted successfully (admin only) | ✅ |
+
 ### Reviews Endpoints
 
 This table provides a clear overview of the API endpoints tested, including their HTTP methods, descriptions, CRUD operations, expected and actual results, and whether the test passed or failed.

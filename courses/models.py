@@ -17,13 +17,13 @@ class Course(models.Model):
         (12000, '12000 $'),
         (15000, '15000 $'),
     ]
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=False, null=False)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
-    excerpt = models.TextField(max_length=200, blank=True)
-    description = HTMLField()
-    course_type = models.CharField(max_length=3, choices=COURSE_TYPES)
-    image = CloudinaryField('image', blank=True, null=True)
-    price = models.IntegerField(choices=PRICE_CHOICES, default=2000)
+    excerpt = models.TextField(max_length=200, blank=False, null=False)
+    description = HTMLField(blank=False, null=False)
+    course_type = models.CharField(max_length=3, choices=COURSE_TYPES, blank=False, null=False)
+    image = CloudinaryField('image', blank=False, null=False)
+    price = models.IntegerField(choices=PRICE_CHOICES, default=2000, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -43,9 +43,7 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
-
-# The Review model remains unchanged
-
+        
 class Review(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
