@@ -161,7 +161,14 @@ This improvement will provide greater adaptability to changing business needs an
 
 ### Reviews Endpoints
 
-This table provides a clear overview of the API endpoints tested, including their HTTP methods, descriptions, CRUD operations, expected and actual results, and whether the test passed or failed.
+| Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
+|----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
+| `/reviews/` | GET | Read | List all reviews | <details><summary>Click to view Reviews List</summary>![Reviews](doc/images/reviews/reviews-get.png)</details> | Returns a list of all reviews | Returned a list of all reviews successfully | ✅ |
+| `/reviews/` | POST | Create | Create a new review (authenticated users only) | <details><summary>Click to view Create Review Test - Missing Fields</summary>![Reviews](doc/images/reviews/reviews-post-missing-fields.png)</details> <details><summary>Click to view Create Review step 1</summary>![Reviews](doc/images/reviews/reviews-post-1.png)</details> <details><summary>Click to view Create Review step 2</summary>![Reviews](doc/images/reviews/reviews-post-2.png)</details>| New review is created and returned | New review created and returned successfully | ✅ |
+| `/reviews/{id}/` | GET | Read | Retrieve a specific review | <details><summary>Click to view Review Detail</summary>![Reviews]()</details> | Returns details of a specific review | Returned correct details for the specified review | ✅ |
+| `/reviews/{id}/` | PUT | Update | Update a specific review (owner only) | <details><summary>Click to view Update Review</summary>![Reviews]()</details> | Updates the review details for the authenticated owner | Review details updated successfully for the authenticated owner | ✅ |
+| `/reviews/{id}/` | PATCH | Update | Partially update a specific review (owner only) | <details><summary>Click to view Partial Update Review</summary>![Reviews]()</details> | Partially updates the review details for the authenticated owner | Review details partially updated successfully for the authenticated owner | ✅ |
+| `/reviews/{id}/` | DELETE | Delete | Delete a specific review (owner only) | <details><summary>Click to view Delete Review step 1</summary>![Reviews](doc/images/reviews/reviews-owner-delete-1.png)</details> <details><summary>Click to view Delete Review step 2 </summary>![Reviews](doc/images/reviews/reviews-owner-delete-2.png)</details> <details><summary>Click to view Delete Review step 3 - Success</summary>![Reviews](doc/images/reviews/reviews-owner-delete-3.png)</details>| Deletes the specified review for the authenticated owner | Review deleted successfully for the authenticated owner | ✅ |
 
 ## Automated Testing 
 
