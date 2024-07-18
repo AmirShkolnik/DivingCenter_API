@@ -1,66 +1,72 @@
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from .serializers import ContactSerializer
 from .models import Contact
+from django.shortcuts import get_object_or_404
 from uuid import uuid4
 
-class ContactView(APIView):
-    permission_classes = [AllowAny]
+class ContactListCreateView(generics.ListCreateAPIView):
+    serializer_class = ContactSerializer
+    
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            if self.request.user.is_staff:
+                return Contact.objects.all()
+            return Contact.objects.filter(email=self.request.user.email)
+        return Contact.objects.none()
 
-    def get(self, request, pk=None):
-        if pk:
-            try:
-                contact = Contact.objects.get(pk=pk)
-                serializer = ContactSerializer(contact)
-                return Response(serializer.data)
-            except Contact.DoesNotExist:
-                return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            contacts = Contact.objects.all()
-            serializer = ContactSerializer(contacts, many=True)
-            return Response(serializer.data)
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
-    def post(self, request):
-        serializer = ContactSerializer(data=request.data)
-        if serializer.is_valid():
-            contact = serializer.save()
-            return Response({
-                "id": contact.id,
-                "deletion_token": str(contact.deletion_token), 
-                "message": "Your message has been sent successfully!"
-            }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def perform_create(self, serializer):
+        serializer.save(deletion_token=uuid4())
 
-    def put(self, request, pk):
-        try:
-            contact = Contact.objects.get(pk=pk)
-        except Contact.DoesNotExist:
-            return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
+class ContactDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
 
-        serializer = ContactSerializer(contact, data=request.data)
-        if serializer.is_valid():
-            # Keep the old deletion token
-            updated_contact = serializer.save(deletion_token=contact.deletion_token)
-            return Response({
-                "id": updated_contact.id,
-                "deletion_token": str(contact.deletion_token),
-                "message": "Your message has been updated successfully!"
-            }, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get_permissions(self):
+        if self.request.method == 'DELETE' and self.request.user and self.request.user.is_staff:
+            return [IsAdminUser()]
+        return [AllowAny()]
 
-    def delete(self, request, pk=None):
-        if pk is None:
-            return Response({"error": "No contact ID provided"}, status=status.HTTP_400_BAD_REQUEST)
+    def get_object(self):
+        obj = super().get_object()
+        user = self.request.user
+        deletion_token = self.request.query_params.get('deletion_token')
+
+        if user.is_authenticated and user.is_staff:
+            return obj
+        elif user.is_authenticated and obj.email == user.email:
+            return obj
+        elif deletion_token and str(obj.deletion_token) == deletion_token:
+            return obj
+        return None
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance is None:
+            return Response({"error": "You don't have permission to view this message"}, status=status.HTTP_403_FORBIDDEN)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance is None:
+            return Response({"error": "You don't have permission to update this message"}, status=status.HTTP_403_FORBIDDEN)
         
-        try:
-            contact = Contact.objects.get(pk=pk)
-            deletion_token = request.query_params.get('deletion_token')
-            if contact.deletion_token and str(contact.deletion_token) == deletion_token:
-                contact.delete()
-                return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-            else:
-                return Response({"error": "Invalid deletion token"}, status=status.HTTP_403_FORBIDDEN)
-        except Contact.DoesNotExist:
-            return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(instance, data=request.data, partial=kwargs.pop('partial', False))
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance is None:
+            return Response({"error": "You don't have permission to delete this message"}, status=status.HTTP_403_FORBIDDEN)
+        
+        self.perform_destroy(instance)
+        return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)

@@ -122,20 +122,41 @@ These tests check if users can access the right information, create and change t
 
 ### Contact Us Endpoints
 
-For testing purposes with the Django Rest Framework, I used the following code:
-{
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "subject": "Test Subject",
-    "message": "This is a test message."
-}
-In the future, for a better user experience, I will implement the Django Rest Framework HTML function to maintain browser compatibility.
+#### Contact Us Form: User Cases and Functionality
+
+The Contact Us form is designed to accommodate three distinct user types, each with specific permissions and capabilities:
+
+1. **Admin Users**
+   - Full access to all messages (read, update, delete)
+   - Can perform all operations without needing a deletion token
+   - Able to manage messages from all users
+
+2. **Authenticated Users**
+   - Can create messages whether logged in or not
+   - When logged in, can view, update, and delete their own messages
+   - Messages are associated with their account email
+   - No deletion token required for managing their messages when logged in
+
+3. **Non-Authenticated Users (Visitors)**
+   - Can submit messages through the contact form
+   - Receive a deletion token upon message creation
+   - Can view, update, or delete their message using the deletion token
+
+### Deletion Token Usage
+
+For non-authenticated users or messages created while logged out, a deletion token is required for management. The token is provided in the response when creating a message and should be used in subsequent requests. For exp. https://your-api-url.com/contactus/177/?deletion_token=05452498-bbde-43a9-bd97-a695ffc8f3aa
+
+This system ensures secure message management for all user types while providing flexibility for users who may create messages before registering or logging in.
+
+Example of using a deletion token to delete a message:
 
 | Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
 |----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
-| `/contactus/` | POST | Create | Create a new contact message | <details><summary>Click to view Create Contact Message step 1 - Empty</summary>![Contact Us](doc/images/contactus/contactus.png)</details> <details><summary>Click to view Create Contact Message step 2 - Add Message</summary>![Contact Us](doc/images/contactus/contactus-post-2.png)</details> <details><summary>Click to view Create Contact Message step 3 - Success</summary>![Contact Us](doc/images/contactus/contactus-post-success-3.png)</details> <details><summary>Click to view Create Contact Message Test - Missing Fields</summary>![Contact Us](doc/images/contactus/contactus-post-empty-1.png)</details>| New contact message is created and returned | New contact message created and returned successfully | ✅ |
-| `/contactus/{id}/` | PUT | Update | Update an existing contact message | <details><summary>Click to view Update Contact Message step 1</summary>![Contact Us](doc/images/contactus/contactup-put-update-3.png)</details> <details><summary>Click to view Update Contact Message step 2</summary>![Contact Us](doc/images/contactus/contactup-put-update-4.png)</details> <details><summary>Click to view Update Contact Message step 3</summary>![Contact Us](doc/images/contactus/contactup-put-update-5.png)</details> <details><summary>Click to view Update Contact Message step 4</summary>![Contact Us](doc/images/contactus/contactup-put-update-6.png)</details>| Updates the existing contact message | Contact message updated successfully | ✅ |
-| `/contactus/{id}` | DELETE | Delete | Delete a specific contact message | <details><summary>Click to view Delete Contact Message step 1</summary>![Contact Us](doc/images/contactus/contactus-delete-1.png)</details> <details><summary>Click to view Delete Contact Message step 2 - Delete Success</summary>![Contact Us](doc/images/contactus/contactus-delete-4.png)</details> <details><summary>Click to view Delete Updated Contact Message step 1 </summary>![Contact Us](doc/images/contactus/contactus-delete-after-update-1.png)</details> <details><summary>Click to view Delete Updated Contact Message step 2 </summary>![Contact Us](doc/images/contactus/contactus-delete-after-update-2.png)</details>| Deletes the specified contact message | Contact message deleted successfully | ✅ |
+| `/contactus/` | GET | Read | List all contact messages | <details><summary>ADMIN - Click to view List All Messages</summary>![Contact Us](doc/images/contactus/admin/contactus-get-admin.png)</details> <details><summary>LOGGED IN USER - Click to view List All Messages</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-get.png)</details> | Admin sees all messages, regular logged in user sees only their messages | Correct messages displayed based on user role | ✅ |
+| `/contactus/{id}/` | GET | Read | Retrieve a specific contact message | <details><summary>ADMIN - Click to view Spesific Message</summary>![Contact Us](doc/images/contactus/admin/contactus-admin-specific-get.png)</details> <details><summary>Message OWNER - Click to view a Specific Message</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-get.png)</details> | Returns details of a specific message for admin or message owner | Correct access control applied | ✅ |
+| `/contactus/` | POST | Create | Create a new contact message | <details><summary>Click to view Create Contact Message step 1 - Empty</summary>![Contact Us](doc/images/contactus/anyuser/contactus-post.png)</details> <details><summary>Click to view Create Contact Message step 2 - Add Message</summary>![Contact Us](doc/images/contactus/anyuser/contactus-anyuser-post-.png)</details> <details><summary>Click to view Create Contact Message step 3 - Success</summary>![Contact Us](doc/images/contactus/anyuser/contactus-anyuser-post-2.png)</details> <details><summary>VISITOR - Click to view Create Contact Message step 1 </summary>![Contact Us](doc/images/contactus/anyuser/visitor-post.png)</details> <details><summary>VISITOR - Click to view Create Contact Message step 2</summary>![Contact Us](doc/images/contactus/anyuser/visitor-post-2.png)</details>| New contact message is created and returned | New contact message created and returned successfully | ✅ |
+| `/contactus/{id}/` | PUT | Update | Update an existing contact message | <details><summary>Click to view Update Contact Message step 1</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-put-1.png)</details> <details><summary>Click to view Update Contact Message step 2</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-put-2.png)</details> <details><summary>VISITOR - Click to view Update Contact Message step 1</summary>![Contact Us](doc/images/contactus/anyuser/visitor-put-1.png)</details> <details><summary>VISITOR - Click to view Update Contact Message step 2</summary>![Contact Us](doc/images/contactus/anyuser/visitor-put-2.png)</details> <details><summary>VISITOR - Click to view Update Contact Message step 3</summary>![Contact Us](doc/images/contactus/anyuser/visitor-put-3.png)</details> | Updates the existing contact message | Contact message updated successfully | ✅ |
+| `/contactus/{id}` | DELETE | Delete | Delete a specific contact message | <details><summary>LOGGED IN USER / ADMIN - Click to view Delete Contact Message step 1</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-delete-1.png)</details> <details><summary>LOGGED IN USER / ADMIN Click to view Delete Contact Message step 2 - Delete Success</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-delete-success-2.png)</details> <details><summary>VISITOR - Click to view Delete Contact Message step 1</summary>![Contact Us](doc/images/contactus/anyuser/visitor-delete-1.png)</details> <details><summary>VISITOR - Click to view Delete Contact Message step 2</summary>![Contact Us](doc/images/contactus/anyuser/visitor-delete-2.png)</details> | Deletes the specified contact message | Contact message deleted successfully | ✅ |
 
 ### Courses Endpoints
 

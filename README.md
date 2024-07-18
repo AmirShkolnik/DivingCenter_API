@@ -518,6 +518,11 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 | ContactUs | Form submission not clearing previous errors | Added error state reset in the handleSubmit function. Cleared the errors object before making new requests. | [React Bootstrap documentation: Forms](https://react-bootstrap.github.io/forms/overview/) | ✅ |
 | ContactUs | Non-logged-in users couldn't delete their messages due to permission issues | Implemented a deletion token system to allow secure message deletion without authentication. | [Django REST Framework documentation: Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
 | ContactUs | After editing a message, the deletion token became invalid, preventing message deletion | Updated the backend to generate a new deletion token when updating a message and modified the frontend to store this new token. | [UUID documentation in Python](https://docs.python.org/3/library/uuid.html) | ✅ |
+| ContactUs | Admin users couldn't delete or update messages without deletion token | Modified the delete and put methods to allow admin users to perform these actions without requiring the deletion token. | [Django REST Framework documentation: Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
+| ContactUs | Authenticated non-admin users could see all contact messages | Updated the get method to filter messages based on user authentication status and role. Admin users can see all messages, while regular users can only see their own. | [Django documentation: Queries](https://docs.djangoproject.com/en/5.0/topics/db/queries/) | ✅ |
+| ContactUs | Inconsistent permissions for different user types (admin, authenticated, non-authenticated) | Implemented a comprehensive permission system in the `get_object` method to handle all three cases: admin, authenticated users, and non-authenticated users with deletion tokens. | [Django REST Framework: Custom permissions](https://www.django-rest-framework.org/api-guide/permissions/#custom-permissions) | ✅ |
+| ContactUs | Authenticated users couldn't manage messages created while logged out | Modified the `get_object` method to allow authenticated users to manage messages associated with their email, regardless of whether they were logged in when creating the message. | [Django REST Framework: Generic views](https://www.django-rest-framework.org/api-guide/generic-views/#genericapiview) | ✅ |
+| ContactUs | Admin users needed deletion token for some operations | Updated the `get_object` method to always return the object for admin users, bypassing the deletion token check. | [Django REST Framework: Authentication](https://www.django-rest-framework.org/api-guide/authentication/) | ✅ |
 
 **Bookings Bugs**
 
@@ -535,7 +540,7 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 
 Certainly! I'll add the issue we addressed to the Courses Bugs table. Here's the updated table with the new entry:
 
-## Courses Bugs
+**Courses Bugs**
 
 | Model | Bug Description | Solution | Resource | Solved |
 |-------|-----------------|----------|----------|--------|
@@ -543,14 +548,14 @@ Certainly! I'll add the issue we addressed to the Courses Bugs table. Here's the
 | Courses | Course type not displaying correctly | Modified `CourseSerializer` to include `get_course_type_display` method | [Django Model Fields](https://docs.djangoproject.com/en/3.2/ref/models/fields/) | ✅ |
 | Courses | Any user could perform CRUD operations on courses | Implemented `IsAdminUser` permission in `CourseViewSet` for create, update, and delete actions | [DRF Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
 
-## Reviews Bugs
+**Reviews Bugs**
 
 | Model | Bug Description | Solution | Resource | Solved |
 |-------|-----------------|----------|----------|--------|
 | Reviews | Admin unable to update and delete user reviews | Modified `update` and `destroy` methods in `ReviewViewSet` to allow staff users to edit/delete any review | [DRF ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/#viewset-actions) | ✅ |
 | Reviews | Authenticated users could see all reviews | Updated `get_queryset` method in `ReviewViewSet` to filter reviews based on user authentication and staff status | [Filtering Querysets](https://www.django-rest-framework.org/api-guide/filtering/#filtering-against-the-current-user) | ✅ |
 
-## General Bugs
+**General Bugs**
 
 | Model | Bug Description | Solution | Resource | Solved |
 |-------|-----------------|----------|----------|--------|
