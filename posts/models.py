@@ -27,10 +27,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
-    content = models.TextField(blank=True)
+    content = models.TextField()
     image = models.ImageField(
-        upload_to='images/', default='../default_post_acn0ag', blank=True
-    )
+        upload_to='images/', default='../default_post_acn0ag')
     image_filter = models.CharField(
         max_length=32, choices=image_filter_choices, default='normal'
     )
