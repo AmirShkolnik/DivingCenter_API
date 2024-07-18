@@ -3,14 +3,17 @@ from .models import Course, Review
 
 class ReviewSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
+    course = serializers.PrimaryKeyRelatedField(queryset=Course.objects.all())
 
     class Meta:
         model = Review
-        fields = ['id', 'user', 'content', 'rating', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'course', 'content', 'rating', 'created_at', 'updated_at']
         read_only_fields = ['id', 'user', 'created_at', 'updated_at']
 
     def validate(self, data):
         if data['rating'] < 1 or data['rating'] > 5:
+            raise serializers.ValidationError("Rating must be between 1 and 5")
+        if data.get('rating', 0) < 1 or data.get('rating', 0) > 5:
             raise serializers.ValidationError("Rating must be between 1 and 5")
         return data
 

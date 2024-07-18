@@ -38,21 +38,27 @@ class ReviewViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        # For list view, return all reviews
-        return Review.objects.all()
+        user = self.request.user
+        if user.is_authenticated:
+            if user.is_staff:
+                return Review.objects.all()
+            else:
+                return Review.objects.filter(user=user)
+        else:
+            return Review.objects.none()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
-        if instance.user != request.user:
+        if instance.user != request.user and not request.user.is_staff:
             return Response({'detail': 'You do not have permission to edit this review.'}, status=status.HTTP_403_FORBIDDEN)
         return super().update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        if instance.user != request.user:
+        if instance.user != request.user and not request.user.is_staff:
             return Response({'detail': 'You do not have permission to delete this review.'}, status=status.HTTP_403_FORBIDDEN)
         return super().destroy(request, *args, **kwargs)
 

@@ -372,49 +372,49 @@ This table provides a comprehensive overview of all the API endpoints in the div
 | | `/dj-rest-auth/login/` | POST | Create | DRF built-in view | User login |
 | | `/dj-rest-auth/user/` | GET | Read | DRF built-in view | Get current user details |
 | | `/dj-rest-auth/registration/` | POST | Create | DRF built-in view | User registration |
-| **Profile** |
+| **Profiles** |
 | | `/profiles/` | GET | Read | ListAPIView | List all profiles |
 | | `/profiles/{id}/` | GET | Read | RetrieveUpdateAPIView | Retrieve a specific profile |
 | | `/profiles/{id}/` | PUT/PATCH | Update | RetrieveUpdateAPIView | Update a specific profile (owner only) |
-| **Post** |
+| **Posts** |
 | | `/posts/` | GET | Read | ListCreateAPIView | List all posts |
 | | `/posts/` | POST | Create | ListCreateAPIView | Create a new post (authenticated users only) |
 | | `/posts/{id}/` | GET | Read | RetrieveUpdateDestroyAPIView | Retrieve a specific post |
 | | `/posts/{id}/` | PUT/PATCH | Update | RetrieveUpdateDestroyAPIView | Update a specific post (owner only) |
 | | `/posts/{id}/` | DELETE | Delete | RetrieveUpdateDestroyAPIView | Delete a specific post (owner only) |
-| **Comment** |
+| **Comments** |
 | | `/comments/` | GET | Read | ListCreateAPIView | List all comments |
 | | `/comments/` | POST | Create | ListCreateAPIView | Create a new comment (authenticated users only) |
 | | `/comments/{id}/` | GET | Read | RetrieveUpdateDestroyAPIView | Retrieve a specific comment |
 | | `/comments/{id}/` | PUT/PATCH | Update | RetrieveUpdateDestroyAPIView | Update a specific comment (owner only) |
 | | `/comments/{id}/` | DELETE | Delete | RetrieveUpdateDestroyAPIView | Delete a specific comment (owner only) |
-| **Like** |
+| **Likes** |
 | | `/likes/` | GET | Read | ListCreateAPIView | List all likes |
 | | `/likes/` | POST | Create | ListCreateAPIView | Create a new like (authenticated users only) |
 | | `/likes/{id}/` | GET | Read | RetrieveDestroyAPIView | Retrieve a specific like |
 | | `/likes/{id}/` | DELETE | Delete | RetrieveDestroyAPIView | Delete a specific like (owner only) |
-| **Follower** |
+| **Followers** |
 | | `/followers/` | GET | Read | ListCreateAPIView | List all follower relationships |
 | | `/followers/` | POST | Create | ListCreateAPIView | Create a new follower relationship (authenticated users only) |
 | | `/followers/{id}/` | GET | Read | RetrieveDestroyAPIView | Retrieve a specific follower relationship |
 | | `/followers/{id}/` | DELETE | Delete | RetrieveDestroyAPIView | Delete a specific follower relationship (owner only) |
-| **Booking** |
+| **Bookings** |
 | | `/bookings/` | GET | Read | ModelViewSet | List all bookings for the authenticated user |
 | | `/bookings/` | POST | Create | ModelViewSet | Create a new booking (authenticated users only) |
 | | `/bookings/{id}/` | GET | Read | ModelViewSet | Retrieve a specific booking |
 | | `/bookings/{id}/` | PUT/PATCH | Update | ModelViewSet | Update a specific booking (owner only) |
 | | `/bookings/{id}/` | DELETE | Delete | ModelViewSet | Delete a specific booking (owner only) |
-| **Contact** |
+| **Contact Us** |
 | | `/contactus/` | POST | Create | APIView | Create a new contact message |
 | | `/contactus/{id}/` | PUT | Update | APIView | Update an existing contact message |
 | | `/contactus/{id}` | DELETE | Delete | Function-based view | Delete a specific contact message |
-| **Course** |
+| **Courses** |
 | | `/courses/` | GET | Read | ModelViewSet | List all courses |
 | | `/courses/` | POST | Create | ModelViewSet | Create a new course (admin only) |
 | | `/courses/{slug}/` | GET | Read | ModelViewSet | Retrieve a specific course |
 | | `/courses/{slug}/` | PUT/PATCH | Update | ModelViewSet | Update a specific course (admin only) |
 | | `/courses/{slug}/` | DELETE | Delete | ModelViewSet | Delete a specific course (admin only) |
-| **Review** |
+| **Reviews** |
 | | `/reviews/` | GET | Read | ModelViewSet | List all reviews |
 | | `/reviews/` | POST | Create | ModelViewSet | Create a new review (authenticated users only) |
 | | `/reviews/{id}/` | GET | Read | ModelViewSet | Retrieve a specific review |
@@ -533,13 +533,22 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 | Booking | Duplicate booking validation not working correctly | Updated `validate` method in `BookingSerializer` to properly check for existing bookings | [Django REST Framework Serializers](https://www.django-rest-framework.org/api-guide/serializers/) | ✅ |
 | Booking | Unable to update existing bookings | Modified `update` method in `BookingViewSet` to handle IntegrityError | [Django REST Framework ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/) | ✅ |
 
+Certainly! I'll add the issue we addressed to the Courses Bugs table. Here's the updated table with the new entry:
+
 ## Courses Bugs
 
 | Model | Bug Description | Solution | Resource | Solved |
 |-------|-----------------|----------|----------|--------|
 | Courses | Course dropdown not populating in frontend | Updated `CourseViewSet` to ensure proper serialization of course data | [Django REST Framework ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/) | ✅ |
 | Courses | Course type not displaying correctly | Modified `CourseSerializer` to include `get_course_type_display` method | [Django Model Fields](https://docs.djangoproject.com/en/3.2/ref/models/fields/) | ✅ |
+| Courses | Any user could perform CRUD operations on courses | Implemented `IsAdminUser` permission in `CourseViewSet` for create, update, and delete actions | [DRF Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
 
+## Reviews Bugs
+
+| Model | Bug Description | Solution | Resource | Solved |
+|-------|-----------------|----------|----------|--------|
+| Reviews | Admin unable to update and delete user reviews | Modified `update` and `destroy` methods in `ReviewViewSet` to allow staff users to edit/delete any review | [DRF ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/#viewset-actions) | ✅ |
+| Reviews | Authenticated users could see all reviews | Updated `get_queryset` method in `ReviewViewSet` to filter reviews based on user authentication and staff status | [Filtering Querysets](https://www.django-rest-framework.org/api-guide/filtering/#filtering-against-the-current-user) | ✅ |
 
 ## General Bugs
 
