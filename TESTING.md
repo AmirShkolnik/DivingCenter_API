@@ -224,10 +224,21 @@ Automated testing is a crucial component of our project's quality assurance proc
 
 **Test Results**
 
-![Comments]()
+![Comments](doc/images/autotesting/comments.png)
 
-
-
+| Test Name | Description | Expected Result | Test Result | Explanation | Sources |
+|-----------|-------------|-----------------|-------------|-------------|---------|
+| 1. test_comment_creation | Tests creating a comment | Comment attributes match input | Pass | Ensures that a comment is created with correct attributes | [Django Model Testing](https://docs.djangoproject.com/en/3.2/topics/testing/overview/#model-mommy) |
+| 2. test_comment_str_method | Tests the string representation of a comment | String matches comment content | Pass | Verifies that the __str__ method returns the comment content | [Django Model __str__](https://docs.djangoproject.com/en/3.2/ref/models/instances/#str) |
+| 3. test_contains_expected_fields | Tests CommentSerializer fields | Serializer contains all expected fields | Pass | Checks that the serializer includes all necessary fields | [DRF Serializer Fields](https://www.django-rest-framework.org/api-guide/fields/) |
+| 4. test_comment_list_view | Tests retrieving list of comments | Status 200 OK, List of comments returned | Pass | Ensures that the list view returns all comments | [DRF ListAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#listapiview) |
+| 5. test_comment_create_view | Tests creating a new comment | Status 201 Created, New comment created | Pass | Verifies that authenticated users can create new comments | [DRF CreateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#createapiview) |
+| 6. test_comment_detail_view | Tests retrieving a specific comment | Status 200 OK, Comment data returned | Pass | Checks that a specific comment can be retrieved | [DRF RetrieveAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#retrieveapiview) |
+| 7. test_comment_update_view | Tests updating a comment | Status 200 OK, Comment updated | Pass | Ensures that a comment can be updated by its owner | [DRF UpdateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#updateapiview) |
+| 8. test_comment_delete_view | Tests deleting a comment | Status 204 No Content, Comment deleted | Pass | Verifies that a comment can be deleted by its owner | [DRF DestroyAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#destroyapiview) |
+| 9. test_unauthorized_comment_create | Tests creating a comment without authentication | Status 401 Unauthorized | Pass | Ensures that unauthenticated users cannot create comments | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
+| 10. test_unauthorized_comment_update | Tests updating a comment without authentication | Status 401 Unauthorized | Pass | Checks that unauthenticated users cannot update comments | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
+| 11. test_unauthorized_comment_delete | Tests deleting a comment without authentication | Status 401 Unauthorized | Pass | Verifies that unauthenticated users cannot delete comments | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
 
 ### Posts Model Tests
 
