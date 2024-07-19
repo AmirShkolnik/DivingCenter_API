@@ -193,7 +193,41 @@ This improvement will provide greater adaptability to changing business needs an
 
 ## Automated Testing 
 
-This provides an overview of the automated tests implemented for the Fit and Fine project. These tests ensure the reliability and correctness of various functionalities, including user authentication, model validations, and API endpoints.
+Automated testing is a crucial component of our project's quality assurance process, ensuring the reliability and performance of all models across our codebase. This comprehensive testing suite systematically evaluates each model's functionality, accuracy, and robustness, allowing us to identify and address potential issues early in the development cycle. By implementing automated tests, we maintain code integrity, facilitate easier refactoring, and provide a safety net for continuous integration and deployment workflows, ultimately leading to more stable and efficient software releases.
+
+### Bookings Model Tests
+
+**File:** bookings/tests.py
+
+**Test Results**
+
+![Bookings](doc/images/autotesting/bookings.png)
+
+| Test Name | Description | Expected Result | Test Result | Explanation | Sources |
+|-----------|-------------|-----------------|-------------|-------------|---------|
+| 1. test_booking_creation | Tests the string representation of a booking | Correct string format | Pass | Ensures that the booking's string representation is correct | [Django Model __str__](https://docs.djangoproject.com/en/3.2/ref/models/instances/#str) |
+| 2. test_booking_date_not_10th | Tests creating a booking with an invalid date | Validation error raised | Pass | Verifies that bookings can only be made on the 10th of each month | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
+| 3. test_create_booking | Tests creating a valid booking | Status 201 Created | Pass | Checks that a valid booking can be created successfully | [DRF CreateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#createapiview) |
+| 4. test_create_booking_invalid_date | Tests creating a booking with an invalid date | Status 400 Bad Request | Pass | Ensures that creating a booking with an invalid date is rejected | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
+| 5. test_create_booking_invalid_time | Tests creating a booking with an invalid time | Status 400 Bad Request | Pass | Verifies that creating a booking with an invalid time is rejected | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
+| 6. test_create_duplicate_booking | Tests creating a duplicate booking | Status 400 Bad Request | Pass | Checks that creating a duplicate booking is not allowed | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
+| 7. test_update_booking | Tests updating an existing booking | Status 200 OK | Pass | Ensures that a booking can be updated successfully | [DRF UpdateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#updateapiview) |
+| 8. test_delete_booking | Tests deleting a booking | Status 204 No Content | Pass | Verifies that a booking can be deleted successfully | [DRF DestroyAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#destroyapiview) |
+| 9. test_get_bookings | Tests retrieving a list of bookings | Status 200 OK | Pass | Checks that the list of bookings can be retrieved | [DRF ListAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#listapiview) |
+| 10. test_get_booking_detail | Tests retrieving a specific booking | Status 200 OK | Pass | Ensures that a specific booking's details can be retrieved | [DRF RetrieveAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#retrieveapiview) |
+| 11. test_unauthorized_access | Tests accessing bookings without authentication | Status 401 Unauthorized | Pass | Verifies that unauthenticated users cannot access bookings | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
+| 12. test_create_booking_no_course | Tests creating a booking without specifying a course | Status 400 Bad Request | Pass | Checks that creating a booking without a course is rejected | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
+
+### Comments Model Tests
+
+**File:** comments/tests.py
+
+**Test Results**
+
+![Comments]()
+
+
+
 
 ### Posts Model Tests
 
