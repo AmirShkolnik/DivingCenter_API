@@ -306,132 +306,45 @@ Automated testing is a crucial component of our project's quality assurance proc
 | 13. test_delete_contact_admin | Tests deleting a contact as admin | Status 204 No Content, Contact deleted | Pass | Checks if admin users can delete any contact. `get_permissions` allows this for staff users. | [Django Admin Actions](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/actions/) |
 | 14. test_delete_contact_with_token | Tests deleting a contact using deletion token | Status 204 No Content, Contact deleted | Pass | Verifies that a contact can be deleted using its deletion token. `get_object` in `ContactDetailView` allows this when a valid deletion token is provided. | [DRF Token Authentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication) |
 
-
-### Challenge Model Tests
-
-
-**File:** `/workspace/FitandFine-P5/challenges/tests.py`
-
-**Description:** Tests for the Challenge model, ensuring that challenges are created, associated with users, and can be updated correctly.
-
-**Tests:**
-- **Challenge Creation:** Verifies that a challenge can be created.
-- **User Association:** Ensures a challenge is associated with the correct user.
-- **Default Field Values:** Checks the default values for challenge fields.
-- **Retrieve by User:** Tests if a challenge can be retrieved by the associated user.
-- **Update Fields:** Verifies that challenge fields can be updated correctly.
-
-![alt text](documentation/tests/image.png)
-
-### Collaborate Model Tests
-
-**File:** `/workspace/FitandFine-P5/collaborate/tests.py`
-
-**Description:** Tests for the About and Collaborate models, ensuring they can be created and updated correctly.
-
-**Tests:**
-- **About Creation:** Verifies that an About entry can be created.
-- **About Update:** Checks that the About entry can be updated.
-- **Collaborate Creation:** Ensures a Collaborate entry can be created.
-- **Collaborate Field Values:** Validates the fields of the Collaborate model.
-
-![alt text](documentation/tests/image1.png)
-
-### Comment Model Tests
-
-**File:** `/workspace/FitandFine-P5/comments/tests.py`
-
-**Description:** Tests for the Comment model, ensuring that comments are correctly associated with users and posts.
-
-**Tests:**
-- **Comment Creation:** Verifies that a comment can be created.
-- **User Association:** Ensures a comment is associated with the correct user.
-- **Post Association:** Checks that a comment is associated with the correct post.
-- **Comment Content:** Validates the content of the comment.
-- **Comment Ordering:** Ensures comments are ordered correctly.
-
-![alt text](documentation/tests/image2.png)
-
-### Daily Routine Model Tests
-
-**File:** `/workspace/FitandFine-P5/dailyroutines/tests.py`
-
-**Description:** Tests for the Daily Routine model, ensuring routines are valid and realistic.
-
-**Tests:**
-- **Routine Creation:** Verifies that a daily routine can be created.
-- **Date Validation:** Ensures the date is not set in the future.
-- **Update Mood:** Tests updating the mood of a routine.
-- **Profile Link:** Ensures routines link to the user's profile.
-- **Water Intake Validation:** Checks for realistic water intake values.
-- **Default Junk Food Setting:** Verifies the default setting for junk food consumption.
-
-![alt text](documentation/tests/image7.png)
-
 ### Followers Model Tests
 
-**File:** `/workspace/FitandFine-P5/followers/tests.py`
+**File:** `followers/tests.py`
 
-**Description:** Tests for the Follower model, ensuring follower relationships are managed correctly.
+**Test Results**
 
-**Tests:**
-- **Follower Creation:** Verifies that a follower relationship can be created.
-- **Owner Association:** Ensures a follower is associated with the correct owner.
-- **Followed Association:** Checks that a follower is associated with the correct followed user.
-- **Unique Follower:** Validates that duplicate follower relationships are not allowed.
+![Followers](doc/images/autotesting/followers.png)
 
-![alt text](documentation/tests/image3.png)
+| Test Name | Description | Expected Result | Test Result | Explanation | Sources |
+|-----------|-------------|-----------------|-------------|-------------|---------|
+| 1. test_follower_creation | Tests creating a follower | Follower created successfully | Pass | Ensures that a follower can be created with the correct string representation | [Django Model Testing](https://docs.djangoproject.com/en/3.2/topics/testing/overview/#model-mommy) |
+| 2. test_unique_together_constraint | Tests the unique constraint for followers | Exception raised on duplicate creation | Pass | Verifies that a user can't follow another user twice | [Django Unique Together](https://docs.djangoproject.com/en/3.2/ref/models/options/#unique-together) |
+| 3. test_serializer_with_valid_data | Tests serializer with valid data | Serializer is valid | Pass | Checks that the serializer correctly validates good data | [DRF Serializer](https://www.django-rest-framework.org/api-guide/serializers/) |
+| 4. test_create_follower | Tests creating a follower via API | Status 201 Created | Pass | Ensures that a follower can be created through the API | [DRF CreateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#createapiview) |
+| 5. test_create_duplicate_follower | Tests creating a duplicate follower | Status 400 Bad Request | Pass | Verifies that creating a duplicate follower returns an error | [DRF Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
+| 6. test_list_followers | Tests listing followers | Status 200 OK | Pass | Checks that the list of followers can be retrieved | [DRF ListAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#listapiview) |
+| 7. test_delete_follower | Tests deleting a follower | Status 204 No Content | Pass | Ensures that a follower can be deleted | [DRF DestroyAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#destroyapiview) |
 
-### Like Model Tests
+### Likes Model Tests
 
-**File:** `/workspace/FitandFine-P5/likes/tests.py`
+**File:** `likes/tests.py`
 
-**Description:** Tests for the Like model, ensuring likes are managed correctly.
+**Test Results**
 
-**Tests:**
-- **Like Creation:** Verifies that a like can be created.
-- **User Association:** Ensures a like is associated with the correct user.
-- **Post Association:** Checks that a like is associated with the correct post.
-- **Unique Like:** Validates that duplicate likes are not allowed.
+![Likes]()
 
-![alt text](documentation/tests/image4.png)
+### Profiles Model Tests
 
-### Post API Tests
+**File:** `profiles/tests.py`
 
-**File:** `/workspace/FitandFine-P5/posts/tests.py`
+**Test Results**
 
-**Description:** Tests for the Post API, ensuring that users can list, create, and update posts correctly.
-
-**Tests:**
-- **List Posts:** Ensures posts can be listed.
-- **Create Post (Logged In):** Verifies that a logged-in user can create a post.
-- **Create Post (Not Logged In):** Ensures that a non-logged-in user cannot create a post.
-- **Retrieve Post by ID:** Checks that a post can be retrieved using a valid ID.
-- **Update Post (Own Post):** Verifies that a user can update their own post.
-- **Update Post (Others' Post):** Ensures a user cannot update another user's post.
-
-![alt text](documentation/tests/image5.png)
-
-### Profile Model Tests
-
-**File:** `/workspace/FitandFine-P5/profiles/tests.py`
-
-**Description:** Tests for the Profile model, ensuring profiles are created and associated with users correctly.
-
-**Tests:**
-- **Profile Creation on User Creation:** Ensures a profile is created when a user is created.
-- **User Association:** Checks that a profile is associated with the correct user.
-- **Default Field Values:** Verifies the default values for profile fields.
-- **Retrieve Profile by User ID:** Ensures a profile can be retrieved by user ID.
-- **Update Profile Fields:** Validates that profile fields can be updated correctly.
-
-![alt text](documentation/tests/image6.png)
+![Profiles]()
 
 ### Running the Tests
 
 To run the tests, use the following command:
 ```bash
-python manage.py test
+python manage.py test modelname
 ```
 This command will execute all the tests and provide a summary of the results.
 
