@@ -17,6 +17,7 @@ class BookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = ['id', 'user', 'date', 'time', 'course', 'course_name', 'course_details', 'additional_info', 'created_at']
         read_only_fields = ['user']
+        extra_kwargs = {'course': {'required': True}}
 
     def validate_date(self, value):
         if value < timezone.now().date():
