@@ -349,15 +349,35 @@ Automated testing is a crucial component of our project's quality assurance proc
 
 **Test Results**
 
-![Profiles]()
+![Profiles](doc/images/autotesting/profiles.png)
+
+| Test Name | Description | Expected Result | Test Result | Explanation | Sources |
+|-----------|-------------|-----------------|-------------|-------------|---------|
+| test_profile_creation | Tests that a profile is created correctly | Profile attributes match expected values | Pass | Ensures that a profile is created with correct default values | [Django Model Testing](https://docs.djangoproject.com/en/3.2/topics/testing/overview/#model-mommy) |
+| test_profile_str | Tests the string representation of the profile | String matches expected format | Pass | Verifies that the `__str__` method returns the correct string | [Python `__str__` method](https://docs.python.org/3/reference/datamodel.html#object.__str__) |
+| test_profile_auto_create_on_user_creation | Tests automatic profile creation on user creation | Profile exists for new user | Pass | Checks that a profile is automatically created when a new user is created | [Django Signals](https://docs.djangoproject.com/en/3.2/topics/signals/) |
+| test_profile_update | Tests that a profile can be updated | Profile attributes updated correctly | Pass | Ensures that profile fields can be updated and saved | [Django Model save() method](https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.save) |
+| test_profile_image_default | Tests the default image for a profile | Image field has default value | Pass | Verifies that the image field has the correct default value | [Django Model Fields](https://docs.djangoproject.com/en/3.2/ref/models/fields/#imagefield) |
+| test_profile_ordering | Tests that profiles are ordered by created_at descending | Profiles ordered correctly | Pass | Checks that profiles are returned in the correct order based on creation time | [Django Queryset ordering](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#order-by) |
+
+Your English is mostly correct, but there are a few minor improvements that can be made. Here's the corrected version:
 
 ### Running the Tests
 
 To run the tests, use the following command:
 ```bash
-python manage.py test modelname
+python manage.py test
 ```
 This command will execute all the tests and provide a summary of the results.
+
+![All Tests](doc/images/autotesting/all-tests.png)
+
+or 
+
+You can test each model separately using the following command:
+```bash
+python manage.py test modelname
+```
 
 ## Python Validation
 
