@@ -330,7 +330,18 @@ Automated testing is a crucial component of our project's quality assurance proc
 
 **Test Results**
 
-![Likes]()
+![Likes](doc/images/autotesting/likes.png)
+
+| Test Name | Description | Expected Result | Test Result | Explanation | Sources |
+|-----------|-------------|-----------------|-------------|-------------|---------|
+| test_like_creation | Tests the creation of a Like instance | Like instance created successfully | Pass | Ensures that a Like object can be created with valid user and post | [Django Model Testing](https://docs.djangoproject.com/en/3.2/topics/testing/overview/#model-mommy) |
+| test_like_unique_together | Tests the unique constraint on Like model | Exception raised for duplicate like | Pass | Verifies that a user can't like the same post twice | [Django Unique Together](https://docs.djangoproject.com/en/3.2/ref/models/options/#unique-together) |
+| test_like_serializer_create | Tests the creation of a Like through the serializer | Status 201 Created | Pass | Checks if the serializer can create a new Like instance | [DRF Serializer](https://www.django-rest-framework.org/api-guide/serializers/) |
+| test_like_serializer_duplicate | Tests handling of duplicate likes in serializer | Status 400 Bad Request | Pass | Ensures the serializer prevents duplicate likes | [DRF Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
+| test_like_list_view | Tests the Like list view | Status 200 OK | Pass | Verifies that the list of likes can be retrieved | [DRF ListAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#listapiview) |
+| test_like_create_view | Tests the Like create view | Status 201 Created | Pass | Checks if a new like can be created via the API | [DRF CreateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#createapiview) |
+| test_like_detail_view | Tests the Like detail view | Status 200 OK | Pass | Ensures a specific like can be retrieved | [DRF RetrieveAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#retrieveapiview) |
+| test_like_delete_view | Tests the Like delete view | Status 204 No Content | Pass | Verifies that a like can be deleted | [DRF DestroyAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#destroyapiview) |
 
 ### Profiles Model Tests
 
