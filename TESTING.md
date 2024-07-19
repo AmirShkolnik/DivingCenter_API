@@ -195,6 +195,25 @@ This improvement will provide greater adaptability to changing business needs an
 
 This provides an overview of the automated tests implemented for the Fit and Fine project. These tests ensure the reliability and correctness of various functionalities, including user authentication, model validations, and API endpoints.
 
+### Posts Model Tests
+
+**File:** posts/tests.py
+
+**Test Results**
+
+![Posts](doc/images/autotesting/posts.png)
+
+| Test Name | Description | Expected Result | Test Result | Explanation | Sources |
+|-----------|-------------|-----------------|-------------|-------------|---------|
+| 1. test_retrieve_post_valid_id | Tests retrieving a post with a valid ID | Status 200 OK, Post data returned | Pass | Ensures that a valid post ID returns the correct post data. | [DRF RetrieveAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#retrieveapiview) |
+| 2. test_retrieve_post_invalid_id | Tests retrieving a post with an invalid ID | Status 404 Not Found | Pass | Verifies that an invalid post ID returns a 404 error. | [DRF Exceptions](https://www.django-rest-framework.org/api-guide/exceptions/#not-found) |
+| 3. test_user_can_update_own_post | Tests if a user can update their own post | Status 200 OK, Post updated | Pass | Checks that authenticated users can update their own posts. | [DRF UpdateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#updateapiview) |
+| 4. test_user_cant_update_another_users_post | Tests if a user can update another user's post | Status 403 Forbidden | Pass | Ensures that users cannot update posts they do not own. | [DRF Permissions](https://www.django-rest-framework.org/api-guide/permissions/#custom-permissions) |
+| 5. test_can_list_posts | Tests listing posts | Status 200 OK, Returns the list of posts | Fail | Check if the posts list correctly matches the expected count and data. | [DRF ListAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#listapiview) |
+| 6. test_logged_in_user_can_create_post | Tests if a logged-in user can create a post | Status 201 Created, New post created | Pass | Verifies that authenticated users can create new posts. | [DRF CreateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#createapiview) |
+| 7. test_user_not_logged_in_cant_create_post | Tests if a user not logged in can create a post | Status 403 Forbidden | Fail | Ensures that unauthenticated users cannot create posts. | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
+
+
 ### ContactUs Model Tests
 
 **File:** `contactus/tests.py`
@@ -203,22 +222,23 @@ This provides an overview of the automated tests implemented for the Fit and Fin
 
 ![ContactUs](doc/images/autotesting/contactus.png)
 
-| Test Name | Description | Expected Result | Test Result | Explanation |
-|-----------|-------------|-----------------|-------------|-------------|
-| 1. test_create_contact | Tests creating a new contact | Status 201, Contact count increases by 1 | Pass | Verifies that `ContactListCreateView` allows anyone (AllowAny permission) to create a contact. |
-| 2. test_list_contacts_unauthenticated | Tests listing contacts without authentication | Status 401 Unauthorized | Pass | Checks that unauthenticated users cannot list contacts, as `get_permissions` in `ContactListCreateView` returns `[IsAuthenticated()]` for GET requests. |
-| 3. test_list_contacts_authenticated | Tests listing contacts as authenticated user | Status 200, Returns all contacts | Pass | Verifies that authenticated users can list contacts. `get_queryset` in `ContactListCreateView` should return all contacts for authenticated users. |
-| 4. test_list_contacts_admin | Tests listing contacts as admin | Status 200, Returns all contacts | Pass | Ensures admin users can list all contacts. `get_queryset` should return all contacts for staff users. |
-| 5. test_retrieve_contact_unauthenticated | Tests retrieving a single contact without authentication | Status 403 Forbidden | Pass | Verifies that `ContactDetailView` forbids unauthenticated users from retrieving a single contact. |
-| 6. test_retrieve_contact_authenticated_owner | Tests retrieving a contact by its owner | Status 200 OK | Pass | Checks that a contact owner can retrieve their own contact. `get_object` in `ContactDetailView` allows this. |
-| 7. test_retrieve_contact_authenticated_non_owner | Tests retrieving a contact by a non-owner | Status 403 Forbidden | Pass | Ensures non-owners are forbidden from retrieving a contact. `get_object` should return None for non-owners. |
-| 8. test_retrieve_contact_admin | Tests retrieving a contact as admin | Status 200 OK | Pass | Verifies that admin users can retrieve any contact. `get_object` allows this for staff users. |
-| 9. test_update_contact_unauthenticated | Tests updating a contact without authentication | Status 403 Forbidden | Pass | Checks that `ContactDetailView` forbids unauthenticated users from updating a contact. |
-| 10. test_update_contact_authenticated_owner | Tests updating a contact by its owner | Status 200 OK, Contact updated | Pass | Verifies that a contact owner can update their own contact. The `update` method in `ContactDetailView` allows this. |
-| 11. test_delete_contact_unauthenticated | Tests deleting a contact without authentication | Status 403 Forbidden | Pass | Ensures `ContactDetailView` forbids unauthenticated users from deleting a contact. |
-| 12. test_delete_contact_authenticated_non_admin | Tests deleting a contact as non-admin user | Status 403 Forbidden | Pass | Verifies that non-admin users cannot delete contacts. `get_permissions` in `ContactDetailView` only allows admins to delete. |
-| 13. test_delete_contact_admin | Tests deleting a contact as admin | Status 204 No Content, Contact deleted | Pass | Checks if admin users can delete any contact. `get_permissions` allows this for staff users. |
-| 14. test_delete_contact_with_token | Tests deleting a contact using deletion token | Status 204 No Content, Contact deleted | Pass | Verifies that a contact can be deleted using its deletion token. `get_object` in `ContactDetailView` allows this when a valid deletion token is provided. |
+| Test Name | Description | Expected Result | Test Result | Explanation | Resource |
+|-----------|-------------|-----------------|-------------|-------------|----------|
+| 1. test_create_contact | Tests creating a new contact | Status 201, Contact count increases by 1 | Pass | Verifies that `ContactListCreateView` allows anyone (AllowAny permission) to create a contact. | [Django REST Framework - Testing](https://www.django-rest-framework.org/api-guide/testing/) |
+| 2. test_list_contacts_unauthenticated | Tests listing contacts without authentication | Status 401 Unauthorized | Pass | Checks that unauthenticated users cannot list contacts, as `get_permissions` in `ContactListCreateView` returns `[IsAuthenticated()]` for GET requests. | [DRF Permissions](https://www.django-rest-framework.org/api-guide/permissions/) |
+| 3. test_list_contacts_authenticated | Tests listing contacts as authenticated user | Status 200, Returns all contacts | Pass | Verifies that authenticated users can list contacts. `get_queryset` in `ContactListCreateView` should return all contacts for authenticated users. | [DRF Generic Views](https://www.django-rest-framework.org/api-guide/generic-views/) |
+| 4. test_list_contacts_admin | Tests listing contacts as admin | Status 200, Returns all contacts | Pass | Ensures admin users can list all contacts. `get_queryset` should return all contacts for staff users. | [Django Admin Site](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/) |
+| 5. test_retrieve_contact_unauthenticated | Tests retrieving a single contact without authentication | Status 403 Forbidden | Pass | Verifies that `ContactDetailView` forbids unauthenticated users from retrieving a single contact. | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
+| 6. test_retrieve_contact_authenticated_owner | Tests retrieving a contact by its owner | Status 200 OK | Pass | Checks that a contact owner can retrieve their own contact. `get_object` in `ContactDetailView` allows this. | [DRF Generics](https://www.django-rest-framework.org/api-guide/generic-views/#retrieveupdatedestroyapiview) |
+| 7. test_retrieve_contact_authenticated_non_owner | Tests retrieving a contact by a non-owner | Status 403 Forbidden | Pass | Ensures non-owners are forbidden from retrieving a contact. `get_object` should return None for non-owners. | [DRF Custom Permissions](https://www.django-rest-framework.org/api-guide/permissions/#custom-permissions) |
+| 8. test_retrieve_contact_admin | Tests retrieving a contact as admin | Status 200 OK | Pass | Verifies that admin users can retrieve any contact. `get_object` allows this for staff users. | [Django User Model](https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User) |
+| 9. test_update_contact_unauthenticated | Tests updating a contact without authentication | Status 403 Forbidden | Pass | Checks that `ContactDetailView` forbids unauthenticated users from updating a contact. | [DRF UpdateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#updateapiview) |
+| 10. test_update_contact_authenticated_owner | Tests updating a contact by its owner | Status 200 OK, Contact updated | Pass | Verifies that a contact owner can update their own contact. The `update` method in `ContactDetailView` allows this. | [DRF Mixins](https://www.django-rest-framework.org/api-guide/generic-views/#mixins) |
+| 11. test_delete_contact_unauthenticated | Tests deleting a contact without authentication | Status 403 Forbidden | Pass | Ensures `ContactDetailView` forbids unauthenticated users from deleting a contact. | [DRF DestroyAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#destroyapiview) |
+| 12. test_delete_contact_authenticated_non_admin | Tests deleting a contact as non-admin user | Status 403 Forbidden | Pass | Verifies that non-admin users cannot delete contacts. `get_permissions` in `ContactDetailView` only allows admins to delete. | [DRF Custom Permissions](https://www.django-rest-framework.org/api-guide/permissions/#custom-permissions) |
+| 13. test_delete_contact_admin | Tests deleting a contact as admin | Status 204 No Content, Contact deleted | Pass | Checks if admin users can delete any contact. `get_permissions` allows this for staff users. | [Django Admin Actions](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/actions/) |
+| 14. test_delete_contact_with_token | Tests deleting a contact using deletion token | Status 204 No Content, Contact deleted | Pass | Verifies that a contact can be deleted using its deletion token. `get_object` in `ContactDetailView` allows this when a valid deletion token is provided. | [DRF Token Authentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication) |
+
 
 ### Challenge Model Tests
 
