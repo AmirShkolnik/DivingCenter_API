@@ -10,44 +10,47 @@ Return back to the [README.md](README.md) file.
 
 ## Table of contents
 
-- [Fit\&Fine DRF API Testing](#fitfine-drf-api-testing)
+- [Diving Center DRF API Testing](#diving-center-drf-api-testing)
   - [Table of contents](#table-of-contents)
   - [Manual Testing](#manual-testing)
     - [Authentication Endpoints](#authentication-endpoints)
-    - [Profile Endpoints](#profile-endpoints)
-    - [Post Endpoints](#post-endpoints)
-    - [Comment Endpoints](#comment-endpoints)
-    - [Daily Routine Endpoints](#daily-routine-endpoints)
-    - [Challenge Endpoints](#challenge-endpoints)
-    - [Collaborate Endpoints](#collaborate-endpoints)
-    - [Like Endpoints](#like-endpoints)
-    - [Follower Endpoints](#follower-endpoints)
+    - [Profiles Endpoints](#profiles-endpoints)
+    - [Posts Endpoints](#posts-endpoints)
+    - [Comments Endpoints](#comments-endpoints)
+    - [Likes Endpoints](#likes-endpoints)
+    - [Followers Endpoints](#followers-endpoints)
+    - [Bookings Endpoints](#bookings-endpoints)
+    - [Contact Us Endpoints](#contact-us-endpoints)
+    - [Courses Endpoints](#courses-endpoints)
+    - [Reviews Endpoints](#reviews-endpoints)
+   
   - [Automated Testing](#automated-testing)
-    - [Challenge Model Tests](#challenge-model-tests)
-    - [Collaborate Model Tests](#collaborate-model-tests)
-    - [Comment Model Tests](#comment-model-tests)
-    - [Daily Routine Model Tests](#daily-routine-model-tests)
+    - [Bookings Model Tests](#bookings-model-tests)
+    - [Comments Model Tests](#comments-model-tests)
+    - [Courses Model Tests](#courses-model-tests)
+    - [Posts Model Tests](#posts-model-tests)
+    - [Contact Us Model Tests](#contact-us-model-tests)
     - [Followers Model Tests](#followers-model-tests)
-    - [Like Model Tests](#like-model-tests)
-    - [Post API Tests](#post-api-tests)
-    - [Profile Model Tests](#profile-model-tests)
-    - [Running the Tests](#running-the-tests)
+    - [Likes Model Tests](#likes-model-tests)
+    - [Profiles Model Tests](#profiles-model-tests)
+   
   - [Python Validation](#python-validation)
-    - [FitandFine\_DRF Project Python Validation Results](#fitandfine_drf-project-python-validation-results)
-    - [Profile Module Python Validation Results](#profile-module-python-validation-results)
-    - [Posts Module Python Validation Results](#posts-module-python-validation-results)
+    - [Bookings Module Python Validation Results](#bookings-module-python-validation-results)
     - [Comments Module Python Validation Results](#comments-module-python-validation-results)
-    - [Daily Routine Module Python Validation Results](#daily-routine-module-python-validation-results)
-    - [Challenges Module Python Validation Results](#challenges-module-python-validation-results)
+    - [Contact Us Module Python Validation Results](#contact-us-module-python-validation-results)
+    - [Courses Module Python Validation Results](#courses-module-python-validation-results)
     - [Followers Module Python Validation Results](#followers-module-python-validation-results)
     - [Likes Module Python Validation Results](#likes-module-python-validation-results)
-    - [Collaborate Module Python Validation Results](#collaborate-module-python-validation-results)
+    - [Posts Module Python Validation Results](#posts-module-python-validation-results)
+    - [Profiles Module Python Validation Results](#profiles-module-python-validation-results)
 
 ##  Manual Testing
 
 This document outlines the comprehensive testing process for our diving center's backend API, built using Django REST Framework. The main goal of our testing is to ensure that all parts of the API work correctly and securely. We've created a set of careful tests for each endpoint, covering different user roles like regular users and admins. 
 
 These tests check if users can access the right information, create and change their own data, and if admins have the extra abilities they need. We want to make sure that everyone can use the API as intended, whether they're booking a course, writing a review, or managing the center's activities. By running these tests, we aim to catch any problems early and make our API reliable and user-friendly for all divers and staff members.
+
+[Back to top](#table-of-contents)
 
 ### Authentication Endpoints
 
@@ -60,7 +63,9 @@ These tests check if users can access the right information, create and change t
 | `/dj-rest-auth/user/` | PUT | Update | Update current user details | <details><summary>Click to view User Put</summary>![Authentication](doc/images/user/dj-rest-auth-user-put-1.png)</details> | User details are updated successfully | User details updated correctly | ✅ |
 | `/dj-rest-auth/registration/` | POST | Create | User registration | <details><summary>Click to view Registration Post step 1</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post.png)</details> <details><summary>Click to view Registration Post step 2</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post-2.png)</details> <details><summary>Click to view Registration Post step 3</summary>![Authentication](doc/images/registration/dj-rest-auth-registration-post-3.png)</details>| New user account is created | New user account created successfully | ✅ |
 
-### Profile Endpoints
+[Back to top](#table-of-contents)
+
+### Profiles Endpoints
 
 | Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
 |----------|--------|----------------|-------------|--------|-----------------|---------------|-----------|
@@ -68,6 +73,8 @@ These tests check if users can access the right information, create and change t
 | `/profiles/{id}/` | GET | Read | Retrieve a specific profile | <details><summary>Click to view Profile Detail</summary>![Profiles](doc/images/profiles/profiles-id.png)</details> | Returns details of a specific user profile | Returned correct details for the specified profile | ✅ |
 | `/profiles/{id}/` | PUT | Update | Update a specific profile (owner only) | <details><summary>Click to view Profile Update step 1</summary>![Profiles](doc/images/profiles/profiles-put-1.png)</details> <details><summary>Click to view Profile Update step 2</summary>![Profiles](doc/images/profiles/profiles-put-2.png)</details> | Updates the profile details for the authenticated user | Profile details updated successfully for the authenticated user | ✅ |
 | `/profiles/{id}/` | PATCH | Update | Partially update a specific profile (owner only) | | Partially updates the profile details for the authenticated user | Profile details partially updated successfully for the authenticated user | ✅ |
+
+[Back to top](#table-of-contents)
 
 ### Posts Endpoints
 
@@ -80,6 +87,8 @@ These tests check if users can access the right information, create and change t
 | `/posts/<id>/` | PATCH | Update | Partially update a specific post by ID | | Post partially updated, updated details returned | Post partially updated, updated details returned | ✅ |
 | `/posts/<id>/` | DELETE | Delete | Delete a specific post by ID | <details><summary>Click to view Delete Post step 1</summary>![Posts](doc/images/posts/posts-delete-1.png)</details> <details><summary>Click to view Delete Post step 2</summary>![Posts](doc/images/posts/posts-delete-2.png)</details> | Post deleted | Post deleted | ✅ |
 
+[Back to top](#table-of-contents)
+
 ### Comments Endpoints
 
 | Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
@@ -91,6 +100,8 @@ These tests check if users can access the right information, create and change t
 | `/comments/{id}/` | PATCH | Update | Partially update a specific comment (owner only) | | Partially updates the comment details for the authenticated owner | Comment details partially updated successfully for the authenticated owner | ✅ |
 | `/comments/{id}/` | DELETE | Delete | Delete a specific comment (owner only) | <details><summary>Click to view Delete Comment step 1</summary>![Comments](doc/images/comments/comments-user-delete-1.png)</details> <details><summary>Click to view Delete Comment step 2</summary>![Comments](doc/images/comments/comments-user-delete-2.png)</details> | Deletes the specified comment for the authenticated owner | Comment deleted successfully for the authenticated owner | ✅ |
 
+[Back to top](#table-of-contents)
+
 ### Likes Endpoints
 
 | Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
@@ -100,6 +111,8 @@ These tests check if users can access the right information, create and change t
 | `/likes/{id}/` | GET | Read | Retrieve a specific like | <details><summary>Click to view Like Detail step 1</summary>![Likes](doc/images/likes/likes-get-user-1.png)</details> <details><summary>Click to view Like Detail step 2</summary>![Likes](doc/images/likes/likes-get-user-2.png)</details> | Returns details of a specific like | Returned correct details for the specified like | ✅ |
 | `/likes/{id}/` | DELETE | Delete | Delete a specific like (owner only) | <details><summary>Click to view Delete Like step 1</summary>![Likes](doc/images/likes/likes-delete-user-1.png)</details> <details><summary>Click to view Delete Like step 2</summary>![Likes](doc/images/likes/likes-delete-user-2.png)</details> <details><summary>Click to view Delete Like step 3</summary>![Likes](doc/images/likes/likes-delete-user-3.png)</details>| Deletes the specified like for the authenticated owner | Like deleted successfully for the authenticated owner | ✅ |
 
+[Back to top](#table-of-contents)
+
 ### Followers Endpoints
 
 | Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
@@ -108,6 +121,8 @@ These tests check if users can access the right information, create and change t
 | `/followers/` | POST | Create | Create a new follower relationship (authenticated users only) | <details><summary>Click to view Create Follower</summary>![Followers](doc/images/followers/followers-post-2.png)</details> | New follower relationship is created and returned | New follower relationship created and returned successfully | ✅ |
 | `/followers/{id}/` | GET | Read | Retrieve a specific follower relationship | <details><summary>Click to view Follower Detail</summary>![Followers](doc/images/followers/followers-spesific-get.png)</details> | Returns details of a specific follower relationship | Returned correct details for the specified follower relationship | ✅ |
 | `/followers/{id}/` | DELETE | Delete | Delete a specific follower relationship (owner only) | <details><summary>Click to view Delete Follower step 1</summary>![Followers](doc/images/followers/followers-delete-1.png)</details> <details><summary>Click to view Delete Follower step 2</summary>![Followers](doc/images/followers/followers-delete-2.png)</details> <details><summary>Click to view Delete Follower step 3</summary>![Followers](doc/images/followers/followers-delete-3.png)</details>| Deletes the specified follower relationship for the authenticated owner | Follower relationship deleted successfully for the authenticated owner | ✅ |
+
+[Back to top](#table-of-contents)
 
 ### Bookings Endpoints
 
@@ -119,6 +134,8 @@ These tests check if users can access the right information, create and change t
 | `/bookings/{id}/` | PUT | Update | Update a specific booking (owner only) | <details><summary>Click to view Update Booking step 1</summary>![Bookings](doc/images/bookings/bookings-logged-in-get-1.png)</details> <details><summary>Click to view Update Booking step 2 - Success</summary>![Bookings](doc/images/bookings/bookings-id-put-success-6.png)</details> <details><summary>Click to view Update Booking Test 1 - Update Wrong Time</summary>![Bookings](doc/images/bookings/bookings-id-put-wrong-time-2.png)</details> <details><summary>Click to view Update Booking Test 2 - Update Wrong Date</summary>![Bookings](doc/images/bookings/bookings-id-put-wrong-date-3.png)</details> <details><summary>Click to view Update Booking Test 3 - Update Past Date</summary>![Bookings](doc/images/bookings/bookings-id-put-past-date-4.png)</details> <details><summary>Click to view Update Booking Test 4 - Update No Course</summary>![Bookings](doc/images/bookings/bookings-id-put-must-have-course-5.png)</details> | Updates the booking details for the authenticated owner | Booking details updated successfully for the authenticated owner | ✅ |
 | `/bookings/{id}/` | PATCH | Update | Partially update a specific booking (owner only) | | Partially updates the booking details for the authenticated owner | Booking details partially updated successfully for the authenticated owner | ✅ |
 | `/bookings/{id}/` | DELETE | Delete | Delete a specific booking (owner only) | <details><summary>Click to view Delete Booking step 1</summary>![Bookings](doc/images/bookings/bookings-id-delete-1.png)</details> <details><summary>Click to view Delete Booking step 2 - Delete Success</summary>![Bookings](doc/images/bookings/bookings-id-delete-success-2.png)</details> | Deletes the specified booking for the authenticated owner | Booking deleted successfully for the authenticated owner | ✅ |
+
+[Back to top](#table-of-contents)
 
 ### Contact Us Endpoints
 
@@ -142,7 +159,7 @@ The Contact Us form is designed to accommodate three distinct user types, each w
    - Receive a deletion token upon message creation
    - Can view, update, or delete their message using the deletion token
 
-### Deletion Token Usage
+#### Contact Us Form: Deletion Token Usage
 
 For non-authenticated users or messages created while logged out, a deletion token is required for management. The token is provided in the response when creating a message and should be used in subsequent requests. For exp. https://your-api-url.com/contactus/177/?deletion_token=05452498-bbde-43a9-bd97-a695ffc8f3aa
 
@@ -157,6 +174,8 @@ Example of using a deletion token to delete a message:
 | `/contactus/` | POST | Create | Create a new contact message | <details><summary>Click to view Create Contact Message step 1 - Empty</summary>![Contact Us](doc/images/contactus/anyuser/contactus-post.png)</details> <details><summary>Click to view Create Contact Message step 2 - Add Message</summary>![Contact Us](doc/images/contactus/anyuser/contactus-anyuser-post-.png)</details> <details><summary>Click to view Create Contact Message step 3 - Success</summary>![Contact Us](doc/images/contactus/anyuser/contactus-anyuser-post-2.png)</details> <details><summary>VISITOR - Click to view Create Contact Message step 1 </summary>![Contact Us](doc/images/contactus/anyuser/visitor-post.png)</details> <details><summary>VISITOR - Click to view Create Contact Message step 2</summary>![Contact Us](doc/images/contactus/anyuser/visitor-post-2.png)</details>| New contact message is created and returned | New contact message created and returned successfully | ✅ |
 | `/contactus/{id}/` | PUT | Update | Update an existing contact message | <details><summary>Click to view Update Contact Message step 1</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-put-1.png)</details> <details><summary>Click to view Update Contact Message step 2</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-put-2.png)</details> <details><summary>VISITOR - Click to view Update Contact Message step 1</summary>![Contact Us](doc/images/contactus/anyuser/visitor-put-1.png)</details> <details><summary>VISITOR - Click to view Update Contact Message step 2</summary>![Contact Us](doc/images/contactus/anyuser/visitor-put-2.png)</details> <details><summary>VISITOR - Click to view Update Contact Message step 3</summary>![Contact Us](doc/images/contactus/anyuser/visitor-put-3.png)</details> | Updates the existing contact message | Contact message updated successfully | ✅ |
 | `/contactus/{id}` | DELETE | Delete | Delete a specific contact message | <details><summary>LOGGED IN USER / ADMIN - Click to view Delete Contact Message step 1</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-delete-1.png)</details> <details><summary>LOGGED IN USER / ADMIN Click to view Delete Contact Message step 2 - Delete Success</summary>![Contact Us](doc/images/contactus/logged-in-user/logged-in-delete-success-2.png)</details> <details><summary>VISITOR - Click to view Delete Contact Message step 1</summary>![Contact Us](doc/images/contactus/anyuser/visitor-delete-1.png)</details> <details><summary>VISITOR - Click to view Delete Contact Message step 2</summary>![Contact Us](doc/images/contactus/anyuser/visitor-delete-2.png)</details> | Deletes the specified contact message | Contact message deleted successfully | ✅ |
+
+[Back to top](#table-of-contents)
 
 ### Courses Endpoints
 
@@ -180,6 +199,8 @@ This improvement will provide greater adaptability to changing business needs an
 | `/courses/{slug}/` | PATCH | Update | Partially update a specific course (admin only) | | Partially updates the course details (admin only) | Course details partially updated successfully (admin only) | ✅ |
 | `/courses/{slug}/` | DELETE | Delete | Delete a specific course (admin only) | <details><summary>Click to view Delete Course step 1</summary>![Courses](doc/images/courses/courses-delete-1.png)</details> <details><summary>Click to view Delete Course step 2 - Success</summary>![Courses](doc/images/courses/courses-delete-2.png)</details> | Deletes the specified course (admin only) | Course deleted successfully (admin only) | ✅ |
 
+[Back to top](#table-of-contents)
+
 ### Reviews Endpoints
 
 | Endpoint | Method | CRUD Operation | Description | Images | Expected Result | Actual Result | Pass/Fail |
@@ -190,6 +211,8 @@ This improvement will provide greater adaptability to changing business needs an
 | `/reviews/{id}/` | PUT | Update | Update a specific review (owner and admin only) | <details><summary>ADMIN - Click to view Update Reviews step 1</summary>![Reviews](doc/images/reviews/admin/reviews-admin-put-1.png)</details> <details><summary>ADMIN - Click to view Update Review step 2</summary>![Reviews](doc/images/reviews/admin/reviews-admin-put-2.png)</details> <details><summary>ADMIN - Click to view Update Review step 3</summary>![Reviews](doc/images/reviews/admin/reviews-admin-put-success-3.png)</details> <details><summary>OWNER - Click to view Update Review step 1</summary>![Reviews](doc/images/reviews/user/reviews-put-1.png)</details> <details><summary>OWNER - Click to view Update Review step 2</summary>![Reviews](doc/images/reviews/user/reviews-put-2.png)</details> <details><summary>OWNER - Click to view Update Review step 3</summary>![Reviews](doc/images/reviews/user/reviews-put-3.png)</details>| Updates the review details for the authenticated owner | Review details updated successfully for the authenticated owner | ✅ |
 | `/reviews/{id}/` | PATCH | Update | Partially update a specific review (owner and admin only) | | Partially updates the review details for the authenticated owner | Review details partially updated successfully for the authenticated owner | ✅ |
 | `/reviews/{id}/` | DELETE | Delete | Delete a specific review (owner and admin only) | <details><summary>ADMIN - Click to view Delete Review step 1</summary>![Reviews](doc/images/reviews/admin/reviews-admin-delete-1.png)</details> <details><summary>ADMIN - Click to view Delete Review step 2 - Success</summary>![Reviews](doc/images/reviews/admin/reviews-admin-delete-success-2.png)</details>  <details><summary>OWNER - Click to view Delete Review step 1</summary>![Reviews](doc/images/reviews/user/reviews-delete-1.png)</details> <details><summary>OWNER - Click to view Delete Review step 2 - Success </summary>![Reviews](doc/images/reviews/user/reviews-delete-success-2.png)</details> | Deletes the specified review for the authenticated owner | Review deleted successfully for the authenticated owner | ✅ |
+
+[Back to top](#table-of-contents)
 
 ## Automated Testing 
 
@@ -211,7 +234,7 @@ You can test each model separately using the following command:
 ```bash
 python manage.py test modelname
 ```
-
+[Back to top](#table-of-contents)
 
 ### Bookings Model Tests
 
@@ -236,6 +259,8 @@ python manage.py test modelname
 | 11. test_unauthorized_access | Tests accessing bookings without authentication | Status 401 Unauthorized | Pass | Verifies that unauthenticated users cannot access bookings | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
 | 12. test_create_booking_no_course | Tests creating a booking without specifying a course | Status 400 Bad Request | Pass | Checks that creating a booking without a course is rejected | [DRF Serializer Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
 
+[Back to top](#table-of-contents)
+
 ### Comments Model Tests
 
 **File:** comments/tests.py
@@ -257,6 +282,8 @@ python manage.py test modelname
 | 9. test_unauthorized_comment_create | Tests creating a comment without authentication | Status 401 Unauthorized | Pass | Ensures that unauthenticated users cannot create comments | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
 | 10. test_unauthorized_comment_update | Tests updating a comment without authentication | Status 401 Unauthorized | Pass | Checks that unauthenticated users cannot update comments | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
 | 11. test_unauthorized_comment_delete | Tests deleting a comment without authentication | Status 401 Unauthorized | Pass | Verifies that unauthenticated users cannot delete comments | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
+
+[Back to top](#table-of-contents)
 
 ### Courses Model Tests
 
@@ -280,6 +307,8 @@ python manage.py test modelname
 | 10. test_unauthorized_course_update | Tests updating a course without authentication | Status 401 Unauthorized | Pass | Checks that unauthenticated users cannot update courses | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
 | 11. test_unauthorized_course_delete | Tests deleting a course without authentication | Status 401 Unauthorized | Pass | Verifies that unauthenticated users cannot delete courses | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
 
+[Back to top](#table-of-contents)
+
 ### Posts Model Tests
 
 **File:** posts/tests.py
@@ -298,8 +327,9 @@ python manage.py test modelname
 | 6. test_logged_in_user_can_create_post | Tests if a logged-in user can create a post | Status 201 Created, New post created | Pass | Verifies that authenticated users can create new posts. | [DRF CreateAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#createapiview) |
 | 7. test_user_not_logged_in_cant_create_post | Tests if a user not logged in can create a post | Status 403 Forbidden | Fail | Ensures that unauthenticated users cannot create posts. | [DRF Authentication](https://www.django-rest-framework.org/api-guide/authentication/) |
 
+[Back to top](#table-of-contents)
 
-### ContactUs Model Tests
+### Contact Us Model Tests
 
 **File:** `contactus/tests.py`
 
@@ -324,6 +354,8 @@ python manage.py test modelname
 | 13. test_delete_contact_admin | Tests deleting a contact as admin | Status 204 No Content, Contact deleted | Pass | Checks if admin users can delete any contact. `get_permissions` allows this for staff users. | [Django Admin Actions](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/actions/) |
 | 14. test_delete_contact_with_token | Tests deleting a contact using deletion token | Status 204 No Content, Contact deleted | Pass | Verifies that a contact can be deleted using its deletion token. `get_object` in `ContactDetailView` allows this when a valid deletion token is provided. | [DRF Token Authentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication) |
 
+[Back to top](#table-of-contents)
+
 ### Followers Model Tests
 
 **File:** `followers/tests.py`
@@ -341,6 +373,8 @@ python manage.py test modelname
 | 5. test_create_duplicate_follower | Tests creating a duplicate follower | Status 400 Bad Request | Pass | Verifies that creating a duplicate follower returns an error | [DRF Validation](https://www.django-rest-framework.org/api-guide/serializers/#validation) |
 | 6. test_list_followers | Tests listing followers | Status 200 OK | Pass | Checks that the list of followers can be retrieved | [DRF ListAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#listapiview) |
 | 7. test_delete_follower | Tests deleting a follower | Status 204 No Content | Pass | Ensures that a follower can be deleted | [DRF DestroyAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#destroyapiview) |
+
+[Back to top](#table-of-contents)
 
 ### Likes Model Tests
 
@@ -361,6 +395,8 @@ python manage.py test modelname
 | test_like_detail_view | Tests the Like detail view | Status 200 OK | Pass | Ensures a specific like can be retrieved | [DRF RetrieveAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#retrieveapiview) |
 | test_like_delete_view | Tests the Like delete view | Status 204 No Content | Pass | Verifies that a like can be deleted | [DRF DestroyAPIView](https://www.django-rest-framework.org/api-guide/generic-views/#destroyapiview) |
 
+[Back to top](#table-of-contents)
+
 ### Profiles Model Tests
 
 **File:** `profiles/tests.py`
@@ -377,6 +413,8 @@ python manage.py test modelname
 | test_profile_update | Tests that a profile can be updated | Profile attributes updated correctly | Pass | Ensures that profile fields can be updated and saved | [Django Model save() method](https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.save) |
 | test_profile_image_default | Tests the default image for a profile | Image field has default value | Pass | Verifies that the image field has the correct default value | [Django Model Fields](https://docs.djangoproject.com/en/3.2/ref/models/fields/#imagefield) |
 | test_profile_ordering | Tests that profiles are ordered by created_at descending | Profiles ordered correctly | Pass | Checks that profiles are returned in the correct order based on creation time | [Django Queryset ordering](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#order-by) |
+
+[Back to top](#table-of-contents)
 
 ## Python Validation
 
@@ -397,6 +435,8 @@ Diving Center API Project Python Validation Results
 | **wsgi.py**                | ![Wsgi](doc/images/lintertesting/pp5_api/wsgi.png)     | 0      | 0        |
 | **asgi.py**                | ![Asgi](doc/images/lintertesting/pp5_api/asgi.png)     | 0      | 0        |
 
+[Back to top](#table-of-contents)
+
 ### Bookings Module Python Validation Results
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
@@ -407,6 +447,8 @@ Diving Center API Project Python Validation Results
 | **apps.py**                | ![Apps](doc/images/lintertesting/bookings/apps.png)     | 0      | 0        |
 | **serializers.py**         | ![Serializers](doc/images/lintertesting/bookings/serializers.png) | 0   | 0        |
 | **tests.py**               | ![Tests](doc/images/lintertesting/bookings/tests.png)    | 0      | 0        |
+
+[Back to top](#table-of-contents)
 
 ### Comments Module Python Validation Results
 
@@ -420,7 +462,9 @@ Diving Center API Project Python Validation Results
 | **serializers.py**         | ![Serializers](doc/images/lintertesting/comments/serializers.png) | 0   | 0        |
 | **tests.py**               | ![Tests](doc/images/lintertesting/comments/tests.png)    | 0      | 0        |
 
-### ContactUs Module Python Validation Results
+[Back to top](#table-of-contents)
+
+### Contact Us Module Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
@@ -431,6 +475,8 @@ Diving Center API Project Python Validation Results
 | **apps.py**                | ![Apps](doc/images/lintertesting/contactus/apps.png)     | 0      | 0        |
 | **serializers.py**         | ![Serializers](doc/images/lintertesting/contactus/serializers.png) | 0   | 0        |
 | **tests.py**               | ![Tests](doc/images/lintertesting/contactus/tests.png)    | 0      | 0        |
+
+[Back to top](#table-of-contents)
 
 ### Courses Module Python Validation Results
 
@@ -445,6 +491,8 @@ Diving Center API Project Python Validation Results
 | **tests.py**               | ![Tests](doc/images/lintertesting/courses/tests.png)    | 0      | 0        |
 | **permissions.py**               | ![Permissions](doc/images/lintertesting/courses/permissions.png)    | 0      | 0        |
 
+[Back to top](#table-of-contents)
+
 ### Followers Module Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
@@ -457,17 +505,21 @@ Diving Center API Project Python Validation Results
 | **serializers.py**         | ![Serializers](doc/images/lintertesting/followers/serializers.png) | 0   | 0        |
 | **tests.py**               | ![Tests](doc/images/lintertesting/followers/tests.png)    | 0      | 0        |
 
+[Back to top](#table-of-contents)
+
 ### Likes Module Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
-| **views.py**               | ![Views](likes/views.py)    | 0      | 0        |
-| **models.py**              | ![Models](likes/models.py)   | 0      | 0        |
-| **urls.py**                | ![Urls](likes/urls.py)     | 0      | 0        |
-| **admin.py**               | ![Admin](likes/admin.py)    | 0      | 0        |
-| **apps.py**                | ![Apps](likes/apps.py)     | 0      | 0        |
-| **serializers.py**         | ![Serializers](likes/serializers.py) | 0   | 0        |
-| **tests.py**               | ![Tests](likes/tests.py)    | 0      | 0        |
+| **views.py**               | ![Views](doc/images/lintertesting/likes/views.png)    | 0      | 0        |
+| **models.py**              | ![Models](doc/images/lintertesting/likes/models.png)   | 0      | 0        |
+| **urls.py**                | ![Urls](doc/images/lintertesting/likes/urls.png)     | 0      | 0        |
+| **admin.py**               | ![Admin](doc/images/lintertesting/likes/admin.png)    | 0      | 0        |
+| **apps.py**                | ![Apps](doc/images/lintertesting/likes/apps.png)     | 0      | 0        |
+| **serializers.py**         | ![Serializers](doc/images/lintertesting/likes/serializers.png) | 0   | 0        |
+| **tests.py**               | ![Tests](doc/images/lintertesting/likes/tests.png)    | 0      | 0        |
+
+[Back to top](#table-of-contents)
 
 ### Posts Module Python Validation Results
 
@@ -481,6 +533,8 @@ Diving Center API Project Python Validation Results
 | **serializers.py**         | ![Serializers](doc/images/lintertesting/posts/serializers.png) | 0   | 0        |
 | **tests.py**               | ![Tests](doc/images/lintertesting/posts/tests.png)    | 0      | 0        |
 
+[Back to top](#table-of-contents)
+
 ### Profiles Module Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
@@ -492,3 +546,5 @@ Diving Center API Project Python Validation Results
 | **apps.py**                | ![Apps](doc/images/lintertesting/profiles/apps.png)     | 0      | 0        |
 | **serializers.py**         | ![Serializers](doc/images/lintertesting/profiles/serializers.png) | 0   | 0        |
 | **tests.py**               | ![Tests](doc/images/lintertesting/profiles/tests.png)    | 0      | 0        |
+
+[Back to top](#table-of-contents)
