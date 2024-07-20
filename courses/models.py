@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 from tinymce.models import HTMLField
 
+
 class Course(models.Model):
     COURSE_TYPES = [
         ('OW', 'Open Water'),
@@ -21,9 +22,13 @@ class Course(models.Model):
     slug = models.SlugField(unique=True, max_length=100, blank=True)
     excerpt = models.TextField(max_length=200, blank=False, null=False)
     description = HTMLField(blank=False, null=False)
-    course_type = models.CharField(max_length=3, choices=COURSE_TYPES, blank=False, null=False)
+    course_type = models.CharField(
+        max_length=3, choices=COURSE_TYPES, blank=False, null=False
+    )
     image = CloudinaryField('image', blank=False, null=False)
-    price = models.IntegerField(choices=PRICE_CHOICES, default=2000, blank=False, null=False)
+    price = models.IntegerField(
+        choices=PRICE_CHOICES, default=2000, blank=False, null=False
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -43,9 +48,12 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
-        
+
+
 class Review(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name='reviews'
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])

@@ -7,6 +7,7 @@ from .serializers import CourseSerializer, ReviewSerializer
 from django.core.files.uploadedfile import SimpleUploadedFile
 from unittest.mock import patch, MagicMock
 
+
 def mocked_cloudinary_upload(*args, **kwargs):
     return {
         'public_id': 'test_public_id',
@@ -26,10 +27,13 @@ def mocked_cloudinary_upload(*args, **kwargs):
         'original_filename': 'test_image'
     }
 
+
 class CourseModelTest(TestCase):
     @patch('cloudinary.uploader.upload', side_effect=mocked_cloudinary_upload)
     def setUp(self, mock_upload):
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = User.objects.create_user(
+            username='testuser', password='12345'
+        )
         self.course = Course.objects.create(
             title='Test Course',
             slug='test-course',
@@ -37,7 +41,9 @@ class CourseModelTest(TestCase):
             description='<p>This is a test description.</p>',
             course_type='OW',
             price=2000,
-            image=SimpleUploadedFile("test_image.jpg", b"file_content", content_type="image/jpeg")
+            image=SimpleUploadedFile(
+                "test_image.jpg", b"file_content", content_type="image/jpeg"
+            )
         )
 
     def test_course_creation(self):
@@ -48,10 +54,13 @@ class CourseModelTest(TestCase):
     def test_course_str_method(self):
         self.assertEqual(str(self.course), 'Test Course')
 
+
 class CourseSerializerTest(TestCase):
     @patch('cloudinary.uploader.upload', side_effect=mocked_cloudinary_upload)
     def setUp(self, mock_upload):
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = User.objects.create_user(
+            username='testuser', password='12345'
+        )
         self.course = Course.objects.create(
             title='Test Course',
             slug='test-course',
@@ -59,19 +68,29 @@ class CourseSerializerTest(TestCase):
             description='<p>This is a test description.</p>',
             course_type='OW',
             price=2000,
-            image=SimpleUploadedFile("test_image.jpg", b"file_content", content_type="image/jpeg")
+            image=SimpleUploadedFile(
+                "test_image.jpg", b"file_content", content_type="image/jpeg"
+            )
         )
         self.serializer = CourseSerializer(instance=self.course)
 
     def test_contains_expected_fields(self):
         data = self.serializer.data
-        self.assertCountEqual(data.keys(), ['id', 'title', 'slug', 'excerpt', 'description', 'course_type', 'image', 'price', 'price_display', 'reviews', 'average_rating', 'created_at', 'updated_at'])
+        self.assertCountEqual(
+            data.keys(),
+            ['id', 'title', 'slug', 'excerpt', 'description', 'course_type',
+             'image', 'price', 'price_display', 'reviews', 'average_rating',
+             'created_at', 'updated_at']
+        )
+
 
 class CourseViewsTest(TestCase):
     @patch('cloudinary.uploader.upload', side_effect=mocked_cloudinary_upload)
     def setUp(self, mock_upload):
         self.client = APIClient()
-        self.user = User.objects.create_user(username='testuser', password='12345', is_staff=True)
+        self.user = User.objects.create_user(
+            username='testuser', password='12345', is_staff=True
+        )
         self.course = Course.objects.create(
             title='Test Course',
             slug='test-course',
@@ -79,7 +98,9 @@ class CourseViewsTest(TestCase):
             description='<p>This is a test description.</p>',
             course_type='OW',
             price=2000,
-            image=SimpleUploadedFile("test_image.jpg", b"file_content", content_type="image/jpeg")
+            image=SimpleUploadedFile(
+                "test_image.jpg", b"file_content", content_type="image/jpeg"
+            )
         )
         self.client.force_authenticate(user=self.user)
 
@@ -96,7 +117,9 @@ class CourseViewsTest(TestCase):
             'description': '<p>This is a new course description.</p>',
             'course_type': 'AOW',
             'price': 5000,
-            'image': SimpleUploadedFile("new_image.jpg", b"file_content", content_type="image/jpeg")
+            'image': SimpleUploadedFile(
+                "new_image.jpg", b"file_content", content_type="image/jpeg"
+            )
         }
         response = self.client.post('/courses/', data, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -123,10 +146,12 @@ class CourseViewsTest(TestCase):
             'title': 'Unauthorized Course',
             'slug': 'unauthorized-course',
             'excerpt': 'This is an unauthorized course.',
-            'description': '<p>This is an unauthorized course description.</p>',
+            'description': '<p>Unauthorized course description.</p>',
             'course_type': 'RD',
             'price': 8000,
-            'image': SimpleUploadedFile("test_image.jpg", b"file_content", content_type="image/jpeg")
+            'image': SimpleUploadedFile(
+                "test_image.jpg", b"file_content", content_type="image/jpeg"
+            )
         }
         response = self.client.post('/courses/', data, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
