@@ -473,22 +473,22 @@ Diving Center API Project Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
-| **views.py**               | ![Views]()    | 0      | 0        |
-| **models.py**              | ![Models]()   | 0      | 0        |
-| **urls.py**                | ![Urls]()     | 0      | 0        |
-| **admin.py**               | ![Admin]()    | 0      | 0        |
-| **apps.py**                | ![Apps]()     | 0      | 0        |
-| **serializers.py**         | ![Serializers]() | 0   | 0        |
-| **tests.py**               | ![Tests]()    | 0      | 0        |
+| **views.py**               | ![Views](doc/images/lintertesting/posts/views.png)    | 0      | 0        |
+| **models.py**              | ![Models](doc/images/lintertesting/posts/models.png)   | 0      | 0        |
+| **urls.py**                | ![Urls](doc/images/lintertesting/posts/urls.png)     | 0      | 0        |
+| **admin.py**               | ![Admin](doc/images/lintertesting/posts/admin.png)    | 0      | 0        |
+| **apps.py**                | ![Apps](doc/images/lintertesting/posts/apps.png)     | 0      | 0        |
+| **serializers.py**         | ![Serializers](doc/images/lintertesting/posts/serializers.png) | 0   | 0        |
+| **tests.py**               | ![Tests](doc/images/lintertesting/posts/tests.png)    | 0      | 0        |
 
 ### Profiles Module Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
-| **views.py**               | ![Views]()    | 0      | 0        |
-| **models.py**              | ![Models]()   | 0      | 0        |
-| **urls.py**                | ![Urls]()     | 0      | 0        |
-| **admin.py**               | ![Admin]()    | 0      | 0        |
-| **apps.py**                | ![Apps]()     | 0      | 0        |
-| **serializers.py**         | ![Serializers]() | 0   | 0        |
-| **tests.py**               | ![Tests]()    | 0      | 0        |
+| **views.py**               | ![Views](doc/images/lintertesting/profiles/views.png)    | 0      | 0        |
+| **models.py**              | ![Models](doc/images/lintertesting/profiles/models.png)   | 0      | 0        |
+| **urls.py**                | ![Urls](doc/images/lintertesting/profiles/urls.png)     | 0      | 0        |
+| **admin.py**               | ![Admin](doc/images/lintertesting/profiles/admin.png)    | 0      | 0        |
+| **apps.py**                | ![Apps](doc/images/lintertesting/profiles/apps.png)     | 0      | 0        |
+| **serializers.py**         | ![Serializers](doc/images/lintertesting/profiles/serializers.png) | 0   | 0        |
+| **tests.py**               | ![Tests](doc/images/lintertesting/profiles/tests.png)    | 0      | 0        |
