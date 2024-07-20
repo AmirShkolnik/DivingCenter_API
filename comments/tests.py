@@ -7,9 +7,12 @@ from .models import Comment
 from posts.models import Post
 from .serializers import CommentSerializer, CommentDetailSerializer
 
+
 class CommentModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = User.objects.create_user(
+            username='testuser', password='12345'
+        )
         self.post = Post.objects.create(owner=self.user, content='Test post')
         self.comment = Comment.objects.create(
             owner=self.user,
@@ -25,9 +28,12 @@ class CommentModelTest(TestCase):
     def test_comment_str_method(self):
         self.assertEqual(str(self.comment), 'Test comment')
 
+
 class CommentSerializerTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = User.objects.create_user(
+            username='testuser', password='12345'
+        )
         self.post = Post.objects.create(owner=self.user, content='Test post')
         self.comment = Comment.objects.create(
             owner=self.user,
@@ -37,17 +43,24 @@ class CommentSerializerTest(TestCase):
         self.factory = APIRequestFactory()
         request = self.factory.get('/')
         request.user = self.user
-        self.serializer = CommentSerializer(instance=self.comment, context={'request': request})
+        self.serializer = CommentSerializer(
+            instance=self.comment, context={'request': request}
+        )
 
     def test_contains_expected_fields(self):
         data = self.serializer.data
-        self.assertCountEqual(data.keys(), ['id', 'owner', 'is_owner', 'profile_id', 'profile_image',
-                                            'post', 'created_at', 'updated_at', 'content'])
+        self.assertCountEqual(data.keys(), [
+            'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
+            'post', 'created_at', 'updated_at', 'content'
+        ])
+
 
 class CommentViewsTest(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = User.objects.create_user(
+            username='testuser', password='12345'
+        )
         self.post = Post.objects.create(owner=self.user, content='Test post')
         self.comment = Comment.objects.create(
             owner=self.user,
