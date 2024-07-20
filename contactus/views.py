@@ -6,9 +6,10 @@ from .models import Contact
 from django.shortcuts import get_object_or_404
 from uuid import uuid4
 
+
 class ContactListCreateView(generics.ListCreateAPIView):
     serializer_class = ContactSerializer
-    
+
     def get_queryset(self):
         if self.request.user.is_authenticated:
             if self.request.user.is_staff:
@@ -24,12 +25,13 @@ class ContactListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(deletion_token=uuid4())
 
+
 class ContactDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()
 
     def get_permissions(self):
-        if self.request.method == 'DELETE' and self.request.user and self.request.user.is_staff:
+        if self.request.method == 'DELETE' and self.request.user.is_staff:
             return [IsAdminUser()]
         return [AllowAny()]
 
@@ -49,16 +51,26 @@ class ContactDetailView(generics.RetrieveUpdateDestroyAPIView):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance is None:
-            return Response({"error": "You don't have permission to view this message"}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {"error": "You don't have permission to view this message"},
+                status=status.HTTP_403_FORBIDDEN
+            )
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance is None:
-            return Response({"error": "You don't have permission to update this message"}, status=status.HTTP_403_FORBIDDEN)
-        
-        serializer = self.get_serializer(instance, data=request.data, partial=kwargs.pop('partial', False))
+            return Response(
+                {"error": "You don't have permission to update this message"},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        serializer = self.get_serializer(
+            instance,
+            data=request.data,
+            partial=kwargs.pop('partial', False)
+        )
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
@@ -66,7 +78,13 @@ class ContactDetailView(generics.RetrieveUpdateDestroyAPIView):
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance is None:
-            return Response({"error": "You don't have permission to delete this message"}, status=status.HTTP_403_FORBIDDEN)
-        
+            return Response(
+                {"error": "You don't have permission to delete this message"},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
         self.perform_destroy(instance)
-        return Response({"message": "Contact deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            {"message": "Contact deleted successfully"},
+            status=status.HTTP_204_NO_CONTENT
+        )

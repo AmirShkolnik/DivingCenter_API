@@ -5,10 +5,17 @@ from django.urls import reverse
 from .models import Contact
 import uuid
 
+
 class ContactAPITest(APITestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='testpass', email='testuser@example.com')
-        self.admin_user = User.objects.create_superuser(username='admin', password='adminpass', email='admin@example.com')
+        self.user = User.objects.create_user(
+            username='testuser', password='testpass',
+            email='testuser@example.com'
+        )
+        self.admin_user = User.objects.create_superuser(
+            username='admin', password='adminpass',
+            email='admin@example.com'
+        )
         self.contact1 = Contact.objects.create(
             name="Jane Doe",
             email="jane@example.com",
@@ -84,7 +91,10 @@ class ContactAPITest(APITestCase):
         data = {'subject': 'Updated Subject'}
         response = self.client.patch(detail_url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Contact.objects.get(pk=self.contact2.pk).subject, 'Updated Subject')
+        self.assertEqual(
+            Contact.objects.get(pk=self.contact2.pk).subject,
+            'Updated Subject'
+        )
 
     def test_delete_contact_unauthenticated(self):
         response = self.client.delete(self.detail_url)
@@ -102,7 +112,8 @@ class ContactAPITest(APITestCase):
         self.assertEqual(Contact.objects.count(), 1)
 
     def test_delete_contact_with_token(self):
-        url = f"{self.detail_url}?deletion_token={self.contact1.deletion_token}"
+        url = (f"{self.detail_url}?"
+               f"deletion_token={self.contact1.deletion_token}")
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Contact.objects.count(), 1)

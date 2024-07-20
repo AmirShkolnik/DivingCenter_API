@@ -195,6 +195,24 @@ This improvement will provide greater adaptability to changing business needs an
 
 Automated testing is a crucial component of our project's quality assurance process, ensuring the reliability and performance of all models across our codebase. This comprehensive testing suite systematically evaluates each model's functionality, accuracy, and robustness, allowing us to identify and address potential issues early in the development cycle. By implementing automated tests, we maintain code integrity, facilitate easier refactoring, and provide a safety net for continuous integration and deployment workflows, ultimately leading to more stable and efficient software releases.
 
+### Running the Tests
+
+To run the tests, use the following command:
+```bash
+python manage.py test
+```
+This command will execute all the tests and provide a summary of the results.
+
+![All Tests](doc/images/autotesting/all-tests.png)
+
+or 
+
+You can test each model separately using the following command:
+```bash
+python manage.py test modelname
+```
+
+
 ### Bookings Model Tests
 
 **File:** bookings/tests.py
@@ -359,25 +377,6 @@ Automated testing is a crucial component of our project's quality assurance proc
 | test_profile_update | Tests that a profile can be updated | Profile attributes updated correctly | Pass | Ensures that profile fields can be updated and saved | [Django Model save() method](https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.save) |
 | test_profile_image_default | Tests the default image for a profile | Image field has default value | Pass | Verifies that the image field has the correct default value | [Django Model Fields](https://docs.djangoproject.com/en/3.2/ref/models/fields/#imagefield) |
 | test_profile_ordering | Tests that profiles are ordered by created_at descending | Profiles ordered correctly | Pass | Checks that profiles are returned in the correct order based on creation time | [Django Queryset ordering](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#order-by) |
-
-Your English is mostly correct, but there are a few minor improvements that can be made. Here's the corrected version:
-
-### Running the Tests
-
-To run the tests, use the following command:
-```bash
-python manage.py test
-```
-This command will execute all the tests and provide a summary of the results.
-
-![All Tests](doc/images/autotesting/all-tests.png)
-
-or 
-
-You can test each model separately using the following command:
-```bash
-python manage.py test modelname
-```
 
 ## Python Validation
 
