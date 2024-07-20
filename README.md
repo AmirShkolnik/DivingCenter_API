@@ -70,7 +70,7 @@ This project is a comprehensive web application for a diving center. It allows u
 3. Implement user authentication and authorization.
 4. Develop a course management system with detailed course pages.
 5. Create a booking system for users to reserve courses.
-6. Implement a review system for courses.
+6. Implement a review and rating system for courses.
 7. Develop a community feed for user interactions.
 8. Ensure the application is responsive and works well on various devices.
 
@@ -131,17 +131,17 @@ The database schema is carefully crafted to ensure efficient data storage, retri
 
 **Entity Relationship Diagram (ERD)**
 
-The ERD visually represents the complex relationships between different entities in the system. It illustrates how users interact with courses, bookings, and reviews, as well as how social features like posts, comments, likes, and followers are interconnected. This diagram serves as a crucial tool for understanding the data flow and dependencies within the application.
+The ERD visually represents the complex relationships between different entities in the system. It illustrates how users interact with courses, bookings, and reviews, as well as how social features like posts, comments, likes, and followers are interconnected. This diagram serves as a crucial tool for understanding the data flow and dependencies within the application. We used [dbdiagram.io](https://dbdiagram.io) to design the ERD.
 
 ![Diving Center ERD](doc/images/diving-center-erd.png)
 
 **Technical Architecture**
 
-Technical Design: The application follows a modular design approach, separating concerns into distinct models. This design facilitates easier maintenance, scalability, and future enhancements. The use of Django's built-in User model as a foundation ensures robust authentication and authorization mechanisms.
+**Technical Design:** The application follows a modular design approach, separating concerns into distinct models. This design facilitates easier maintenance, scalability, and future enhancements. The use of Django's built-in User model as a foundation ensures robust authentication and authorization mechanisms.
 
-Model-Based Design: Each model is designed to encapsulate specific functionalities and data related to a particular aspect of the application. This approach allows for clear separation of concerns and promotes code reusability.
+**Model-Based Design:** Each model is designed to encapsulate specific functionalities and data related to a particular aspect of the application. This approach allows for clear separation of concerns and promotes code reusability.
 
-Relational Data Modeling: The database design leverages relational modeling techniques to establish connections between different entities. Foreign key relationships are used extensively to maintain data integrity and enable efficient querying across related data sets.
+**Relational Data Modeling:** The database design leverages relational modeling techniques to establish connections between different entities. Foreign key relationships are used extensively to maintain data integrity and enable efficient querying across related data sets.
 
 **Tables Overview**
 
@@ -151,14 +151,14 @@ This table provides a clear overview of the database structure, showing the diff
 |------------|---------|
 | User | Manages user authentication and basic information |
 | Profile | Extends user information with additional details and preferences |
-| DivingCourse | Stores information about available diving courses |
-| Booking | Handles course reservations made by users |
-| Review | Allows users to rate and review courses |
-| Post | Manages user-generated content for the community feed |
-| Comment | Enables users to comment on posts |
-| Like | Tracks user likes on posts |
-| Follower | Manages user follow relationships |
-| Contact | Stores customer inquiries and messages |
+| DivingCourse | Stores information about available diving courses, including details like title, description, type, and price |
+| Booking | Handles course reservations made by users, including date, time, and additional information |
+| Review | Allows users to rate and review courses, with content and rating |
+| Post | Manages user-generated content for the community feed, including images and filters |
+| Comment | Enables users to comment on posts, with creation and update timestamps |
+| Like | Tracks user likes on posts, with creation timestamps |
+| Follower | Manages user follow relationships, tracking who follows whom |
+| Contact | Stores customer inquiries and messages, including a deletion token for privacy |
 
 **Relationships**
 
