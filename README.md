@@ -9,6 +9,8 @@
 
 [Diving Center React Frontend Github Repo](https://github.com/AmirShkolnik/DivingCenter)
 
+[Diving Center DRF API Testing](TESTING.md)
+
 ## Project Goals
 
 ### Diving Center - A Community for Scuba Enthusiasts
@@ -133,7 +135,7 @@ The database schema is carefully crafted to ensure efficient data storage, retri
 
 The ERD visually represents the complex relationships between different entities in the system. It illustrates how users interact with courses, bookings, and reviews, as well as how social features like posts, comments, likes, and followers are interconnected. This diagram serves as a crucial tool for understanding the data flow and dependencies within the application. We used [dbdiagram.io](https://dbdiagram.io) to design the ERD.
 
-![Diving Center ERD](doc/images/diving-center-erd.png)
+![Diving Center ERD](doc/images/erd/erd.png)
 
 **Technical Architecture**
 
@@ -160,6 +162,8 @@ This table provides a clear overview of the database structure, showing the diff
 | Follower | Manages user follow relationships, tracking who follows whom |
 | Contact | Stores customer inquiries and messages, including a deletion token for privacy |
 
+[Back to top](#table-of-contents)
+
 **Relationships**
 
 The relationships between these models create a cohesive system:
@@ -175,21 +179,23 @@ The following tables illustrates the relationships between different models in t
 |---------|--------------|---------|
 | User | has one | Profile |
 | User | has many | Bookings |
-| User | has many | Reviews |
+| User | has many | Reviews/Ratings (through Courses) |
 | User | has many | Posts |
 | User | has many | Comments |
 | User | has many | Likes |
 | User | has many | Followers |
 | User | has many | Contacts |
 | User | follows many | User |
-| DivingCourse | has many | Bookings |
-| DivingCourse | has many | Reviews |
+| Courses | has many | Bookings |
+| Courses | has many | Reviews/Ratings |
 | Post | has many | Comments |
 | Post | has many | Likes |
 | Post | belongs to | User |
 | Comment | belongs to | User |
 | Like | belongs to | User |
 | Follower | belongs to | User |
+
+[Back to top](#table-of-contents)
 
 This table outlines the key relationships between the models in the diving center application, showing how different entities are connected and interact within the system.
 
@@ -212,6 +218,8 @@ This table outlines the key relationships between the models in the diving cente
 | Many-to-One | Like | User | Many likes belong to one user (owner) |
 | Many-to-One | Follower | User | Many follower relationships involve one user (as follower or followed) |
 
+[Back to top](#table-of-contents)
+
 ### User Model
 
 The User model serves as the central entity for authentication and user management. It utilizes Django's built-in User model, providing a solid foundation for user-related functionalities.
@@ -224,6 +232,8 @@ The User model serves as the central entity for authentication and user manageme
 | username | CharField | Unique username for login |
 | password | CharField | Securely hashed password |
 | email | EmailField | User's email address for communication |
+
+[Back to top](#table-of-contents)
 
 ### Profile Model
 
@@ -241,7 +251,9 @@ The Profile model extends the User model with additional information, creating a
 | content | TextField | Biographical information or user description |
 | image | ImageField | Profile picture |
 
-### DivingCourse Model
+[Back to top](#table-of-contents)
+
+### Diving Courses Model 
 
 This model represents the diving courses offered by the center, containing all relevant course information.
 
@@ -260,7 +272,9 @@ This model represents the diving courses offered by the center, containing all r
 | created_at | DateTimeField | Timestamp of course creation |
 | updated_at | DateTimeField | Timestamp of last course update |
 
-### Booking Model
+[Back to top](#table-of-contents)
+
+### Bookings Model
 
 The Booking model manages course reservations made by users.
 
@@ -276,7 +290,9 @@ The Booking model manages course reservations made by users.
 | additional_info | TextField | Any extra information provided by the user |
 | created_at | DateTimeField | Timestamp of booking creation |
 
-### Review Model
+[Back to top](#table-of-contents)
+
+### Reviews Model
 
 This model allows users to rate and review courses they've taken.
 
@@ -292,7 +308,9 @@ This model allows users to rate and review courses they've taken.
 | created_at | DateTimeField | Timestamp of review creation |
 | updated_at | DateTimeField | Timestamp of last review update |
 
-### Post Model
+[Back to top](#table-of-contents)
+
+### Posts Model
 
 The Post model manages user-generated content for the community feed.
 
@@ -309,7 +327,9 @@ The Post model manages user-generated content for the community feed.
 | image | ImageField | Image associated with the post |
 | image_filter | CharField | Applied image filter (if any) |
 
-### Comment Model
+[Back to top](#table-of-contents)
+
+### Comments Model
 
 This model allows users to comment on posts and having community interaction.
 
@@ -324,7 +344,9 @@ This model allows users to comment on posts and having community interaction.
 | updated_at | DateTimeField | Timestamp of last comment update |
 | content | TextField | Text content of the comment |
 
-### Like Model
+[Back to top](#table-of-contents)
+
+### Likes Model
 
 The Like model tracks user likes on posts, enhancing social engagement.
 
@@ -336,6 +358,8 @@ The Like model tracks user likes on posts, enhancing social engagement.
 | owner | ForeignKey | Foreign key to User model |
 | post | ForeignKey | Foreign key to Post model |
 | created_at | DateTimeField | Timestamp of like creation |
+
+[Back to top](#table-of-contents)
 
 ### Follower Model
 
@@ -350,7 +374,9 @@ This model manages user follow relationships, enabling social connections.
 | followed | ForeignKey | Foreign key to User model (followed user) |
 | created_at | DateTimeField | Timestamp of follow relationship creation |
 
-### Contact Model
+[Back to top](#table-of-contents)
+
+### Contacts Model
 
 The Contact model stores customer inquiries and messages.
 
@@ -533,6 +559,8 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 | ContactUs | Authenticated users couldn't manage messages created while logged out | Modified the `get_object` method to allow authenticated users to manage messages associated with their email, regardless of whether they were logged in when creating the message. | [Django REST Framework: Generic views](https://www.django-rest-framework.org/api-guide/generic-views/#genericapiview) | ✅ |
 | ContactUs | Admin users needed deletion token for some operations | Updated the `get_object` method to always return the object for admin users, bypassing the deletion token check. | [Django REST Framework: Authentication](https://www.django-rest-framework.org/api-guide/authentication/) | ✅ |
 
+[Back to top](#table-of-contents)
+
 **Bookings Bugs**
 
 | Model | Bug Description | Solution | Resource | Solved |
@@ -547,7 +575,7 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 | Booking | Duplicate booking validation not working correctly | Updated `validate` method in `BookingSerializer` to properly check for existing bookings | [Django REST Framework Serializers](https://www.django-rest-framework.org/api-guide/serializers/) | ✅ |
 | Booking | Unable to update existing bookings | Modified `update` method in `BookingViewSet` to handle IntegrityError | [Django REST Framework ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/) | ✅ |
 
-Certainly! I'll add the issue we addressed to the Courses Bugs table. Here's the updated table with the new entry:
+[Back to top](#table-of-contents)
 
 **Courses Bugs**
 
@@ -557,12 +585,16 @@ Certainly! I'll add the issue we addressed to the Courses Bugs table. Here's the
 | Courses | Course type not displaying correctly | Modified `CourseSerializer` to include `get_course_type_display` method | [Django Model Fields](https://docs.djangoproject.com/en/3.2/ref/models/fields/) | ✅ |
 | Courses | Any user could perform CRUD operations on courses | Implemented `IsAdminUser` permission in `CourseViewSet` for create, update, and delete actions | [DRF Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
 
+[Back to top](#table-of-contents)
+
 **Reviews Bugs**
 
 | Model | Bug Description | Solution | Resource | Solved |
 |-------|-----------------|----------|----------|--------|
 | Reviews | Admin unable to update and delete user reviews | Modified `update` and `destroy` methods in `ReviewViewSet` to allow staff users to edit/delete any review | [DRF ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/#viewset-actions) | ✅ |
 | Reviews | Authenticated users could see all reviews | Updated `get_queryset` method in `ReviewViewSet` to filter reviews based on user authentication and staff status | [Filtering Querysets](https://www.django-rest-framework.org/api-guide/filtering/#filtering-against-the-current-user) | ✅ |
+
+[Back to top](#table-of-contents)
 
 **General Bugs**
 
@@ -572,6 +604,8 @@ Certainly! I'll add the issue we addressed to the Courses Bugs table. Here's the
 | General | Inconsistent state updates in React components | Implemented the useEffect hook to handle side effects and state updates. Ensured state updates were done using the functional form of setState. | [React documentation: Hooks API Reference](https://reactjs.org/docs/hooks-reference.html) | ✅ |
 | General | Unauthorized access to admin-only views | Implemented proper permission classes in Django REST framework views. Used IsAdminUser for admin-only actions and AllowAny for public endpoints. | [Django REST framework: Permissions](https://www.django-rest-framework.org/api-guide/permissions/) | ✅ |
 | General | Unhandled promise rejections in async functions | Added try-catch blocks to all async functions. Implemented proper error handling and user feedback using toast notifications. | [MDN Web Docs: Using Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) | ✅ |
+
+[Back to top](#table-of-contents)
 
 **Unknown Bugs**
 There may be other bugs that have not yet been identified.
@@ -583,6 +617,7 @@ The "Diving Center" project leverages a combination of platforms and services to
 For hosting and running the application, Heroku, a cloud platform as a service (PaaS), is utilized. It enables seamless deployment, automatic scaling, and management tools for monitoring and maintaining the application. The Code Institute (CI) database systems are employed to store and manage the application's data during development and deployment phases.
 
 Additionally, Cloudinary, a cloud-based service, is integrated to handle image and video management, providing an end-to-end solution for storing, optimizing, and delivering media assets for the "Diving Center" platform.
+
 The respective URLs for these platforms and services are as follows:
 
 ## GitHub
@@ -640,6 +675,8 @@ If you have your own packages that have been installed, then the requirements fi
 echo web: gunicorn app_name.wsgi > Procfile
 replace app_name with the name of your primary Django app name; the folder where settings.py is located
 
+[Back to top](#table-of-contents)
+
 ## CI database
 - **Database Hosting:** The Code Institute (CI) provides PostgreSQL-based database systems specifically for students to use during the development and deployment phases of their projects. PostgreSQL, known for its robustness and reliability, is an advanced, open-source relational database system. It is well-suited for handling complex queries and large volumes of data, making it an excellent choice for web applications.
 
@@ -650,6 +687,8 @@ replace app_name with the name of your primary Django app name; the folder where
 - **Accessibility:** The CI database systems are accessible to Code Institute students, providing a consistent and stable environment for learning and project development. This ensures that students have a standardized platform to practice and implement database management techniques, which are crucial skills in the field of web development.
 
 - **Integration:** The PostgreSQL databases provided by CI can be seamlessly integrated with various web frameworks and technologies taught in the course, such as Django. This integration enables students to implement real-world applications with database-driven functionality.
+
+[Back to top](#table-of-contents)
 
 ## Cloudinary
 
@@ -662,6 +701,8 @@ To enhance performance and scalability, the project utilizes a third-party servi
     3. Use Django’s storage backend for Cloudinary to handle media uploads.
 
 By adopting this approach, the project benefits from a dedicated and optimized infrastructure for managing and delivering static media content. This not only improves the overall user experience but also facilitates future growth and expansion by providing a scalable solution for handling an increasing volume of media assets.
+
+[Back to top](#table-of-contents)
 
 # Cloning and Forking
 
@@ -699,6 +740,8 @@ By adopting this approach, the project benefits from a dedicated and optimized i
 
 9. **Create env.py**: Create a env.py to store database url, secret key and cloudinary url. directory:
 
+[Back to top](#table-of-contents)
+
 ## Forking the Repository
 
 Here's a step-by-step guide for forking the "Diving Center" project from the GitHub repository located at https://github.com/AmirShkolnik/DivingCenter_API:
@@ -714,6 +757,8 @@ Here's a step-by-step guide for forking the "Diving Center" project from the Git
 5. **Navigate to Your Forked Repository**: Once the forking process is complete, you'll be automatically redirected to the forked repository's page within your account or organization. The URL will reflect the new location of your forked repository.
 
 6. **Customize Your Fork (Optional)**: You now have full control over your forked repository. You can rename it, modify the description, or make any other desired changes to distinguish it from the original repository.
+
+[Back to top](#table-of-contents)
 
 ## Credits
 
@@ -749,12 +794,12 @@ In addition, the following documentation was extensively referenced throughout d
 
 These resources provided invaluable insights and guidance, significantly contributing to the successful development of the Diving Center DRF API application.
 
+[Back to top](#table-of-contents)
+
 ### Media
 
 The following sites were used to gather the photographic media used:
 - [Freepik](https://www.freepik.com/)
-
-[Back to top](#table-of-contents)
 
 ## Acknowledgements
 
@@ -762,6 +807,8 @@ The development of Diving Center has been an exciting journey, and I am grateful
 
 ### Inspiration
 - **Strava**: The idea for Diving Center was inspired by [Strava](https://www.strava.com/), a leading platform for fitness enthusiasts to track their activities, compete with others, and share their fitness journeys. Strava's robust features and community-centric approach motivated me to create a similar platform focused on comprehensive fitness tracking and community engagement.
+
+[Back to top](#table-of-contents)
 
 ### Project Guidance
 **Moments DJANGO REST DRF API and Moments REACT Walkthrough Project** I utilized the Moments Walkthrough Project as a foundational guide. This project provided valuable insights into structuring the application, implementing various features, and ensuring a seamless user experience.
