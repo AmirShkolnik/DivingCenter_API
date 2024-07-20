@@ -388,14 +388,14 @@ python manage.py test modelname
 Diving Center API Project Python Validation Results
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
-| **settings.py**            | ![screenshot]() | 0      | 0        |
-| **manage.py**              | ![screenshot]()   | 0      | 0        |
-| **urls.py**                | ![screenshot]()     | 0      | 0        |
-| **views.py**               | ![screenshot]()    | 0      | 0        |
-| **serializers.py**                | ![screenshot]()     | 0      | 0        |
-| **permissions.py**               | ![screenshot]()    | 0      | 0        |
-| **wsgi.py**                | ![screenshot]()     | 0      | 0        |
-| **asgi.py**                | ![screenshot]()     | 0      | 0        |
+| **settings.py**            | ![Settings](doc/images/lintertesting/pp5_api/settings.png) | 0      | 0        |
+| **manage.py**              | ![Manage](doc/images/lintertesting/pp5_api/manage.png)   | 0      | 0        |
+| **urls.py**                | ![Urls](doc/images/lintertesting/pp5_api/urls.png)     | 0      | 0        |
+| **views.py**               | ![Views](doc/images/lintertesting/pp5_api/views.png)    | 0      | 0        |
+| **serializers.py**                | ![Serializers](doc/images/lintertesting/pp5_api/serializers.png)     | 0      | 0        |
+| **permissions.py**               | ![Permissions](doc/images/lintertesting/pp5_api/permissions.png)    | 0      | 0        |
+| **wsgi.py**                | ![Wsgi](doc/images/lintertesting/pp5_api/wsgi.png)     | 0      | 0        |
+| **asgi.py**                | ![Asgi](doc/images/lintertesting/pp5_api/asgi.png)     | 0      | 0        |
 
 ### Bookings Module Python Validation Results
 | Python File                | Results Screenshots                                | Errors | Warnings |

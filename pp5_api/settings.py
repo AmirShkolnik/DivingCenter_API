@@ -2,6 +2,7 @@ import sys
 import re
 import os
 import dj_database_url
+from pathlib import Path
 
 """
 Django settings for pp5_api project.
@@ -15,9 +16,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
-import os
-
 if os.path.exists('env.py'):
     import env
 
@@ -30,11 +28,13 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [(
-        'rest_framework.authentication.SessionAuthentication'
-        if 'DEV' in os.environ
-        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-    )],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        (
+            'rest_framework.authentication.SessionAuthentication'
+            if 'DEV' in os.environ
+            else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+        )
+    ],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -63,15 +63,13 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = 'DEV' in os.environ
 DEBUG = True
 
 ALLOWED_HOSTS = [
-   os.environ.get('ALLOWED_HOST'),
-   'localhost',
-   '8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net',
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
+    '8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net',
 ]
-
 
 # Application definition
 
@@ -95,7 +93,6 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'corsheaders',
     'tinymce',
-    
     'profiles',
     'posts',
     'comments',
@@ -117,7 +114,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net']
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net'
+]
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.codeinstitute-ide\.net$",
@@ -149,14 +148,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pp5_api.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if 'test' in sys.argv:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': ':memory:' if os.environ.get('DJANGO_DB_ENGINE') == 'sqlite3' else BASE_DIR / 'test_db.sqlite3',
+            'NAME': ':memory:' if
+                    os.environ.get('DJANGO_DB_ENGINE') == 'sqlite3'
+            else BASE_DIR / 'test_db.sqlite3',
         }
     }
 elif 'DEV' in os.environ:
@@ -171,25 +171,27 @@ else:
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -203,7 +205,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
