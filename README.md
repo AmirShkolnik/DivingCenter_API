@@ -253,60 +253,113 @@ The Profile model extends the User model with additional information, creating a
 
 [Back to top](#table-of-contents)
 
-### Diving Courses Model 
+You can explain the Courses model as follows:
 
-This model represents the diving courses offered by the center, containing all relevant course information.
+### Courses Model
+
+The Courses model is a central component of the diving center application, designed to represent and manage the various diving courses offered by the center. This model encapsulates all relevant information about each course, providing a comprehensive and structured approach to course management.
+
+**Key Features**:
+1. **Detailed Course Information**: The model captures a wide range of details about each course, from basic information like title and price to more comprehensive descriptions.
+2. **SEO-Friendly URLs**: Utilizes a slug field for creating user-friendly and search engine optimized URLs.
+3. **Rich Content Support**: Incorporates HTML-enabled descriptions, allowing for formatted and visually appealing course details.
+4. **Image Management**: Integrates with Cloudinary for efficient storage and retrieval of course images.
+5. **Categorization**: Includes a course type field for easy categorization and filtering of courses.
+6. **Timestamp Tracking**: Records both creation and update times, providing a history of course modifications.
 
 **Fields**:
 
 | Field | Attribute | Description |
 |-------|-----------|-------------|
-| id | BigAutoField | Unique identifier for each course |
-| title | CharField | Course title |
-| slug | SlugField | URL-friendly version of the title |
-| excerpt | TextField | Brief description of the course |
-| description | HTMLField | Detailed course description (HTML-enabled) |
-| course_type | CharField | Type or category of the course |
-| image | CloudinaryField | Course image stored in Cloudinary |
-| price | IntegerField | Course price |
-| created_at | DateTimeField | Timestamp of course creation |
-| updated_at | DateTimeField | Timestamp of last course update |
+| id | BigAutoField | Unique identifier for each course, automatically generated |
+| title | CharField | The name or title of the diving course |
+| slug | SlugField | A URL-friendly version of the title, used for creating clean, readable URLs |
+| excerpt | TextField | A brief summary or introduction to the course, useful for quick overviews |
+| description | HTMLField | A detailed description of the course, supporting HTML for rich formatting |
+| course_type | CharField | Categorization of the course (e.g., beginner, advanced, specialty) |
+| image | CloudinaryField | An image representing the course, stored and managed via Cloudinary |
+| price | IntegerField | The cost of the course |
+| created_at | DateTimeField | Timestamp recording when the course was first added to the system |
+| updated_at | DateTimeField | Timestamp that updates whenever the course information is modified |
+
+**Implementation Notes**:
+- The Courses model is defined in the `courses/models.py` file, serving as the foundation for course-related functionality.
+- The `slug` field is typically auto-generated from the title, ensuring unique and SEO-friendly URLs for each course.
+- The use of `HTMLField` for the description allows for rich text formatting, enhancing the presentation of course details.
+- The `CloudinaryField` for the image integrates with the Cloudinary service, providing efficient image management and delivery.
+- The `course_type` field can be implemented with choices to ensure consistency in course categorization.
+- Timestamp fields (`created_at` and `updated_at`) are automatically managed, providing a clear history of when courses are added or modified.
+
+This model structure allows for efficient management of course offerings, providing all necessary information for both administrative purposes and user display. It supports various features like course listings, detailed course pages, and integration with booking and review systems, forming a cornerstone of the diving center's digital infrastructure.
 
 [Back to top](#table-of-contents)
 
+You can explain the Bookings model as follows:
+
 ### Bookings Model
 
-The Booking model manages course reservations made by users.
+The Bookings model is a crucial component of the diving center application, responsible for managing course reservations made by users. This model ensures that all booking-related information is systematically stored and easily retrievable, facilitating efficient course management and user experience.
+
+**Key Features**:
+1. **User-Course Relationship**: Each booking is linked to both a specific user and a specific course, ensuring clear and organized reservation records.
+2. **Time and Date Management**: The model captures both the date and time of the booking, allowing for precise scheduling of courses.
+3. **Additional Information**: Users can provide extra details related to their booking, which can be useful for instructors and administrative staff.
+4. **Timestamp Tracking**: The creation time of each booking is recorded, providing a chronological order of reservations.
 
 **Fields**:
 
 | Field | Attribute | Description |
 |-------|-----------|-------------|
 | id | BigAutoField | Unique identifier for each booking |
-| user | ForeignKey | Foreign key to User model |
-| date | DateField | Date of the booked course |
-| time | TimeField | Time of the booked course |
-| course | ForeignKey | Foreign key to DivingCourse model |
-| additional_info | TextField | Any extra information provided by the user |
-| created_at | DateTimeField | Timestamp of booking creation |
+| user | ForeignKey | Foreign key to User model, linking the booking to the user who made it |
+| date | DateField | Date of the booked course, specifying when the course will take place |
+| time | TimeField | Time of the booked course, specifying the start time of the course |
+| course | ForeignKey | Foreign key to Course model, linking the booking to a specific course |
+| additional_info | TextField | Any extra information provided by the user, such as special requests or requirements |
+| created_at | DateTimeField | Timestamp of booking creation, automatically set when the booking is first made |
+
+**Implementation Notes**:
+- The Bookings model is defined within the `bookings/models.py` file, emphasizing its role in managing reservations.
+- The `user` field ensures that each booking is associated with a specific user, providing accountability and traceability.
+- The `course` field links each booking to a specific course, ensuring that the reservation is correctly assigned.
+- The `date` and `time` fields allow for precise scheduling, which is crucial for managing course timings and availability.
+- The `additional_info` field provides flexibility for users to communicate any special needs or preferences, enhancing the overall user experience.
+- The `created_at` field is automatically populated when a booking is created, providing a record of when the reservation was made.
+
+By structuring the Bookings model this way, the application can efficiently handle course reservations, ensuring that all necessary information is captured and easily accessible. This enhances the operational efficiency of the diving center and provides a seamless booking experience for users.
 
 [Back to top](#table-of-contents)
 
 ### Reviews Model
 
-This model allows users to rate and review courses they've taken.
+The Reviews model is an integral part of the Courses app, designed to capture user feedback and ratings for diving courses. Although it's not a standalone app, it's a crucial component that enhances the functionality of the Course model.
+
+This model allows users to rate and review courses they've taken, providing valuable feedback for both the diving center and potential students. It's structured to maintain a clear relationship between users, courses, and their associated reviews.
+
+**Key Features**:
+1. **Course-User Relationship**: Each review is linked to both a specific course and the user who wrote it, ensuring accountability and context for each review.
+2. **Detailed Feedback**: The model captures both textual feedback (content) and a numerical rating, allowing for comprehensive course evaluations.
+3. **Timestamp Tracking**: Creation and update times are recorded, providing a chronological context for each review.
+4. **Unique Constraint**: The combination of course and user is set as unique, preventing multiple reviews by the same user for a single course.
 
 **Fields**:
 
 | Field | Attribute | Description |
 |-------|-----------|-------------|
 | id | BigAutoField | Unique identifier for each review |
-| course | ForeignKey | Foreign key to DivingCourse model |
-| user | ForeignKey | Foreign key to User model |
-| content | TextField | Text content of the review |
-| rating | IntegerField | Numerical rating given by the user |
-| created_at | DateTimeField | Timestamp of review creation |
-| updated_at | DateTimeField | Timestamp of last review update |
+| course | ForeignKey | Foreign key to Course model, linking the review to a specific course |
+| user | ForeignKey | Foreign key to User model, identifying the author of the review |
+| content | TextField | Text content of the review, allowing users to express their detailed opinions |
+| rating | IntegerField | Numerical rating given by the user, typically on a predefined scale (e.g., 1-5) |
+| created_at | DateTimeField | Timestamp of review creation, automatically set when the review is first submitted |
+| updated_at | DateTimeField | Timestamp of last review update, automatically updated when the review is modified |
+
+**Implementation Notes**:
+- The Reviews model is defined within the `courses/models.py` file, emphasizing its close relationship with the Course model.
+- The `unique_together` constraint in the model's Meta class ensures that a user can only submit one review per course, maintaining data integrity.
+- This model plays a crucial role in gathering user feedback, which can be used to improve course offerings and help potential students make informed decisions.
+
+By structuring the Reviews model this way, the application can efficiently manage and display course reviews, enhancing the overall user experience and providing valuable insights for both the diving center management and prospective students.
 
 [Back to top](#table-of-contents)
 
