@@ -5,9 +5,12 @@ from rest_framework import status
 from .models import Like
 from posts.models import Post
 
+
 class LikeModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = User.objects.create_user(
+            username='testuser', password='12345'
+        )
         self.post = Post.objects.create(owner=self.user, content='Test post')
         self.like = Like.objects.create(owner=self.user, post=self.post)
 
@@ -19,9 +22,12 @@ class LikeModelTest(TestCase):
         with self.assertRaises(Exception):
             Like.objects.create(owner=self.user, post=self.post)
 
+
 class LikeSerializerTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = User.objects.create_user(
+            username='testuser', password='12345'
+        )
         self.post = Post.objects.create(owner=self.user, content='Test post')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
@@ -37,9 +43,12 @@ class LikeSerializerTest(TestCase):
         response = self.client.post('/likes/', data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+
 class LikeViewsTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = User.objects.create_user(
+            username='testuser', password='12345'
+        )
         self.post = Post.objects.create(owner=self.user, content='Test post')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)

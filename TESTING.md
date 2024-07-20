@@ -461,13 +461,13 @@ Diving Center API Project Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
-| **views.py**               | ![Views]()    | 0      | 0        |
-| **models.py**              | ![Models]()   | 0      | 0        |
-| **urls.py**                | ![Urls]()     | 0      | 0        |
-| **admin.py**               | ![Admin]()    | 0      | 0        |
-| **apps.py**                | ![Apps]()     | 0      | 0        |
-| **serializers.py**         | ![Serializers]() | 0   | 0        |
-| **tests.py**               | ![Tests]()    | 0      | 0        |
+| **views.py**               | ![Views](likes/views.py)    | 0      | 0        |
+| **models.py**              | ![Models](likes/models.py)   | 0      | 0        |
+| **urls.py**                | ![Urls](likes/urls.py)     | 0      | 0        |
+| **admin.py**               | ![Admin](likes/admin.py)    | 0      | 0        |
+| **apps.py**                | ![Apps](likes/apps.py)     | 0      | 0        |
+| **serializers.py**         | ![Serializers](likes/serializers.py) | 0   | 0        |
+| **tests.py**               | ![Tests](likes/tests.py)    | 0      | 0        |
 
 ### Posts Module Python Validation Results
 
