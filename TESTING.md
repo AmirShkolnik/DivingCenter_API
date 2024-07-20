@@ -424,37 +424,38 @@ Diving Center API Project Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
-| **views.py**               | ![Views]()    | 0      | 0        |
-| **models.py**              | ![Models]()   | 0      | 0        |
-| **urls.py**                | ![Urls]()     | 0      | 0        |
-| **admin.py**               | ![Admin]()    | 0      | 0        |
-| **apps.py**                | ![Apps]()     | 0      | 0        |
-| **serializers.py**         | ![Serializers]() | 0   | 0        |
-| **tests.py**               | ![Tests]()    | 0      | 0        |
+| **views.py**               | ![Views](doc/images/lintertesting/contactus/views.png)    | 0      | 0        |
+| **models.py**              | ![Models](doc/images/lintertesting/contactus/models.png)   | 0      | 0        |
+| **urls.py**                | ![Urls](doc/images/lintertesting/contactus/urls.png)     | 0      | 0        |
+| **admin.py**               | ![Admin](doc/images/lintertesting/contactus/admin.png)    | 0      | 0        |
+| **apps.py**                | ![Apps](doc/images/lintertesting/contactus/apps.png)     | 0      | 0        |
+| **serializers.py**         | ![Serializers](doc/images/lintertesting/contactus/serializers.png) | 0   | 0        |
+| **tests.py**               | ![Tests](doc/images/lintertesting/contactus/tests.png)    | 0      | 0        |
 
 ### Courses Module Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
-| **views.py**               | ![Views]()    | 0      | 0        |
-| **models.py**              | ![Models]()   | 0      | 0        |
-| **urls.py**                | ![Urls]()     | 0      | 0        |
-| **admin.py**               | ![Admin]()    | 0      | 0        |
-| **apps.py**                | ![Apps]()     | 0      | 0        |
-| **serializers.py**         | ![Serializers]() | 0   | 0        |
-| **tests.py**               | ![Tests]()    | 0      | 0        |
+| **views.py**               | ![Views](doc/images/lintertesting/courses/views.png)    | 0      | 0        |
+| **models.py**              | ![Models](doc/images/lintertesting/courses/models.png)   | 0      | 0        |
+| **urls.py**                | ![Urls](doc/images/lintertesting/courses/urls.png)     | 0      | 0        |
+| **admin.py**               | ![Admin](doc/images/lintertesting/courses/admin.png)    | 0      | 0        |
+| **apps.py**                | ![Apps](doc/images/lintertesting/courses/apps.png)     | 0      | 0        |
+| **serializers.py**         | ![Serializers](doc/images/lintertesting/courses/serializers.png) | 0   | 0        |
+| **tests.py**               | ![Tests](doc/images/lintertesting/courses/tests.png)    | 0      | 0        |
+| **permissions.py**               | ![Permissions](doc/images/lintertesting/courses/permissions.png)    | 0      | 0        |
 
 ### Followers Module Python Validation Results
 
 | Python File                | Results Screenshots                                | Errors | Warnings |
 |----------------------------|----------------------------------------------------|--------|----------|
-| **views.py**               | ![Views]()    | 0      | 0        |
-| **models.py**              | ![Models]()   | 0      | 0        |
-| **urls.py**                | ![Urls]()     | 0      | 0        |
-| **admin.py**               | ![Admin]()    | 0      | 0        |
-| **apps.py**                | ![Apps]()     | 0      | 0        |
-| **serializers.py**         | ![Serializers]() | 0   | 0        |
-| **tests.py**               | ![Tests]()    | 0      | 0        |
+| **views.py**               | ![Views](doc/images/lintertesting/followers/views.png)    | 0      | 0        |
+| **models.py**              | ![Models](doc/images/lintertesting/followers/models.png)   | 0      | 0        |
+| **urls.py**                | ![Urls](doc/images/lintertesting/followers/urls.png)     | 0      | 0        |
+| **admin.py**               | ![Admin](doc/images/lintertesting/followers/admin.png)    | 0      | 0        |
+| **apps.py**                | ![Apps](doc/images/lintertesting/followers/apps.png)     | 0      | 0        |
+| **serializers.py**         | ![Serializers](doc/images/lintertesting/followers/serializers.png) | 0   | 0        |
+| **tests.py**               | ![Tests](doc/images/lintertesting/followers/tests.png)    | 0      | 0        |
 
 ### Likes Module Python Validation Results
 
