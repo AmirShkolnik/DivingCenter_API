@@ -180,11 +180,16 @@ The following tables illustrates the relationships between different models in t
 | User | has many | Comments |
 | User | has many | Likes |
 | User | has many | Followers |
+| User | has many | Contacts |
+| User | follows many | User |
 | DivingCourse | has many | Bookings |
 | DivingCourse | has many | Reviews |
 | Post | has many | Comments |
 | Post | has many | Likes |
-| User | follows many | User |
+| Post | belongs to | User |
+| Comment | belongs to | User |
+| Like | belongs to | User |
+| Follower | belongs to | User |
 
 This table outlines the key relationships between the models in the diving center application, showing how different entities are connected and interact within the system.
 
@@ -202,6 +207,10 @@ This table outlines the key relationships between the models in the diving cente
 | One-to-Many | Post | Like | One post can have many likes |
 | Many-to-Many | User | User | Users can follow many users (through Follower model) |
 | One-to-Many | User | Contact | One user can submit many contact messages |
+| Many-to-One | Post | User | Many posts belong to one user (owner) |
+| Many-to-One | Comment | User | Many comments belong to one user (owner) |
+| Many-to-One | Like | User | Many likes belong to one user (owner) |
+| Many-to-One | Follower | User | Many follower relationships involve one user (as follower or followed) |
 
 ### User Model
 
