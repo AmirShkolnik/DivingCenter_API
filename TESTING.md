@@ -7,7 +7,7 @@
 This is the TESTING file for the [Diving Center Django Rest Framework API Backend Live Link](https://pp5api-divingspace-f0baea7c564e.herokuapp.com/).
 
 [Diving Center React Frontend Live Link](https://divingspace-900b5a3db777.herokuapp.com/)
-and 
+
 [Diving Center React Frontend Github Repo](https://github.com/AmirShkolnik/DivingCenter)
 
 Return back to the [README.md](README.md) file.
