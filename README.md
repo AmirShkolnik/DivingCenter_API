@@ -47,15 +47,52 @@ This combination of technologies empowers a feature-rich and interactive online 
 - [Project Goals](#project-goals)
 - [Table of contents](#table-of-contents)
 - [Planning](#planning)
+  - [Project Overview](#project-overview)
+  - [Objectives](#objectives)
+  - [Timeline](#timeline)
 - [Data Models](#data-models)
+  - [User Model](#user-model)
+  - [Profile Model](#profile-model)
+  - [Courses Model ](#courses-model)
+  - [Bookings Model](#bookings-model)
+  - [Reviews Model](#reviews-model)
+  - [Posts Model](#posts-model)
+  - [Comments Model](#comments-model)
+  - [Like Model](#likes-model)
+  - [Follower Model](#follower-model)
+  - [Contact Us Model](#contact-us-model)
 - [API Endpoints](#api-endpoints)
 - [Frameworks, Libraries, and Dependencies](#frameworks-libraries-and-dependencies)
+  - [Django Framework and Extensions](#django-framework-and-extensions)
+  - [Database Management](#database-management)
+  - [Authentication and Security](#authentication-and-security)
+  - [Storage and Image Handling](#storage-and-image-handling)
+  - [Application Server](#application-server)
+  - [Utility Libraries](#utility-libraries)
 - [Testing and Validation](#testing-and-validation)
 - [Bugs](#bugs)
+  - [Contact Us Bugs](#contact-us-bugs)
+  - [Bookings Bugs](#bookings-bugs)
+  - [Courses Bugs](#courses-bugs)
+  - [Reviews Bugs](#reviews-bugs)
+  - [General Bugs](#general-bugs)
+  - [Known Bugs](#known-bugs)
+  - [Unknown Bugs](#unknown-bugs)
 - [Deployment](#deployment)
+  - [GitHub](#github)
+  - [Gitpod](#gitpod)
+  - [Heroku](#heroku)
+  - [CI database](#ci-database)
+  - [Cloudinary](#cloudinary)
 - [Cloning and Forking](#cloning-and-forking)
+  - [Cloning the Repository](#cloning-the-repository)
+  - [Forking the Repository](#forking-the-repository)
 - [Credits](#credits)
+  - [Code](#code)
+  - [Media](#media)
 - [Acknowledgements](#acknowledgements)
+  - [Inspiration](#inspiration)
+  - [Project Guidance](#project-guidance)
 
 Based on the information provided and the structure you've requested, here's a robust project planning for your diving center project, covering both backend and frontend development over an 8-week period:
 
@@ -857,9 +894,13 @@ There may be other bugs that have not yet been identified.
 
 # Deployment
 
-The "Diving Center" project leverages a combination of platforms and services to facilitate its deployment and management.
+The "Diving Center" project leverages a combination of platforms and services to facilitate its development, deployment, and management.
 
-For hosting and running the application, Heroku, a cloud platform as a service (PaaS), is utilized. It enables seamless deployment, automatic scaling, and management tools for monitoring and maintaining the application. The Code Institute (CI) database systems are employed to store and manage the application's data during development and deployment phases.
+For version control and collaborative development, GitHub is used to host the project repository, enabling efficient code management and team collaboration. GitPod, a cloud-based integrated development environment (IDE), is utilized for coding and testing, providing a consistent and easily accessible development environment.
+
+For hosting and running the application, Heroku, a cloud platform as a service (PaaS), is utilized. It enables seamless deployment, automatic scaling, and management tools for monitoring and maintaining the application. 
+
+The Code Institute (CI) database system, which uses PostgreSQL, is employed to store and manage the application's data during development and deployment phases. PostgreSQL is a powerful, open-source object-relational database system that provides robust data management capabilities for the project.
 
 Additionally, Cloudinary, a cloud-based service, is integrated to handle image and video management, providing an end-to-end solution for storing, optimizing, and delivering media assets for the "Diving Center" platform.
 
@@ -1011,31 +1052,28 @@ Here's a step-by-step guide for forking the "Diving Center" project from the Git
 
 The development of the Diving Center application was supported by various resources and contributions from the CI community. Here are the key references and sources of inspiration for the Diving Center project:
 
-- The technique to limit the size of image uploads to Cloudinary is adapted from this [Cloudinary Support Article](https://support.cloudinary.com/hc/en-us/community/posts/360009752479-How-to-resize-before-uploading-pictures-in-Django).
-- A replacement for the deprecated `django.conf.urls.url()` was implemented as per this [StackOverflow Article](https://stackoverflow.com/questions/70319606/importerror-cannot-import-name-url-from-django-conf-urls-after-upgrading-to).
-- How to access URL arguments as kwargs in generic APIViews is from this [StackOverflow Article](https://stackoverflow.com/questions/51042871/how-to-access-url-kwargs-in-generic-api-views-listcreateapiview-to-be-more-spec).
-- The fix for the Django Rest Framework bug that prevents user's cookies from being cleared on logout is from the Code Institute Django Rest Framework walkthrough project.
-- The technique for overriding the `to_representation` method of a serializer to make a change to the outgoing JSON data used in `profiles/serializers.py` is from this [testdriven.io Tip](https://testdriven.io/tips/ed79fa08-6834-4827-b00d-2609205129e0/).
-- The method to set up user authentication with JWT in Django Rest Framework is adapted from this [StackOverflow Article](https://stackoverflow.com/questions/44697872/django-rest-framework-jwt-user-login).
-- The technique to handle file uploads in Django Rest Framework is from this [StackOverflow Article](https://stackoverflow.com/questions/45232352/file-upload-with-django-rest-framework).
-- The method to test Django Rest Framework endpoints using the APIClient is adapted from this [Django Rest Framework Documentation](https://www.django-rest-framework.org/api-guide/testing/).
-
-- Deployment section description is based on the following guides:
-[Preparing a Codebase for Heroku Deployment](https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment)
-[Heroku Deployment Guide](https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide/)
-
-In addition, the following documentation was extensively referenced throughout development:
-
-- [Django Documentation](https://www.djangoproject.com)
-- [Django Rest Framework Documentation](https://www.django-rest-framework.org)
-- [django-filter Documentation](https://django-filter.readthedocs.io/en/stable/)
-- [django-recurrence Documentation](https://django-recurrence.readthedocs.io/en/latest/)
-- [Python datetime Documentation](https://docs.python.org/3/library/datetime.html)
-- [dateutil Documentation](https://dateutil.readthedocs.io/en/stable/index.html)
-- [Django Rest Framework JWT Documentation](https://jpadilla.github.io/django-rest-framework-jwt/)
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
-- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+| Resource | Description | Link |
+|----------|-------------|------|
+| Cloudinary Support | How to resize before uploading pictures in Django | [Cloudinary Support Article](https://support.cloudinary.com/hc/en-us/community/posts/360009752479-How-to-resize-before-uploading-pictures-in-Django) |
+| StackOverflow | ImportError: cannot import name 'url' from 'django.conf.urls' after upgrading to Django 4.0 | [StackOverflow Article](https://stackoverflow.com/questions/70319606/importerror-cannot-import-name-url-from-django-conf-urls-after-upgrading-to) |
+| StackOverflow | How to access URL kwargs in generic API views | [StackOverflow Article](https://stackoverflow.com/questions/51042871/how-to-access-url-kwargs-in-generic-api-views-listcreateapiview-to-be-more-spec) |
+| Code Institute | Fix for Django Rest Framework bug preventing cookie clearing on logout | Django Rest Framework walkthrough project |
+| testdriven.io | Overriding `to_representation` method in serializers | [Testdriven.io Tip](https://testdriven.io/tips/ed79fa08-6834-4827-b00d-2609205129e0/) |
+| StackOverflow | Django Rest Framework JWT user login | [StackOverflow Article](https://stackoverflow.com/questions/44697872/django-rest-framework-jwt-user-login) |
+| StackOverflow | File upload with Django Rest Framework | [StackOverflow Article](https://stackoverflow.com/questions/45232352/file-upload-with-django-rest-framework) |
+| DRF Documentation | Testing Django Rest Framework endpoints using APIClient | [DRF Documentation](https://www.django-rest-framework.org/api-guide/testing/) |
+| Heroku | Preparing a codebase for Heroku deployment | [Heroku Guide](https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment) |
+| Heroku | Heroku deployment guide | [Heroku Deployment Guide](https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide/) |
+| Django | Official documentation | [Django Documentation](https://www.djangoproject.com) |
+| Django Rest Framework | Official documentation | [DRF Documentation](https://www.django-rest-framework.org) |
+| django-filter | Official documentation | [django-filter Documentation](https://django-filter.readthedocs.io/en/stable/) |
+| django-recurrence | Official documentation | [django-recurrence Documentation](https://django-recurrence.readthedocs.io/en/latest/) |
+| Python datetime | Official documentation | [Python datetime Documentation](https://docs.python.org/3/library/datetime.html) |
+| dateutil | Official documentation | [dateutil Documentation](https://dateutil.readthedocs.io/en/stable/index.html) |
+| DRF JWT | Official documentation | [DRF JWT Documentation](https://jpadilla.github.io/django-rest-framework-jwt/) |
+| JavaScript | MDN Web Docs | [JavaScript Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript) |
+| CSS | MDN Web Docs | [CSS Documentation](https://developer.mozilla.org/en-US/docs/Web/CSS) |
+| HTML5 | MDN Web Docs | [HTML5 Documentation](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) |
 
 These resources provided invaluable insights and guidance, significantly contributing to the successful development of the Diving Center DRF API application.
 
@@ -1044,26 +1082,38 @@ These resources provided invaluable insights and guidance, significantly contrib
 ### Media
 
 The following sites were used to gather the photographic media used:
-- [Freepik](https://www.freepik.com/)
+- [Pexels](https://www.pexels.com/)
 
 ## Acknowledgements
 
 The development of Diving Center has been an exciting journey, and I am grateful for the inspiration, guidance, and resources that have contributed to the project. 
 
+Thank you for providing that context. I'll rewrite the introduction to better reflect your project's inspiration and added features. Here's a revised version:
+
 ### Inspiration
-- **Strava**: The idea for Diving Center was inspired by [Strava](https://www.strava.com/), a leading platform for fitness enthusiasts to track their activities, compete with others, and share their fitness journeys. Strava's robust features and community-centric approach motivated me to create a similar platform focused on comprehensive fitness tracking and community engagement.
+
+The Diving Center project draws inspiration from two main sources:
+
+- **Moments**: This is a walkthrough project provided by Code Institute as part of the PP5 Advanced Frontend curriculum. Moments serves as a foundation, offering a social media-like platform structure. It provided the base for features such as user profiles, posts, comments, and likes.
+
+- **Additional Features**: Building upon the Moments framework, I expanded the project's scope by incorporating several custom features to cater specifically to a diving center's needs:
+  - Bookings system
+  - Contact Us functionality
+  - Courses management
+  - Reviews and ratings
+
+These additions transform the basic social media structure into a comprehensive platform tailored for a diving center, allowing users to not only share their experiences but also interact with the center's services directly.
+
+By combining the social aspects of Moments with these diving-specific features, the Diving Center project aims to create a platform that serves both the community-building and business needs of a diving center.
 
 [Back to top](#table-of-contents)
 
 ### Project Guidance
-**Moments DJANGO REST DRF API and Moments REACT Walkthrough Project** I utilized the Moments Walkthrough Project as a foundational guide. This project provided valuable insights into structuring the application, implementing various features, and ensuring a seamless user experience.
-The Moments project had several ideas and functionalities similar to what I envisioned for Diving Center, which helped streamline my development process.
 
+- A big thank you to Kristyna, our Cohort facilitator at Code Institute. She was always ready to help with information and kept everyone's spirits high.
 
-### Personal Thanks
-- Many thanks to **my husband** for his incredible support and encouragement throughout this journey.
-- My heartfelt gratitude to **my son**, who is 18 months old, for bringing joy and motivation into my life.
-- Thanks to **Kristyna, Cohort facilitator** at Code Institute, for always being there to provide all the information needed and for keeping the positive energy up.
-- Thanks to  my Code Institute **mentor** and my **fellow students** for constantly inspiring me on Slack and being there for each other to help in times of trouble.
+- I'm grateful to my Code Institute mentor, Antonio Rodriguez, for his guidance.
+
+- I also want to thank my classmates. They were a great source of inspiration on Slack and always willing to lend a hand when things got tough.
 
 [Back to top](#table-of-contents)
