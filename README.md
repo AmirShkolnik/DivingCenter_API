@@ -190,14 +190,14 @@ This table provides a clear overview of the database structure, showing the diff
 |------------|---------|
 | User | Manages user authentication and basic information |
 | Profile | Extends user information with additional details and preferences |
-| DivingCourse | Stores information about available diving courses, including details like title, description, type, and price |
-| Booking | Handles course reservations made by users, including date, time, and additional information |
-| Review | Allows users to rate and review courses, with content and rating |
-| Post | Manages user-generated content for the community feed, including images and filters |
-| Comment | Enables users to comment on posts, with creation and update timestamps |
-| Like | Tracks user likes on posts, with creation timestamps |
-| Follower | Manages user follow relationships, tracking who follows whom |
-| Contact | Stores customer inquiries and messages, including a deletion token for privacy |
+| Courses | Stores information about available diving courses, including details like title, description, type, and price |
+| Bookings | Handles course reservations made by users, including date, time, and additional information |
+| Reviews | Allows users to rate and review courses, with content and rating |
+| Posts | Manages user-generated content for the community feed, including images and filters |
+| Comments | Enables users to comment on posts, with creation and update timestamps |
+| Likes | Tracks user likes on posts, with creation timestamps |
+| Followers | Manages user follow relationships, tracking who follows whom |
+| Contact Us| Stores customer inquiries and messages, including a deletion token for privacy |
 
 [Back to top](#table-of-contents)
 
