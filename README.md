@@ -655,55 +655,51 @@ This table provides a comprehensive overview of all the API endpoints in the div
 | | `/dj-rest-auth/logout/` | POST | Delete | Function-based view | Custom logout route |
 | | `/dj-rest-auth/login/` | POST | Create | DRF built-in view | User login |
 | | `/dj-rest-auth/user/` | GET | Read | DRF built-in view | Get current user details |
+| | `/dj-rest-auth/user/` | PUT | Update | DRF built-in view | Update current user details |
 | | `/dj-rest-auth/registration/` | POST | Create | DRF built-in view | User registration |
 | **Profiles** |
 | | `/profiles/` | GET | Read | ListAPIView | List all profiles |
-| | `/profiles/{id}/` | GET | Read | RetrieveUpdateAPIView | Retrieve a specific profile |
-| | `/profiles/{id}/` | PUT/PATCH | Update | RetrieveUpdateAPIView | Update a specific profile (owner only) |
+| | `/profiles/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific profile |
+| | `/profiles/{id}/` | PUT | Update | UpdateAPIView | Update a specific profile (owner only) |
+| | `/profiles/{id}/` | PATCH | Update | UpdateAPIView | Partially update a specific profile (owner only) |
 | **Posts** |
-| | `/posts/` | GET | Read | ListCreateAPIView | List all posts |
-| | `/posts/` | POST | Create | ListCreateAPIView | Create a new post (authenticated users only) |
-| | `/posts/{id}/` | GET | Read | RetrieveUpdateDestroyAPIView | Retrieve a specific post |
-| | `/posts/{id}/` | PUT/PATCH | Update | RetrieveUpdateDestroyAPIView | Update a specific post (owner only) |
-| | `/posts/{id}/` | DELETE | Delete | RetrieveUpdateDestroyAPIView | Delete a specific post (owner only) |
+| | `/posts/` | GET | Read | ListAPIView | Retrieve a list of posts |
+| | `/posts/` | POST | Create | CreateAPIView | Create a new post |
+| | `/posts/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific post by ID |
+| | `/posts/{id}/` | PUT | Update | UpdateAPIView | Update a specific post by ID |
+| | `/posts/{id}/` | PATCH | Update | UpdateAPIView | Partially update a specific post by ID |
+| | `/posts/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific post by ID |
 | **Comments** |
-| | `/comments/` | GET | Read | ListCreateAPIView | List all comments |
-| | `/comments/` | POST | Create | ListCreateAPIView | Create a new comment (authenticated users only) |
-| | `/comments/{id}/` | GET | Read | RetrieveUpdateDestroyAPIView | Retrieve a specific comment |
-| | `/comments/{id}/` | PUT/PATCH | Update | RetrieveUpdateDestroyAPIView | Update a specific comment (owner only) |
-| | `/comments/{id}/` | DELETE | Delete | RetrieveUpdateDestroyAPIView | Delete a specific comment (owner only) |
+| | `/comments/` | GET | Read | ListAPIView | List all comments |
+| | `/comments/` | POST | Create | CreateAPIView | Create a new comment (authenticated users only) |
+| | `/comments/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific comment |
+| | `/comments/{id}/` | PUT | Update | UpdateAPIView | Update a specific comment (owner only) |
+| | `/comments/{id}/` | PATCH | Update | UpdateAPIView | Partially update a specific comment (owner only) |
+| | `/comments/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific comment (owner only) |
 | **Likes** |
-| | `/likes/` | GET | Read | ListCreateAPIView | List all likes |
-| | `/likes/` | POST | Create | ListCreateAPIView | Create a new like (authenticated users only) |
-| | `/likes/{id}/` | GET | Read | RetrieveDestroyAPIView | Retrieve a specific like |
-| | `/likes/{id}/` | DELETE | Delete | RetrieveDestroyAPIView | Delete a specific like (owner only) |
+| | `/likes/` | GET | Read | ListAPIView | List all likes |
+| | `/likes/` | POST | Create | CreateAPIView | Create a new like (authenticated users only) |
+| | `/likes/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific like |
+| | `/likes/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific like (owner only) |
 | **Followers** |
-| | `/followers/` | GET | Read | ListCreateAPIView | List all follower relationships |
-| | `/followers/` | POST | Create | ListCreateAPIView | Create a new follower relationship (authenticated users only) |
-| | `/followers/{id}/` | GET | Read | RetrieveDestroyAPIView | Retrieve a specific follower relationship |
-| | `/followers/{id}/` | DELETE | Delete | RetrieveDestroyAPIView | Delete a specific follower relationship (owner only) |
+| | `/followers/` | GET | Read | ListAPIView | List all follower relationships |
+| | `/followers/` | POST | Create | CreateAPIView | Create a new follower relationship (authenticated users only) |
+| | `/followers/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific follower relationship |
+| | `/followers/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific follower relationship (owner only) |
 | **Bookings** |
-| | `/bookings/` | GET | Read | ModelViewSet | List all bookings for the authenticated user |
-| | `/bookings/` | POST | Create | ModelViewSet | Create a new booking (authenticated users only) |
-| | `/bookings/{id}/` | GET | Read | ModelViewSet | Retrieve a specific booking |
-| | `/bookings/{id}/` | PUT/PATCH | Update | ModelViewSet | Update a specific booking (owner only) |
-| | `/bookings/{id}/` | DELETE | Delete | ModelViewSet | Delete a specific booking (owner only) |
-| **Contact Us** |
-| | `/contactus/` | POST | Create | APIView | Create a new contact message |
-| | `/contactus/{id}/` | PUT | Update | APIView | Update an existing contact message |
-| | `/contactus/{id}` | DELETE | Delete | Function-based view | Delete a specific contact message |
-| **Courses** |
-| | `/courses/` | GET | Read | ModelViewSet | List all courses |
-| | `/courses/` | POST | Create | ModelViewSet | Create a new course (admin only) |
-| | `/courses/{slug}/` | GET | Read | ModelViewSet | Retrieve a specific course |
-| | `/courses/{slug}/` | PUT/PATCH | Update | ModelViewSet | Update a specific course (admin only) |
-| | `/courses/{slug}/` | DELETE | Delete | ModelViewSet | Delete a specific course (admin only) |
+| | `/bookings/` | GET | Read | ListAPIView | List all bookings for the authenticated user |
+| | `/bookings/` | POST | Create | CreateAPIView | Create a new booking (authenticated users only) |
+| | `/bookings/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific booking |
+| | `/bookings/{id}/` | PUT | Update | UpdateAPIView | Update a specific booking (owner only) |
+| | `/bookings/{id}/` | PATCH | Update | UpdateAPIView | Partially update a specific booking (owner only) |
+| | `/bookings/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific booking (owner only) |
 | **Reviews** |
-| | `/reviews/` | GET | Read | ModelViewSet | List all reviews |
-| | `/reviews/` | POST | Create | ModelViewSet | Create a new review (authenticated users only) |
-| | `/reviews/{id}/` | GET | Read | ModelViewSet | Retrieve a specific review |
-| | `/reviews/{id}/` | PUT/PATCH | Update | ModelViewSet | Update a specific review (owner only) |
-| | `/reviews/{id}/` | DELETE | Delete | ModelViewSet | Delete a specific review (owner only) |
+| | `/reviews/` | GET | Read | ListAPIView | List all reviews |
+| | `/reviews/` | POST | Create | CreateAPIView | Create a new review (authenticated users and admin only) |
+| | `/reviews/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific review |
+| | `/reviews/{id}/` | PUT | Update | UpdateAPIView | Update a specific review (owner and admin only) |
+| | `/reviews/{id}/` | PATCH | Update | UpdateAPIView | Partially update a specific review (owner and admin only) |
+| | `/reviews/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific review (owner and admin only) |
 
 [Back to top](#table-of-contents)
 
@@ -764,25 +760,22 @@ The Diving Center project leverages a variety of frameworks, libraries, and depe
 15. **django-cloudinary-storage** (`django-cloudinary-storage==0.3.0`):
     - Facilitates the integration of Django with Cloudinary for storing media files.
 
-### Miscellaneous
+### Application Server
 
-16. **asgiref** (`asgiref==3.8.1`):
-    - ASGI specification and utilities, used by Django for asynchronous support.
+16. **gunicorn** (`gunicorn==22.0.0`):
+   - A Python WSGI HTTP Server for UNIX, used to serve Django applications in production.
 
-17. **django-js-asset** (`django-js-asset==2.2.0`):
-    - A Django app that provides a template tag for loading JavaScript assets.
-
-18. **django-tinymce** (`django-tinymce==4.1.0`):
-    - A Django application that provides a fully integrated TinyMCE WYSIWYG editor.
-
-19. **pytz** (`pytz==2024.1`):
-    - World timezone definitions for Python, allowing accurate and cross-platform timezone calculations.
-
-20. **sqlparse** (`sqlparse==0.5.0`):
-    - A non-validating SQL parser for Python. It provides support for parsing, splitting, and formatting SQL statements.
-
-21. **gunicorn** (`gunicorn==22.0.0`):
-    - A Python WSGI HTTP Server for UNIX, used to serve Django applications in production.
+### Utility Libraries
+17. **asgiref** (`asgiref==3.8.1`):
+   - ASGI specification and utilities, used by Django for asynchronous support.
+18. **django-js-asset** (`django-js-asset==2.2.0`):
+   - A Django app that provides a template tag for loading JavaScript assets.
+19. **django-tinymce** (`django-tinymce==4.1.0`):
+   - A Django application that provides a fully integrated TinyMCE WYSIWYG editor.
+20. **pytz** (`pytz==2024.1`):
+   - World timezone definitions for Python, allowing accurate and cross-platform timezone calculations.
+21. **sqlparse** (`sqlparse==0.5.0`):
+   - A non-validating SQL parser for Python. It provides support for parsing, splitting, and formatting SQL statements.
 
 [Back to top](#table-of-contents)
 
@@ -792,7 +785,7 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 
 ## Bugs
 
-**ContactUs Bugs**
+**Contact Us Bugs**
 
 | Model | Bug Description | Solution | Resource | Solved |
 |-------|-----------------|----------|----------|--------|
@@ -856,7 +849,10 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 
 [Back to top](#table-of-contents)
 
-**Unknown Bugs**
+### Known Bugs
+All known bugs have been addressed. There may be other bugs that have not yet been identified.
+
+### Unknown Bugs
 There may be other bugs that have not yet been identified.
 
 # Deployment
