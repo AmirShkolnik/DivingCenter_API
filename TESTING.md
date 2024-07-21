@@ -1,4 +1,8 @@
-# Diving Center DRF API Testing
+<p align="center">
+  <img src="doc/images/logo.jpg" alt="Diving Center Logo" style="width: 250px; height: auto;">
+</p>
+
+<h1 align="center">Diving Center DRF API Testing</h1>
 
 This is the TESTING file for the [Diving Center Django Rest Framework API Backend Live Link](https://pp5api-divingspace-f0baea7c564e.herokuapp.com/).
 
