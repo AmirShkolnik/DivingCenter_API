@@ -1,8 +1,8 @@
-from pathlib import Path
 import sys
 import re
 import os
 import dj_database_url
+from pathlib import Path
 
 """
 Django settings for pp5_api project.
@@ -63,11 +63,12 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
+DEBUG = True
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
     'localhost',
+    '8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net',
 ]
 
 # Application definition
@@ -113,18 +114,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net'
+]
 
-if 'CLIENT_ORIGIN_DEV' in os.environ:
-    extracted_url = re.match(
-        r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE
-    ).group(0)
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
-    ]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.codeinstitute-ide\.net$",
+    "3000-amirshkolni-travelspace-ijnmke2p9za.ws.codeinstitute-ide.net/",
+]
+
+if "CLIENT_ORIGIN" in os.environ:
+    CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN")]
 
 CORS_ALLOW_CREDENTIALS = True
 
