@@ -58,8 +58,8 @@ This combination of technologies empowers a feature-rich and interactive online 
   - [Reviews Model](#reviews-model)
   - [Posts Model](#posts-model)
   - [Comments Model](#comments-model)
-  - [Like Model](#likes-model)
-  - [Follower Model](#follower-model)
+  - [Likes Model](#likes-model)
+  - [Followers Model](#followers-model)
   - [Contact Us Model](#contact-us-model)
 - [API Endpoints](#api-endpoints)
 - [Frameworks, Libraries, and Dependencies](#frameworks-libraries-and-dependencies)
@@ -71,13 +71,6 @@ This combination of technologies empowers a feature-rich and interactive online 
   - [Utility Libraries](#utility-libraries)
 - [Testing and Validation](#testing-and-validation)
 - [Bugs](#bugs)
-  - [Contact Us Bugs](#contact-us-bugs)
-  - [Bookings Bugs](#bookings-bugs)
-  - [Courses Bugs](#courses-bugs)
-  - [Reviews Bugs](#reviews-bugs)
-  - [General Bugs](#general-bugs)
-  - [Known Bugs](#known-bugs)
-  - [Unknown Bugs](#unknown-bugs)
 - [Deployment](#deployment)
   - [GitHub](#github)
   - [Gitpod](#gitpod)
@@ -583,7 +576,7 @@ By implementing the Likes model, the application build a more interactive commun
 
 [Back to top](#table-of-contents)
 
-### Follower Model
+### Followers Model
 
 The Follower model is a crucial component of the diving center application's social networking features. It's designed to manage and track user-to-user follow relationships, enabling users to connect with each other and stay updated on each other's activities within the platform.
 
