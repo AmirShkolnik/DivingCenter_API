@@ -55,6 +55,13 @@ class BookingViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance, data=request.data,
                                          partial=partial)
         if serializer.is_valid():
+            confirm = request.data.get('confirm', False)
+            if not confirm:
+                return Response({
+                    "message": "Are you sure you want"
+                    "to change the date, time, or course?",
+                    "requires_confirmation": True
+                }, status=status.HTTP_200_OK)
             try:
                 self.perform_update(serializer)
                 logger.info(f"Booking updated successfully for user "
