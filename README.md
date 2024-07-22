@@ -880,7 +880,54 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 [Back to top](#table-of-contents)
 
 ### Known Bugs
-All known bugs have been addressed. There may be other bugs that have not yet been identified.
+
+### Authentication Issues with dj-rest-auth
+
+### Logging in
+
+Here's a template for your readme.md file explaining the issue with dj-rest-auth login:
+
+### Problem Statement
+
+When attempting to log in to the backend using Django Rest Framework and dj-rest-auth, the login page (`dj-rest-auth/login/`) fails to load properly. The page appears to be in a perpetual loading state until manually refreshed. In the developer tools, a 404 error is observed: "Failed to load resource: the server responded with a status of 404 ()".
+
+### Proposed Solution
+
+To address this issue, we need to investigate the following areas:
+
+1. URL configuration in Django settings
+2. Proper installation and setup of dj-rest-auth
+3. Potential conflicts with other middleware or authentication backends
+4. Browser caching or CORS issues
+
+### Attempted Fix
+
+So far, the following steps have been taken to troubleshoot the issue:
+
+1. Verified the dj-rest-auth installation and configuration according to the [official documentation](https://dj-rest-auth.readthedocs.io/en/latest/installation.html)
+2. Checked URL patterns in the project's urls.py file
+3. Cleared browser cache and cookies
+4. Tested with different browsers to rule out browser-specific issues
+
+Despite these attempts, the problem persists. Further investigation and possibly community support may be required to resolve this authentication issue.
+
+For more information on dj-rest-auth and its proper setup, please refer to the [dj-rest-auth documentation](https://dj-rest-auth.readthedocs.io/en/latest/).
+
+#### Logging out
+
+**Problem Statement**
+
+There is a known bug in the `dj-rest-auth` library that prevents users from logging out properly. Specifically, the `samesite` attribute set to `'None'` in `settings.py` (`JWT_AUTH_SAMESITE = 'None'`) is not passed to the logout view. As a result, users are unable to log out and must wait for the refresh token to expire instead.
+
+**Proposed Solution**
+
+The suggested solution involves creating a custom logout view that sets both cookies to an empty string and includes additional attributes such as `secure`, `httponly`, and `samesite`, which were omitted by the library by mistake.
+
+**Attempted Fix**
+
+I followed the steps outlined in the Code Institute DRF API walkthrough to address this issue, but the problem persists. For more details on the issue, please refer to the [GitHub issue](https://github.com/iMerica/dj-rest-auth/issues/246).
+
+Despite these efforts, the bug remains unresolved and will need further investigation for a future fix.
 
 ### Unknown Bugs
 There may be other bugs that have not yet been identified.
