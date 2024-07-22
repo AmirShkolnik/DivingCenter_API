@@ -846,6 +846,7 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 | Booking | Error persists for future dates after fixing past date issue | Update frontend to clear previous errors and backend to handle all validations | [React State Management](https://reactjs.org/docs/hooks-state.html) | ✅ |
 | Booking | Duplicate booking validation not working correctly | Updated `validate` method in `BookingSerializer` to properly check for existing bookings | [Django REST Framework Serializers](https://www.django-rest-framework.org/api-guide/serializers/) | ✅ |
 | Booking | Unable to update existing bookings | Modified `update` method in `BookingViewSet` to handle IntegrityError | [Django REST Framework ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/) | ✅ |
+| Booking | Two users cannot book the same course at the same date and time | Modified `validate` method in `BookingSerializer` to check for existing bookings per user | [Django REST Framework Serializers](https://www.django-rest-framework.org/api-guide/serializers/#object-level-validation) | ✅ |
 
 [Back to top](#table-of-contents)
 

@@ -50,16 +50,17 @@ class BookingSerializer(serializers.ModelSerializer):
         course = data.get('course')
         date = data.get('date')
         time = data.get('time')
+        user = self.context['request'].user
 
-        if self.instance:  # If updating an existing booking
-            # Exclude the current instance from the check
+        if self.instance:
             existing_booking = Booking.objects.filter(
                 course=course,
                 date=date,
                 time=time
             ).exclude(id=self.instance.id).exists()
-        else:  # If creating a new booking
+        else:
             existing_booking = Booking.objects.filter(
+                user=user,
                 course=course,
                 date=date,
                 time=time
