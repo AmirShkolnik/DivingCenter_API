@@ -54,6 +54,7 @@ class BookingSerializer(serializers.ModelSerializer):
 
         if self.instance:
             existing_booking = Booking.objects.filter(
+                user=user,
                 course=course,
                 date=date,
                 time=time
