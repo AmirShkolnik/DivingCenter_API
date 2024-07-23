@@ -707,29 +707,43 @@ This table provides a comprehensive overview of all the API endpoints in the div
 | | `/comments/{id}/` | PATCH | Update | UpdateAPIView | Partially update a specific comment (owner only) |
 | | `/comments/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific comment (owner only) |
 | **Likes** |
-| | `/likes/` | GET | Read | ListAPIView | List all likes |
-| | `/likes/` | POST | Create | CreateAPIView | Create a new like (authenticated users only) |
-| | `/likes/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific like |
-| | `/likes/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific like (owner only) |
+| | `/likes/` | GET | Read | ListCreateAPIView | List all likes |
+| | `/likes/` | POST | Create | ListCreateAPIView | Create a new like (authenticated users only) |
+| | `/likes/{id}/` | GET | Read | RetrieveDestroyAPIView | Retrieve a specific like |
+| | `/likes/{id}/` | DELETE | Delete | RetrieveDestroyAPIView | Delete a specific like (owner only) |
 | **Followers** |
-| | `/followers/` | GET | Read | ListAPIView | List all follower relationships |
-| | `/followers/` | POST | Create | CreateAPIView | Create a new follower relationship (authenticated users only) |
-| | `/followers/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific follower relationship |
-| | `/followers/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific follower relationship (owner only) |
+| | `/followers/` | GET | Read | ListCreateAPIView | List all follower relationships |
+| | `/followers/` | POST | Create | ListCreateAPIView | Create a new follower relationship (authenticated users only) |
+| | `/followers/{id}/` | GET | Read | RetrieveDestroyAPIView | Retrieve a specific follower relationship |
+| | `/followers/{id}/` | DELETE | Delete | RetrieveDestroyAPIView | Delete a specific follower relationship (owner only) |
 | **Bookings** |
-| | `/bookings/` | GET | Read | ListAPIView | List all bookings for the authenticated user |
-| | `/bookings/` | POST | Create | CreateAPIView | Create a new booking (authenticated users only) |
-| | `/bookings/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific booking |
-| | `/bookings/{id}/` | PUT | Update | UpdateAPIView | Update a specific booking (owner only) |
-| | `/bookings/{id}/` | PATCH | Update | UpdateAPIView | Partially update a specific booking (owner only) |
-| | `/bookings/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific booking (owner only) |
+| | `/bookings/` | GET | Read | ModelViewSet | List all bookings for the authenticated user |
+| | `/bookings/` | POST | Create | ModelViewSet | Create a new booking (authenticated users only) |
+| | `/bookings/{id}/` | GET | Read | ModelViewSet | Retrieve a specific booking |
+| | `/bookings/{id}/` | PUT | Update | ModelViewSet | Update a specific booking (owner only) |
+| | `/bookings/{id}/` | PATCH | Update | ModelViewSet | Partially update a specific booking (owner only) |
+| | `/bookings/{id}/` | DELETE | Delete | ModelViewSet | Delete a specific booking (owner only) |
+| **Courses** |
+| | `/courses/` | GET | Read | ModelViewSet | List all courses |
+| | `/courses/` | POST | Create | ModelViewSet | Create a new course (admin only) |
+| | `/courses/{slug}/` | GET | Read | ModelViewSet | Retrieve a specific course |
+| | `/courses/{slug}/` | PUT | Update | ModelViewSet | Update a specific course (admin only) |
+| | `/courses/{slug}/` | PATCH | Update | ModelViewSet | Partially update a specific course (admin only) |
+| | `/courses/{slug}/` | DELETE | Delete | ModelViewSet | Delete a specific course (admin only) |
 | **Reviews** |
-| | `/reviews/` | GET | Read | ListAPIView | List all reviews |
-| | `/reviews/` | POST | Create | CreateAPIView | Create a new review (authenticated users and admin only) |
-| | `/reviews/{id}/` | GET | Read | RetrieveAPIView | Retrieve a specific review |
-| | `/reviews/{id}/` | PUT | Update | UpdateAPIView | Update a specific review (owner and admin only) |
-| | `/reviews/{id}/` | PATCH | Update | UpdateAPIView | Partially update a specific review (owner and admin only) |
-| | `/reviews/{id}/` | DELETE | Delete | DestroyAPIView | Delete a specific review (owner and admin only) |
+| | `/reviews/` | GET | Read | ModelViewSet | List all reviews |
+| | `/reviews/` | POST | Create | ModelViewSet | Create a new review (authenticated users only) |
+| | `/reviews/{id}/` | GET | Read | ModelViewSet | Retrieve a specific review |
+| | `/reviews/{id}/` | PUT | Update | ModelViewSet | Update a specific review (owner and admin only) |
+| | `/reviews/{id}/` | PATCH | Update | ModelViewSet | Partially update a specific review (owner and admin only) |
+| | `/reviews/{id}/` | DELETE | Delete | ModelViewSet | Delete a specific review (owner and admin only) |
+| **Contact Us** |
+| | `/contact/` | GET | Read | ListCreateAPIView | List all contact messages (authenticated users only) |
+| | `/contact/` | POST | Create | ListCreateAPIView | Create a new contact message (any user) |
+| | `/contact/{id}/` | GET | Read | RetrieveUpdateDestroyAPIView | Retrieve a specific contact message |
+| | `/contact/{id}/` | PUT | Update | RetrieveUpdateDestroyAPIView | Update a specific contact message (owner only) |
+| | `/contact/{id}/` | PATCH | Update | RetrieveUpdateDestroyAPIView | Partially update a specific contact message (owner only) |
+| | `/contact/{id}/` | DELETE | Delete | RetrieveUpdateDestroyAPIView | Delete a specific contact message (admin only) |
 
 [Back to top](#table-of-contents)
 
@@ -847,6 +861,8 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 | Booking | Duplicate booking validation not working correctly | Updated `validate` method in `BookingSerializer` to properly check for existing bookings | [Django REST Framework Serializers](https://www.django-rest-framework.org/api-guide/serializers/) | ✅ |
 | Booking | Unable to update existing bookings | Modified `update` method in `BookingViewSet` to handle IntegrityError | [Django REST Framework ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/) | ✅ |
 | Booking | Two users cannot book the same course at the same date and time | Modified `validate` method in `BookingSerializer` to check for existing bookings per user | [Django REST Framework Serializers](https://www.django-rest-framework.org/api-guide/serializers/#object-level-validation) | ✅ |
+| Booking | PUT/update operation prevents different users from booking the same course at the same time | Updated `validate` method in `BookingSerializer` and `update` method in `BookingViewSet` to allow different users to book the same course at the same time | [DRF Object Level Validation](https://www.django-rest-framework.org/api-guide/serializers/#object-level-validation) | ✅ |
+
 
 [Back to top](#table-of-contents)
 
