@@ -26,7 +26,7 @@ class BookingSerializer(serializers.ModelSerializer):
 
     def validate_date(self, value):
         if value < timezone.now().date():
-            raise serializers.ValidationError("Cannot"
+            raise serializers.ValidationError("You can't "
                                               "book a date in the past.")
         if value.day != 10:
             raise serializers.ValidationError(
@@ -43,7 +43,7 @@ class BookingSerializer(serializers.ModelSerializer):
 
     def validate_course(self, value):
         if value is None:
-            raise serializers.ValidationError("Course selection is required.")
+            raise serializers.ValidationError("Please select a course.")
         return value
 
     def validate(self, data):
