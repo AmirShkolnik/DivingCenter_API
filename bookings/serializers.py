@@ -14,20 +14,23 @@ class BookingSerializer(serializers.ModelSerializer):
     course_name = serializers.ReadOnlyField(source='course.title')
     course_details = SimpleCourseSerializer(source='course', read_only=True)
     time = serializers.TimeField(format='%H:%M', input_formats=['%H:%M'])
+    confirm_changes = serializers.BooleanField(required=False, write_only=True)
 
     class Meta:
         model = Booking
         fields = [
             'id', 'user', 'date', 'time', 'course', 'course_name',
-            'course_details', 'additional_info', 'created_at'
+            'course_details', 'additional_info', 'created_at',
+            'confirm_changes',
         ]
         read_only_fields = ['user']
         extra_kwargs = {'course': {'required': True}}
 
     def validate_date(self, value):
         if value < timezone.now().date():
-            raise serializers.ValidationError("You can't "
-                                              "book a date in the past.")
+            raise serializers.ValidationError(
+                "You can't book a date in the past."
+            )
         if value.day != 10:
             raise serializers.ValidationError(
                 "Bookings are only available on the 10th of each month."
@@ -71,5 +74,20 @@ class BookingSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "A booking for this course, date, and time already exists."
             )
+
+        # Check for critical changes
+        if self.instance:
+            critical_fields = ['date', 'time', 'course']
+            critical_changes = any(
+                data.get(field) != getattr(self.instance, field)
+                for field in critical_fields
+            )
+            if critical_changes and not data.get('confirm_changes'):
+                raise serializers.ValidationError({
+                    "confirm_changes": (
+                        "You are making critical changes. "
+                        "Please confirm to proceed."
+                    )
+                })
 
         return data
