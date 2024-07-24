@@ -85,11 +85,8 @@ class BookingSerializer(serializers.ModelSerializer):
             if critical_changes and not data.get('confirm_changes'):
                 raise serializers.ValidationError({
                     "confirm_changes": (
-                        "Are you Sure: Changing the time, "
-                        "date, or course type "
-                        "might result in losing your spot. "
-                        "If you have any questions, please use"
-                        "the Contct Us form."
+                        "Booking Updated: We'll reach out " 
+                        "within 24 hours if there are any issues."
                     )
                 })
 
