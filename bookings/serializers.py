@@ -76,7 +76,6 @@ class BookingSerializer(serializers.ModelSerializer):
                 "Please choose a different date or time."
             )
 
-        # Check for critical changes
         if self.instance:
             critical_fields = ['date', 'time', 'course']
             critical_changes = any(
@@ -85,9 +84,9 @@ class BookingSerializer(serializers.ModelSerializer):
             )
             if critical_changes and not data.get('confirm_changes'):
                 raise serializers.ValidationError({
-                    "confirm_changes": (
-                        "You are making critical changes. "
-                        "Please confirm to proceed."
+                    "Friendly reminder": (
+                        "Changing the time, date, or course type "
+                        "might result in losing your spot."
                     )
                 })
 
