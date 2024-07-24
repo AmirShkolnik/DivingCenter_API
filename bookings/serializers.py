@@ -73,6 +73,7 @@ class BookingSerializer(serializers.ModelSerializer):
         if existing_booking:
             raise serializers.ValidationError(
                 "A booking for this course, date, and time already exists."
+                "Please choose a different date or time."
             )
 
         # Check for critical changes
