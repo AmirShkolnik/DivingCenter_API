@@ -85,9 +85,13 @@ class BookingSerializer(serializers.ModelSerializer):
             if critical_changes and not data.get('confirm_changes'):
                 raise serializers.ValidationError({
                     "confirm_changes": (
-                        "Booking Updated: We'll reach out " 
-                        "within 24 hours if there are any issues."
+                        "We'll reach out within 24 hours "
+                        "if there are any issues with your update."
                     )
                 })
 
         return data
+
+    def create(self, validated_data):
+        validated_data.pop('confirm_changes', None)
+        return super().create(validated_data)
