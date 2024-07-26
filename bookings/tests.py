@@ -110,7 +110,7 @@ class BookingAPITest(APITestCase):
         response = self.client.put(url, self.booking_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("confirm_changes", response.data)
-        self.assertIn("We'll reach out within 24 hours if there are any issues with your update.", str(response.data['confirm_changes'][0]))
+        self.assertIn("We'll reach out within 48 hours if there are any issues with your update.", str(response.data['confirm_changes'][0]))
 
     def test_delete_booking(self):
         booking = Booking.objects.create(
