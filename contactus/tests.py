@@ -31,7 +31,8 @@ class ContactAPITest(APITestCase):
             deletion_token=uuid.uuid4()
         )
         self.list_create_url = reverse('contact-list-create')
-        self.detail_url = reverse('contact-detail', kwargs={'pk': self.contact1.pk})
+        self.detail_url = reverse('contact-detail',
+                                  kwargs={'pk': self.contact1.pk})
 
     def test_create_contact(self):
         data = {
