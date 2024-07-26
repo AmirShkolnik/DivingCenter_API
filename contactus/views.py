@@ -40,10 +40,14 @@ class ContactDetailView(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         deletion_token = self.request.query_params.get('deletion_token')
 
-        if user.is_authenticated and user.is_staff:
-            return obj
-        elif user.is_authenticated and obj.email == user.email:
-            return obj
+    def get_object(self):
+        obj = super().get_object()
+        user = self.request.user
+        deletion_token = self.request.query_params.get('deletion_token')
+
+        if user.is_authenticated:
+            if user.is_staff or obj.email == user.email:
+                return obj
         elif deletion_token and str(obj.deletion_token) == deletion_token:
             return obj
         return None
