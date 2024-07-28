@@ -51,7 +51,7 @@ class BookingViewSet(viewsets.ModelViewSet):
                     "Please choose a different date or time."
                 )
                 return Response(
-                    {"non_field_errors": [error_message]},
+                    {"Try again": [error_message]},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
         else:
@@ -89,7 +89,7 @@ class BookingViewSet(viewsets.ModelViewSet):
             ):
                 return Response(
                     {
-                        "message": "Critical changes detected. "
+                        "Message": "Critical changes detected. "
                                    "Please confirm to proceed.",
                         "confirm_changes": True,
                         "changes": changes,
@@ -114,7 +114,7 @@ class BookingViewSet(viewsets.ModelViewSet):
                     "this course, date, and time."
                 )
                 return Response(
-                    {"non_field_errors": [error_message]},
+                    {"Try Again": [error_message]},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
         else:
