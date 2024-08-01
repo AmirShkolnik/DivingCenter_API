@@ -175,11 +175,11 @@ The ERD visually represents the complex relationships between different entities
 
 **Relational Data Modeling:** The database design leverages relational modeling techniques to establish connections between different entities. Foreign key relationships are used extensively to maintain data integrity and enable efficient querying across related data sets.
 
-**Tables Overview**
+**Entities Overview**
 
 This table provides a clear overview of the database structure, showing the different tables and their respective purposes within the application. Each table is designed to handle specific aspects of the system, from user management to course bookings and social interactions.
 
-| Table Name | Purpose |
+| Entities | Purpose |
 |------------|---------|
 | User | Manages user authentication and basic information |
 | Profile | Extends user information with additional details and preferences |
@@ -669,6 +669,34 @@ In the context of the diving center application, the Contact Us model can be par
 - Facilitating communication between users and the diving center's administrative staff, ensuring that all inquiries are addressed promptly and effectively.
 
 By implementing the Contact Us model, the application ensures that customer communication is well-organized, easily accessible, and systematically managed. This model plays a significant role in enhancing customer support and ensuring that all user inquiries are addressed in a timely and efficient manner.
+
+#### Enhancing User Identification:
+
+To manage messages from both logged-in and non-logged-in users, the following approach is implemented:
+
+1. **Anonymous User Tracking**: 
+   - Each message is associated with a unique `deletion_token` generated using `uuid4()`. 
+   - This token serves two purposes:
+     a) It allows non-logged-in users to manage their own messages (e.g., view or delete) without requiring an account.
+     b) It provides a way to potentially link messages to user accounts if the user decides to register later.
+
+2. **Authenticated User Association**: 
+   - When a logged-in user sends a message, their email is automatically associated with the message.
+   - This association allows for easy filtering and retrieval of messages for authenticated users.
+
+3. **Future Feature - "My Messages" Page**:
+   - In upcoming versions of the site, a dedicated "My Messages" page will be implemented.
+   - This page will be accessible from a dropdown menu under the user's profile image.
+   - It will display all messages associated with the logged-in user's email address.
+   - This feature will provide users with a centralized view of their communication history with the diving center.
+
+4. **Future Feature - Flexible Message Management**:
+   - The current implementation allows both anonymous and authenticated users to create and view their messages.
+   - Authenticated users will be able to see their messages by filtering based on their email.
+   - Anonymous users will be to access their messages using the `deletion_token`.
+   - This approach ensures that all users can interact with their messages, regardless of their login status.
+
+By implementing this system, the application provides a flexible and secure way to handle communications from all users. It also lays the groundwork for more advanced features in future versions, such as the dedicated "My Messages" page, which will enhance the user experience for registered members of the diving center community.
 
 [Back to top](#table-of-contents)
 
