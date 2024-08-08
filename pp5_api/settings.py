@@ -72,14 +72,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
-    'pp5api-divingspace-f0baea7c564e.herokuapp.com',
+    os.environ.get('ALLOWED_HOST'),
     'localhost',
 ]
-
-#ALLOWED_HOSTS = [
-#    os.environ.get('ALLOWED_HOST'),
-#    'localhost',
-#]
 
 # Application definition
 
@@ -124,23 +119,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-#    origin for origin in [
-#        os.environ.get("CLIENT_ORIGIN"),
-#        os.environ.get("CLIENT_ORIGIN_DEV")
-#    ] if origin
-#]
-
 CORS_ALLOWED_ORIGINS = [
-    'https://divingspace-900b5a3db777.herokuapp.com',
-    'https://3000-amirshkolni-travelspace-ijnmke2p9za.ws.codeinstitute-ide.net',
+    origin for origin in [
+        os.environ.get("CLIENT_ORIGIN"),
+        os.environ.get("CLIENT_ORIGIN_DEV")
+    ] if origin
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
-    'https://divingspace-900b5a3db777.herokuapp.com',
     'https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net'
 ]
 
