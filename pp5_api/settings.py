@@ -72,9 +72,14 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOST'),
+    'pp5api-divingspace-f0baea7c564e.herokuapp.com',
     'localhost',
 ]
+
+#ALLOWED_HOSTS = [
+#    os.environ.get('ALLOWED_HOST'),
+#    'localhost',
+#]
 
 # Application definition
 
