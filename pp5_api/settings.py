@@ -25,6 +25,7 @@ CLOUDINARY_STORAGE = {
 }
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
@@ -64,9 +65,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
+   os.environ.get('ALLOWED_HOST'),
    'localhost',
    '8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net',
 ]
+
 
 # Application definition
 
@@ -118,6 +121,9 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.codeinstitute-ide\.net$",
     "3000-amirshkolni-travelspace-ijnmke2p9za.ws.codeinstitute-ide.net/",
 ]
+
+if "CLIENT_ORIGIN" in os.environ:
+    CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN")]
 
 CORS_ALLOW_CREDENTIALS = True
 
