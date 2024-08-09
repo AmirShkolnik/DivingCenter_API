@@ -9,9 +9,8 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255, blank=True)
     content = models.TextField(blank=True)
-    image = models.ImageField(
-        upload_to='images/', default='../default_profile_ameb12'
-    )
+    image = models.ImageField(upload_to='images/',
+                              default='../default_profile_ameb12')
 
     class Meta:
         ordering = ['-created_at']
