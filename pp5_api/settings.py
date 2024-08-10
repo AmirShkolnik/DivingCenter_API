@@ -31,7 +31,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         (
             'rest_framework.authentication.SessionAuthentication'
-            if 'DEV' in os.environ
+            if 'DEBUG' in os.environ
             else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
         )
     ],
@@ -41,7 +41,7 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%d %b %Y',
 }
 
-if 'DEV' in os.environ:
+if 'DEBUG' in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
