@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import DeleteUserView, ProfileList, ProfileDetail
+from profiles import views
 
 urlpatterns = [
-    path('profiles/', ProfileList.as_view(), name='profile-list'),
-    path('profiles/<int:pk>/', ProfileDetail.as_view(), name='profile-detail'),  # Use 'id' here
-    path('users/<int:pk>/', DeleteUserView.as_view(), name='user-delete'),
+    path('profiles/', views.ProfileList.as_view()),
+    path('profiles/<int:pk>/', views.ProfileDetail.as_view()),
 ]
