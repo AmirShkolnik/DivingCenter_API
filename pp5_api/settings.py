@@ -1,6 +1,8 @@
+import sys
 import re
 import os
 import dj_database_url
+from pathlib import Path
 
 """
 Django settings for pp5_api project.
@@ -14,9 +16,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
-import os
-
 if os.path.exists('env.py'):
     import env
 
@@ -29,20 +28,29 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [(
-        'rest_framework.authentication.SessionAuthentication'
-        if 'DEV' in os.environ
-        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-    )],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        (
+            'rest_framework.authentication.SessionAuthentication'
+            if 'DEV' in os.environ
+            else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+        )
+    ],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
-if 'DEBUG' not in os.environ:
+
+if 'DEV' in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+else:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
     ]
+
 
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
@@ -61,15 +69,12 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = 'DEV' in os.environ
-DEBUG = True
+DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
-   os.environ.get('ALLOWED_HOST'),
-   'localhost',
-   '8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net',
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
 ]
-
 
 # Application definition
 
@@ -93,7 +98,6 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'corsheaders',
     'tinymce',
-    
     'profiles',
     'posts',
     'comments',
@@ -115,18 +119,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net']
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.codeinstitute-ide\.net$",
-    "3000-amirshkolni-travelspace-ijnmke2p9za.ws.codeinstitute-ide.net/",
+CORS_ALLOWED_ORIGINS = [
+    origin for origin in [
+        os.environ.get("CLIENT_ORIGIN"),
+        os.environ.get("CLIENT_ORIGIN_DEV")
+    ] if origin
 ]
 
-if "CLIENT_ORIGIN" in os.environ:
-
-    CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN")]
-
 CORS_ALLOW_CREDENTIALS = True
+
+# CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net'
+]
 
 ROOT_URLCONF = 'pp5_api.urls'
 
@@ -148,41 +153,51 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pp5_api.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-if 'DEV' in os.environ:
-     DATABASES = {
-         'default': {
-             'ENGINE': 'django.db.backends.sqlite3',
-             'NAME': BASE_DIR / 'db.sqlite3',
-         }
-     }
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:' if
+                    os.environ.get('DJANGO_DB_ENGINE') == 'sqlite3'
+            else BASE_DIR / 'test_db.sqlite3',
+        }
+    }
+elif 'DEV' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 else:
-     DATABASES = {
-         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-     }
-
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'))
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+                'NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -197,11 +212,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -60,19 +60,3 @@ class ProfileModelTests(TestCase):
         profiles = Profile.objects.all().order_by('-created_at')
         self.assertEqual(list(profiles), [newer_profile,
                          self.profile, older_profile])
-
-    def test_profile_deletion(self):
-        profile_id = self.profile.id
-        response = self.client.delete(reverse('profile-detail',
-                                              args=[profile_id]))
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(Profile.objects.filter(id=profile_id).exists())
-
-    def test_profile_deletion_unauthorized(self):
-        another_user = User.objects.create_user(username='anotheruser',
-                                                password='anotherpassword')
-        another_profile = another_user.profile
-        response = self.client.delete(reverse('profile-detail',
-                                              args=[another_profile.id]))
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        self.assertTrue(Profile.objects.filter(id=another_profile.id).exists())

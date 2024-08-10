@@ -25,6 +25,7 @@ def create_profile(sender, instance, created, **kwargs):
 @receiver(post_delete, sender=User)
 def delete_profile(sender, instance, **kwargs):
     try:
-        instance.profile.delete()
+        profile = instance.profile
+        profile.delete()
     except Profile.DoesNotExist:
         pass
