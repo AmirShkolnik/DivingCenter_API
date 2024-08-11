@@ -931,8 +931,6 @@ For all testing and validation, please refer to the [TESTING.md](TESTING.md) fil
 
 ### Logging in
 
-Here's a template for your readme.md file explaining the issue with dj-rest-auth login:
-
 ### Problem Statement
 
 When attempting to log in to the backend using Django Rest Framework and dj-rest-auth, the login page (`dj-rest-auth/login/`) fails to load properly. The page appears to be in a perpetual loading state until manually refreshed. In the developer tools, a 404 error is observed: "Failed to load resource: the server responded with a status of 404 ()".
