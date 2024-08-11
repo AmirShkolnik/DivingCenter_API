@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security settings
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = 'DEV' in os.environ or 'TEST' in os.environ
+DEBUG = 'DEBUG' in os.environ or 'TEST' in os.environ
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
