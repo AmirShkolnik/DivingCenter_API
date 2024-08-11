@@ -35,8 +35,9 @@ REST_FRAMEWORK = {
             else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
         )
     ],
-    'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': (
+        'rest_framework.pagination.PageNumberPagination'
+    ),
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
@@ -51,7 +52,6 @@ else:
         'rest_framework.renderers.JSONRenderer',
     ]
 
-
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
@@ -59,7 +59,9 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'pp5_api.serializers.CurrentUserSerializer'
+    'USER_DETAILS_SERIALIZER': (
+        'pp5_api.serializers.CurrentUserSerializer'
+    )
 }
 
 # Quick-start development settings - unsuitable for production
@@ -119,23 +121,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-#    origin for origin in [
-#        os.environ.get("CLIENT_ORIGIN"),
-#        os.environ.get("CLIENT_ORIGIN_DEV")
-#    ] if origin
-#]
-
 CORS_ALLOWED_ORIGINS = [
-    'https://divingspace-900b5a3db777.herokuapp.com',
-    'https://3000-amirshkolni-travelspace-ijnmke2p9za.ws.codeinstitute-ide.net',
+    origin for origin in [
+        os.environ.get("CLIENT_ORIGIN"),
+        os.environ.get("CLIENT_ORIGIN_DEV")
+    ] if origin
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
-    'https://divingspace-900b5a3db777.herokuapp.com',
     'https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net'
 ]
 
@@ -165,9 +161,10 @@ if 'test' in sys.argv:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': ':memory:' if
-                    os.environ.get('DJANGO_DB_ENGINE') == 'sqlite3'
-            else BASE_DIR / 'test_db.sqlite3',
+            'NAME': (
+                ':memory:' if os.environ.get('DJANGO_DB_ENGINE') == 'sqlite3'
+                else BASE_DIR / 'test_db.sqlite3'
+            ),
         }
     }
 elif 'DEV' in os.environ:
@@ -180,7 +177,8 @@ elif 'DEV' in os.environ:
 else:
     DATABASES = {
         'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'))
+            default=os.environ.get('DATABASE_URL')
+        )
     }
 
 # Password validation
@@ -188,20 +186,28 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-                'UserAttributeSimilarityValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-                'MinimumLengthValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'MinimumLengthValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-                'CommonPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-                'NumericPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator'
+        ),
     },
 ]
 
