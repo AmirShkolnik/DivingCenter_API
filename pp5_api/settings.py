@@ -73,6 +73,7 @@ DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
+    '8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net',
     'localhost',
 ]
 
