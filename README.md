@@ -80,6 +80,7 @@ This combination of technologies empowers a feature-rich and interactive online 
 - [Cloning and Forking](#cloning-and-forking)
   - [Cloning the Repository](#cloning-the-repository)
   - [Forking the Repository](#forking-the-repository)
+- [Future Implementation](#future-implementation)
 - [Credits](#credits)
   - [Code](#code)
   - [Media](#media)
@@ -1130,6 +1131,75 @@ Here's a step-by-step guide for forking the "Diving Center" project from the Git
 6. **Customize Your Fork (Optional)**: You now have full control over your forked repository. You can rename it, modify the description, or make any other desired changes to distinguish it from the original repository.
 
 [Back to top](#table-of-contents)
+
+## Future Implementation 
+
+### Profile Deletion
+
+In future iterations of this project, it would be beneficial to allow users to delete their profiles. This feature would enhance user autonomy, giving them the ability to manage their presence on the platform more effectively. Below is an outline of how this feature can be implemented, along with some resources to guide the development process.
+
+### Proposed Implementation
+
+To implement profile deletion, you can create a `ProfileDeleteAPIView` in your Django REST Framework application. This view will allow users to delete their profiles if they are authenticated and authorized as the profile owner.
+
+Here is a sample implementation:
+
+#### profiles/views
+
+```python
+from django.db.models import Count
+from rest_framework import generics, status
+from django_filters.rest_framework import DjangoFilterBackend
+from pp5_api.permissions import IsOwnerOrReadOnly
+from .models import Profile
+from .serializers import ProfileSerializer
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+class ProfileDeleteAPIView(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+    def delete(self, request, *args, **kwargs):
+        profile = self.get_object()
+        user = profile.owner
+        self.perform_destroy(profile)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+```
+
+#### profiles/urls
+
+```python
+from django.urls import path
+from .views import ProfileDeleteAPIView
+
+urlpatterns = [
+    # Other URL patterns for your app
+    path('profiles/<int:pk>/delete/', ProfileDeleteAPIView.as_view(), name='profile-delete'),
+]
+```
+
+### Key Points
+
+- **Permissions**: The `ProfileDeleteAPIView` uses `IsAuthenticated` and `IsOwnerOrReadOnly` permissions to ensure that only authenticated users who own the profile can delete it.
+
+- **User Deletion**: When a profile is deleted, the associated user account is also deleted. This is handled in the `delete` method of the view.
+
+- **Response**: Upon successful deletion, the API returns a `204 NO CONTENT` status, indicating that the operation was successful and there is no content to return.
+
+### Resources
+
+For more information on implementing this feature, consider exploring the following resources:
+
+- [Django REST Framework: Generic Views](https://www.django-rest-framework.org/api-guide/generic-views/)
+- [Django REST Framework: Permissions](https://www.django-rest-framework.org/api-guide/permissions/)
+- [Django: QuerySet API Reference](https://docs.djangoproject.com/en/stable/ref/models/querysets/)
+- [Django: Signals](https://docs.djangoproject.com/en/stable/topics/signals/) - Useful for handling related data cleanup when a user is deleted.
+
+By implementing this feature, we will provide users with greater control over their data, aligning with modern data privacy standards and enhancing the overall user experience.
 
 ## Credits
 
