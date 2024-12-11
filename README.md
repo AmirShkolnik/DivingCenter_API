@@ -88,8 +88,6 @@ This combination of technologies empowers a feature-rich and interactive online 
   - [Inspiration](#inspiration)
   - [Project Guidance](#project-guidance)
 
-Based on the information provided and the structure you've requested, here's a robust project planning for your diving center project, covering both backend and frontend development over an 8-week period:
-
 ## Planning
 
 ### Project Overview
