@@ -4,6 +4,7 @@ import os
 import dj_database_url
 from pathlib import Path
 
+
 """
 Django settings for pp5_api project.
 
@@ -16,8 +17,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+
 if os.path.exists('env.py'):
     import env
+
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
@@ -26,6 +29,7 @@ MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -42,6 +46,7 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%d %b %Y',
 }
 
+
 if 'DEV' in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
@@ -52,11 +57,13 @@ else:
         'rest_framework.renderers.JSONRenderer',
     ]
 
+
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
+
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': (
@@ -64,21 +71,36 @@ REST_AUTH_SERIALIZERS = {
     )
 }
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEBUG' in os.environ
+
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
     'localhost',
 ]
 
+# ---------------- ADDED: Render hostnames (fixes 400 DisallowedHost) ----------------
+# Django will return HTTP 400 if the request Host header isn't in ALLOWED_HOSTS. [web:151]
+ALLOWED_HOSTS += [
+    "divingcenter-api.onrender.com",
+    ".onrender.com",
+    "127.0.0.1",
+]
+# -------------------------------------------------------------------------------
+
+
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -121,6 +143,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 CORS_ALLOWED_ORIGINS = [
     origin for origin in [
         os.environ.get("CLIENT_ORIGIN"),
@@ -128,14 +151,25 @@ CORS_ALLOWED_ORIGINS = [
     ] if origin
 ]
 
+
 CORS_ALLOW_CREDENTIALS = True
+
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-amirshkolnik-pp5api-2a8oavyrm7m.ws.codeinstitute-ide.net'
 ]
 
+# ---------------- ADDED: Render origin for CSRF (helps login/POST from browser) -----
+# Modern Django requires scheme (https://) in CSRF_TRUSTED_ORIGINS entries. [web:171][web:172]
+CSRF_TRUSTED_ORIGINS += [
+    "https://divingcenter-api.onrender.com",
+]
+# -------------------------------------------------------------------------------
+
+
 ROOT_URLCONF = 'pp5_api.urls'
+
 
 TEMPLATES = [
     {
@@ -153,7 +187,9 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'pp5_api.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -181,8 +217,10 @@ else:
         )
     }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -211,29 +249,40 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
+
 LANGUAGE_CODE = 'en-us'
+
 
 TIME_ZONE = 'UTC'
 
+
 USE_I18N = True
+
 
 USE_L10N = True
 
+
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
