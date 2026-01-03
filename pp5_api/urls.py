@@ -12,28 +12,32 @@ from .views import root_route, logout_route
 
 
 def health_check(request):
-    # Simple endpoint for Render health checks (must return 200)
+    # Render Health Check endpoint: must return 200 OK
     return JsonResponse({"status": "ok"})
 
 
 urlpatterns = [
-    # Health check (set Render Health Check Path to /health/)
+    # Health check (Render Settings -> Health Check Path = /health/)
     path("health/", health_check, name="health_check"),
 
-    # Root route (your existing view)
+    # Root (your existing root route)
     path("", root_route),
 
-    # Admin + auth
+    # Django admin
     path("admin/", admin.site.urls),
+
+    # DRF login/logout for the browsable API
     path("api-auth/", include("rest_framework.urls")),
+
+    # dj-rest-auth
     path("dj-rest-auth/logout/", logout_route),
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
     path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
 
-    # Editor
+    # TinyMCE
     path("tinymce/", include("tinymce.urls")),
 
-    # App routes
+    # Apps
     path("", include("profiles.urls")),
     path("", include("posts.urls")),
     path("", include("comments.urls")),
